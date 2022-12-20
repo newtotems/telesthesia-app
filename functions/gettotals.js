@@ -25,9 +25,10 @@ exports.handler = async function(event, context) {
     // Add up the 'individualvalue' values for all documents and store the result in 'allvalues'
     let allvalues = data.reduce((acc, curr) => acc + curr.individualvalue, 0);
 
-    // Iterate over the keys in the 'rules' object
+    // Iterate over the documents in the 'data' array
     data.forEach(doc => {
       if (doc.rules) {
+        // Iterate over the keys in the 'rules' object
         Object.keys(doc.rules).forEach(key => {
           const rule = doc.rules[key];
 
@@ -35,33 +36,37 @@ exports.handler = async function(event, context) {
           if (rule.type === "additive") {
             // Check if the 'criteria' of the rule is satisfied
             if (rule.criteria.type === doc.type) {
-              // Adjust the 'allvalues' value based on the 'value' of the rule
-              allvalues += rule.value;
+              // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+              allvalues += rule.value * Object.keys(doc.scores).length;
             }
           } else if (rule.type === "subtractive") {
             // Check if the 'criteria' of the rule is satisfied
             if (rule.criteria.type === doc.type) {
-              // Adjust the 'allvalues' value based on the 'value' of the rule
-              allvalues -= rule.value;
+              // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+              allvalues -= rule.value * Object.keys(doc.scores).length;
             }
           }
         });
       }
     });
 
-    // Return the 'allvalues'
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ allvalues })
-    };
-  } catch (error) {
-    // Log the error message
-    console.error(error);
-
-    // Return a server error response
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Error getting data from FaunaDB" })
-    };
-  }
-};
+       // Return the 'individualvalue' array and the 'allvalues' score
+       return {
+        statusCode: 200,
+        body: JSON.stringify({
+          individualvalues: data.map(doc => doc.individualvalue),
+          allvalues
+        })
+      };
+    } catch (error) {
+      // Log the error message
+      console.error(error);
+  
+      // Return a server error response
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Error getting data from FaunaDB" })
+      };
+    }
+  };
+  
