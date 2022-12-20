@@ -3,7 +3,7 @@ const q = faunadb.query;
 
 exports.handler = async (event, context) => {
   // Get the FaunaDB secret and the query parameter called "ids"
-  const secret = process.env.DB_SECRT;
+  const secret = process.env.FAUNADB_SECRET;
   const ids = event.queryStringParameters.ids;
 
   // Parse the ids as an array of numbers
@@ -16,13 +16,16 @@ exports.handler = async (event, context) => {
     // Query the cards collection to find all records with an ID that is in the idsArray
     const response = await client.query(
       q.Map(
-        q.Paginate(q.Match(q.Index("cards_by_id"), idsArray)),
-        q.Lambda("X", q.Get(q.Var("X")))
+        idsArray,
+        q.Lambda("id", q.Match(q.Index("cards_by_id"), q.Var("id")))
       )
     );
 
+    // Combine the results into a single array using the Union function
+    const data = q.Union(response);
+
     // Log a message indicating whether any matches were found
-    if (response.data.length > 0) {
+    if (data.length > 0) {
       console.log("Found matches for IDs:", idsArray);
     } else {
       console.log("No matches found for IDs:", idsArray);
@@ -31,7 +34,7 @@ exports.handler = async (event, context) => {
     // Return a response with the results as the body
     return {
       statusCode: 200,
-      body: JSON.stringify(response.data)
+      body: JSON.stringify(data)
     };
   } catch (error) {
     // Return an error response if something goes wrong
