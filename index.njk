@@ -24,7 +24,7 @@
 <script>
  function getTotalScore(ids) {
   // Make an HTTP GET request to the server with the ids as a query parameter
-  return fetch(`https://tranquil-phoenix-a6c306.netlify.app/js/compute-scores.js?ids=${ids}`)
+  return fetch(`https://tranquil-phoenix-a6c306.netlify.app/compute-scores.js?ids=${ids}`)
     .then(response => response.text())
     .then(totalScore => {
       // Update the content of the element with the total score

@@ -2,7 +2,7 @@ const fs = require('fs');
 const url = require('url');
 
 // Read the JSON file and parse the data
-const data = fs.readFileSync('path/to/file.json');
+const data = fs.readFileSync('_data/cards.json');
 const cardslist = JSON.parse(data);
 
 // Parse the URL and extract the query string
