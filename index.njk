@@ -4,6 +4,15 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
+  <div id="result"></div>
+  
+<div style="display: flex;">
+  <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 1</div>
+  <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 2</div>
+  <div id="drop-target-3" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 3</div>
+  <div id="drop-target-4" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 4</div>
+  <div id="drop-target-5" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 5</div>
+</div>
 
 <form>
   <div id="1" draggable="true" ondragstart="dragStart(event)">Div 1</div>
@@ -17,21 +26,9 @@ eleventyNavigation:
             <div id="9" draggable="true" ondragstart="dragStart(event)">Div 9</div>
   <div id="10" draggable="true" ondragstart="dragStart(event)">Div 10</div>
 
-  <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 1</div>
-  <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 2</div>
-  <div id="drop-target-3" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 3</div>
-  <div id="drop-target-4" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 4</div>
-  <div id="drop-target-5" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 5</div>
-
   <button id="button">Submit</button>
 
-  <div id="result"></div>
 </form>
-
-
-    <button id="button">Submit</button>
-
-  <div id="result"></div>
 
   <script>
   function dragStart(event) {
