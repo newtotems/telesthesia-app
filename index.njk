@@ -24,7 +24,7 @@
 <script>
  function getTotalScore(ids) {
   // Make an HTTP GET request to the server with the ids as a query parameter
-  return fetch(`js/compute-scores.js?ids=${ids}`)
+  return fetch(`//tranquil-phoenix-a6c306.netlify.app/js/compute-scores.js?ids=${ids}`)
     .then(response => response.text())
     .then(totalScore => {
       // Update the content of the element with the total score
@@ -41,7 +41,7 @@ document.getElementById('submit-button').addEventListener('click', () => {
   const input5 = document.getElementById('input-5').value;
 
   // Pass the input values as a comma-separated string to the function
-  getTotalScore(`${input1},${input2},${input3},${input4},${input5}`);
+getTotalScore(`${input1},${input2},${input3},${input4},${input5}`);
 });
 
 </script>
