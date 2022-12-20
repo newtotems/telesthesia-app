@@ -22,33 +22,23 @@
 </form>
 
   <script>
-// Define the URL of the function
 const url = '/.netlify/functions/lookupcards';
-
-// Get the submit button element
 const submitButton = document.getElementById('submit-button');
 
-// Add a submit event listener to the submit button
 submitButton.addEventListener('submit', e => {
     console.log('submitted');
-  // Prevent the default submit action
   e.preventDefault();
 
-  // Define the 5 values to pass to the 'values' query parameter
   const values = '1,2,3,4,5';
 
-  // Make a GET request to the function and pass the 'values' query parameter
   fetch(`${url}?values=${values}`)
     .then(response => response.json())
     .then(data => {
-      // Extract the 'allvalues' value from the response
       const allvalues = data.allvalues;
 
-      // Use the 'allvalues' value to populate the 'result' element
       document.getElementById('result').innerHTML = allvalues;
     })
     .catch(error => {
-      // Log the error message
       console.error(error);
     });
 });
