@@ -21,6 +21,13 @@ exports.handler = async (event, context) => {
       )
     );
 
+    // Log a message indicating whether any matches were found
+    if (response.data.length > 0) {
+      console.log("Found matches for IDs:", idsArray);
+    } else {
+      console.log("No matches found for IDs:", idsArray);
+    }
+
     // Return a response with the results as the body
     return {
       statusCode: 200,
