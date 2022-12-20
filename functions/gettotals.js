@@ -46,19 +46,11 @@ exports.handler = async function(event, context) {
       return { ...doc.data, totalscores };
     });
 
-    // Return the data as the response to the function
-    return {
-      statusCode: 200,
-      body: JSON.stringify(data)
-    };
-  } catch (error) {
-    // Log the error message
-    console.error(error);
+// Add up the 'totalscores' values for all documents and store the result in 'overallscore'
+const overallscore = data.reduce((acc, curr) => acc + curr.totalscores, 0);
 
-    // Return a server error response
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: "Error getting data from FaunaDB" })
-    };
-  }
+// Return the 'overallscore'
+return {
+  statusCode: 200,
+  body: JSON.stringify({ overallscore })
 };
