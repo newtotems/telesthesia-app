@@ -20,9 +20,9 @@
 </form>
 
 
-<!-- Add the event listener and call the function -->
-<script>
-// Define the URL of the function
+  <!-- Add the event listener and call the function -->
+  <script>
+ // Define the URL of the function
 const url = '/.netlify/functions/lookupcards';
 
 // Get the submit button element
@@ -42,6 +42,7 @@ submitButton.addEventListener('submit', e => {
 
   // Create the 'values' constant by concatenating the values of the input elements
   const values = input1.value + ',' + input2.value + ',' + input3.value + ',' + input4.value + ',' + input5.value;
+  console.log(values);
 
   // Make a GET request to the function and pass the 'values' query parameter
   fetch(`${url}?values=${values}`)
@@ -52,6 +53,11 @@ submitButton.addEventListener('submit', e => {
 
       // Use the 'allvalues' value to populate the 'total' div element
       document.getElementById('total').innerHTML = allvalues;
+    })
+    .catch(error => {
+      // Log the error message
+      console.error(error);
     });
 });
-</script>
+
+  </script>
