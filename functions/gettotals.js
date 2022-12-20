@@ -1,27 +1,27 @@
-const faunadb = require('faunadb');
+const faunadb = require("faunadb");
 
-// Replace with your own FaunaDB secret
-const secret = process.env.DB_SECRT;
+exports.handler = async function(event, context) {
+  // Create a new FaunaDB client
+  const client = new faunadb.Client({
+    secret: process.env.DB_SECRT
+  });
 
-// Create a FaunaDB client
-const client = new faunadb.Client({ secret });
-
-exports.handler = async (event) => {
-  // Get the list of ids from the query parameter
-  const ids = event.queryStringParameters.ids.split(',');
-
-  // Read the records from the 'cards' collection based on the ids
-  const results = await client.query(
+  // Query FaunaDB to get all documents in the 'cards' collection
+  const result = await client.query(
     faunadb.query.Map(
-      ids,
-      (id) => faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('cards'), id))
+      // Get all documents in the 'cards' collection
+      faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
+      // Map over each document and return the data
+      faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
     )
   );
 
-  // Return the records as the response
+  // Extract the data from the result
+  const data = result.data.map(doc => doc.data);
+
+  // Return the data as the response to the function
   return {
     statusCode: 200,
-    body: JSON.stringify(results),
+    body: JSON.stringify(data)
   };
 };
-    
