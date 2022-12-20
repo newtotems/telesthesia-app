@@ -7,24 +7,24 @@ eleventyNavigation:
   <div id="result"></div>
 
 <div style="display: flex;">
-  <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 1</div>
-  <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 2</div>
-  <div id="drop-target-3" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 3</div>
-  <div id="drop-target-4" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 4</div>
-  <div id="drop-target-5" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 5</div>
+  <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)" style="pading:10px;margin:5px;background:#ccc">/div>
+  <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)" style="pading:10px;margin:5px;background:#ccc"></div>
+  <div id="drop-target-3" ondrop="drop(event)" ondragover="dragOver(event)" style="pading:10px;margin:5px;background:#ccc"></div>
+  <div id="drop-target-4" ondrop="drop(event)" ondragover="dragOver(event)" style="pading:10px;margin:5px;background:#ccc"></div>
+  <div id="drop-target-5" ondrop="drop(event)" ondragover="dragOver(event)" style="pading:10px;margin:5px;background:#ccc"></div>
 </div>
 
 <form>
-  <div id="1" draggable="true" ondragstart="dragStart(event)">Div 1</div>
-  <div id="2" draggable="true" ondragstart="dragStart(event)">Div 2</div>
-  <div id="3" draggable="true" ondragstart="dragStart(event)">Div 3</div>
-  <div id="4" draggable="true" ondragstart="dragStart(event)">Div 4</div>
-    <div id="5" draggable="true" ondragstart="dragStart(event)">Div 5</div>
-      <div id="6" draggable="true" ondragstart="dragStart(event)">Div 6</div>
-        <div id="7" draggable="true" ondragstart="dragStart(event)">Div 7</div>
-          <div id="8" draggable="true" ondragstart="dragStart(event)">Div 8</div>
-            <div id="9" draggable="true" ondragstart="dragStart(event)">Div 9</div>
-  <div id="10" draggable="true" ondragstart="dragStart(event)">Div 10</div>
+  <div id="1" draggable="true" ondragstart="dragStart(event)">1</div>
+  <div id="2" draggable="true" ondragstart="dragStart(event)">2</div>
+  <div id="3" draggable="true" ondragstart="dragStart(event)">3</div>
+  <div id="4" draggable="true" ondragstart="dragStart(event)">4</div>
+    <div id="5" draggable="true" ondragstart="dragStart(event)">5</div>
+      <div id="6" draggable="true" ondragstart="dragStart(event)">6</div>
+        <div id="7" draggable="true" ondragstart="dragStart(event)">7</div>
+          <div id="8" draggable="true" ondragstart="dragStart(event)">8</div>
+            <div id="9" draggable="true" ondragstart="dragStart(event)">9</div>
+  <div id="10" draggable="true" ondragstart="dragStart(event)">10</div>
 
   <button id="button">Submit</button>
 
@@ -53,16 +53,14 @@ button.addEventListener('click', () => {
   const dropTarget3 = document.getElementById('drop-target-3');
   const dropTarget4 = document.getElementById('drop-target-4');
   const dropTarget5 = document.getElementById('drop-target-5');
+
   const value1 = Number(dropTarget1.innerHTML);
   const value2 = Number(dropTarget2.innerHTML);
   const value3 = Number(dropTarget3.innerHTML);
   const value4 = Number(dropTarget4.innerHTML);
   const value5 = Number(dropTarget5.innerHTML);
 
-  console.log(value1);
-
   const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
-  console.log(url);
 
  fetch(url)
   .then(response => response.json())
