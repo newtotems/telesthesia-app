@@ -20,18 +20,13 @@ exports.handler = async function(event, context) {
   const firstFive = valuesArray.slice(0, 5);
 
   try {
-    // Query FaunaDB to get all documents in the 'cards' collection whose id values are in the 'valuesArray'
-    // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
-// Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
-// Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
-const result = await client.query(
-    faunadb.query.Map(
-      faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(id, valuesArray))),
-      faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
-    )
-  );
-  
-    
+     // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
+     const result = await client.query(
+        faunadb.query.Map(
+          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var("id"), valuesArray))),
+          faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
+        )
+      );
 
     // Extract the data from the result
     const data = result.data.map(doc => {
