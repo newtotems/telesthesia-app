@@ -26,12 +26,18 @@ exports.handler = async function(event, context) {
         Object.keys(doc.data.rules).forEach(key => {
           const rule = doc.data.rules[key];
 
-          // Check if the 'type' of the rule is 'additive'
+          // Check the 'type' of the rule
           if (rule.type === "additive") {
             // Check if the 'criteria' of the rule is satisfied
             if (rule.criteria.type === doc.data.type) {
               // Adjust the 'totalscores' value based on the 'value' of the rule
               totalscores += rule.value;
+            }
+          } else if (rule.type === "subtractive") {
+            // Check if the 'criteria' of the rule is satisfied
+            if (rule.criteria.type === doc.data.type) {
+              // Adjust the 'totalscores' value based on the 'value' of the rule
+              totalscores -= rule.value;
             }
           }
         });
