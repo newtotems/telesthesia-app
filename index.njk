@@ -5,38 +5,33 @@ eleventyNavigation:
   order: 1
 ---
 
- <form id="form">
-    <button id="submit-button" type="submit">Submit</button>
-  </form>
+    <button id="button">Submit</button>
+
   <div id="result"></div>
+
   <script>
-    // Define the URL of the function
-    const url = '/.netlify/functions/lookupcards';
+   // Define the URL of the function
+const url = '/.netlify/functions/lookupcards?values=2,3,7,5,6';
 
-    // Get the submit button element
-    const submitButton = document.getElementById('submit-button');
+// Get the button element
+const button = document.getElementById('button');
 
-    // Add a submit event listener to the submit button
-    submitButton.addEventListener('submit', e => {
-      // Prevent the default submit action
-      e.preventDefault();
+// Add a click event listener to the button
+button.addEventListener('click', () => {
+  // Make a GET request to the function
+  fetch(url)
+    .then(response => response.json())
+     .then(data => {
+        // Get the 'result' element
+        const result = document.getElementById('result');
 
-      // Define the 5 values to pass to the 'values' query parameter
-      const values = '1,2,3,4,5';
-
-      // Make a GET request to the function and pass the 'values' query parameter
-      fetch(`${url}?values=${values}`)
-        .then(response => response.json())
-        .then(data => {
-          // Extract the 'allvalues' value from the response
-          const allvalues = data.allvalues;
-
-          // Use the 'allvalues' value to populate the 'result' element
-          document.getElementById('result').innerHTML = allvalues;
-        })
-        .catch(error => {
-          // Log the error message
-          console.error(error);
-        });
+        // Set the HTML content of the 'result' element to the response data
+        result.innerHTML = data;
+      })
+    .catch(error => {
+      // Log the error message
+      console.error(error);
     });
+});
+
   </script>
