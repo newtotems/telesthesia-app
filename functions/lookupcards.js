@@ -3,7 +3,7 @@ const q = faunadb.query;
 
 exports.handler = async (event, context) => {
   // Get the FaunaDB secret and the query parameter called "ids"
-  const secret = process.env.FAUNADB_SECRET;
+  const secret = process.env.DB_SECRT;
   const ids = event.queryStringParameters.ids;
 
   // Parse the ids as an array of numbers
