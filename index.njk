@@ -39,14 +39,15 @@ const value3 = input3.value;
 const value4 = input4.value;
 const value5 = input5.value;
 
-// Build the URL string with the values
-const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
-
 // Get the button element
 const button = document.getElementById('button');
 
 // Add a click event listener to the button
 button.addEventListener('click', () => {
+
+// Build the URL string with the values
+const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
+
   // Make a GET request to the function
   fetch(url)
     .then(response => response.json())
