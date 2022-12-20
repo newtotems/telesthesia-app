@@ -4,73 +4,69 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
-  <div id="result"></div>
-
-<div style="display: flex;">
-  <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)" style="padding:10px;border:5px solid white;background:#ccc;width:20px;"></div>
-  <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)" style="padding:10px;border:5px solid white;background:#ccc;width:20px;"></div>
-  <div id="drop-target-3" ondrop="drop(event)" ondragover="dragOver(event)" style="padding:10px;border:5px solid white;background:#ccc;width:20px;"></div>
-  <div id="drop-target-4" ondrop="drop(event)" ondragover="dragOver(event)" style="padding:10px;border:5px solid white;background:#ccc;width:20px;"></div>
-  <div id="drop-target-5" ondrop="drop(event)" ondragover="dragOver(event)" style="padding:10px;border:5px solid white;background:#ccc;width:20px;"></div>
-</div>
 
 <form>
-  <div id="1" draggable="true" ondragstart="dragStart(event)">1</div>
-  <div id="2" draggable="true" ondragstart="dragStart(event)">2</div>
-  <div id="3" draggable="true" ondragstart="dragStart(event)">3</div>
-  <div id="4" draggable="true" ondragstart="dragStart(event)">4</div>
-    <div id="5" draggable="true" ondragstart="dragStart(event)">5</div>
-      <div id="6" draggable="true" ondragstart="dragStart(event)">6</div>
-        <div id="7" draggable="true" ondragstart="dragStart(event)">7</div>
-          <div id="8" draggable="true" ondragstart="dragStart(event)">8</div>
-            <div id="9" draggable="true" ondragstart="dragStart(event)">9</div>
-  <div id="10" draggable="true" ondragstart="dragStart(event)">10</div>
+  <label for="input1">Input 1:</label><br>
+  <input type="text" id="input1" name="input1"><br>
+  <label for="input2">Input 2:</label><br>
+  <input type="text" id="input2" name="input2"><br>
+  <label for="input3">Input 3:</label><br>
+  <input type="text" id="input3" name="input3"><br>
+  <label for="input4">Input 4:</label><br>
+  <input type="text" id="input4" name="input4"><br>
+  <label for="input5">Input 5:</label><br>
+  <input type="text" id="input5" name="input5"><br><br>
+</form> 
 
-  <button id="button">Submit</button>
 
-</form>
+    <button id="button">Submit</button>
+
+  <div id="result"></div>
 
   <script>
-  function dragStart(event) {
-  event.dataTransfer.setData("id", event.target.id);
-}
+  
 
-function dragOver(event) {
-  event.preventDefault();
-}
-
-function drop(event) {
-  event.preventDefault();
-  const id = event.dataTransfer.getData("id");
-  event.target.innerHTML = id;
-}
-
+// Get the button element
 const button = document.getElementById('button');
 
+// Add a click event listener to the button
 button.addEventListener('click', () => {
-  const dropTarget1 = document.getElementById('drop-target-1');
-  const dropTarget2 = document.getElementById('drop-target-2');
-  const dropTarget3 = document.getElementById('drop-target-3');
-  const dropTarget4 = document.getElementById('drop-target-4');
-  const dropTarget5 = document.getElementById('drop-target-5');
 
-  const value1 = Number(dropTarget1.innerHTML);
-  const value2 = Number(dropTarget2.innerHTML);
-  const value3 = Number(dropTarget3.innerHTML);
-  const value4 = Number(dropTarget4.innerHTML);
-  const value5 = Number(dropTarget5.innerHTML);
+   // Define the URL of the function
+// Get the input elements
+const input1 = document.getElementById('input1');
+const input2 = document.getElementById('input2');
+const input3 = document.getElementById('input3');
+const input4 = document.getElementById('input4');
+const input5 = document.getElementById('input5');
 
-  const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
+// Get the values of the inputs
+const value1 = input1.value;
+const value2 = input2.value;
+const value3 = input3.value;
+const value4 = input4.value;
+const value5 = input5.value;
 
- fetch(url)
-  .then(response => response.json())
-  .then(data => {
-    const result = document.getElementById('result');
-    result.innerHTML = data.allvalues;
-  })
-  .catch(error => {
-    console.error(error);
-  });
+// Build the URL string with the values
+const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
+console.log(url);
+
+  // Make a GET request to the function
+  fetch(url)
+    .then(response => response.json())
+     .then(data => {
+        // Get the 'result' element
+        const result = document.getElementById('result');
+
+        // Set the HTML content of the 'result' element to the response data
+        
+        result.innerHTML =  data.allvalues;
+       
+      })
+    .catch(error => {
+      // Log the error message
+      console.error(error);
+    });
 });
 
   </script>
