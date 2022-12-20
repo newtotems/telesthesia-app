@@ -28,7 +28,7 @@ exports.handler = async function(event, context) {
       // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
       const result = await client.query(
         faunadb.query.Map(
-          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var("id"), [value]))),
+          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var(id), [value]))),
           faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
         )
       );
