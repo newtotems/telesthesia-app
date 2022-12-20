@@ -1,46 +1,35 @@
-
-
-<h1 id="total">0</h1>
-
-  <label for="input-1">Input 1:</label>
-  <input type="text" id="input-1" name="input-1">
-  <br>
-  <label for="input-2">Input 2:</label>
-  <input type="text" id="input-2" name="input-2">
-  <br>
-  <label for="input-3">Input 3:</label>
-  <input type="text" id="input-3" name="input-3">
-  <br>
-  <label for="input-4">Input 4:</label>
-  <input type="text" id="input-4" name="input-4">
-  <br>
-  <label for="input-5">Input 5:</label>
-  <input type="text" id="input-5" name="input-5">
-  <br>
-  <input type="submit" value="Submit" id="submit-button">
-
+ <form id="form">
+    <button id="submit-button" type="submit">Submit</button>
+  </form>
+  <div id="result"></div>
   <script>
-const url = '/.netlify/functions/lookupcards';
-const submitButton = document.getElementById('submit-button');
+    // Define the URL of the function
+    const url = '/.netlify/functions/lookupcards';
 
-submitButton.addEventListener('submit', e => {
-    console.log('submitted');
-  e.preventDefault();
+    // Get the submit button element
+    const submitButton = document.getElementById('submit-button');
 
-  const values = '1,2,3,4,5';
+    // Add a submit event listener to the submit button
+    submitButton.addEventListener('submit', e => {
+      // Prevent the default submit action
+      e.preventDefault();
 
-  fetch(`${url}?values=${values}`)
-    .then(response => response.json())
-    .then(data => {
-      const allvalues = data.allvalues;
+      // Define the 5 values to pass to the 'values' query parameter
+      const values = '1,2,3,4,5';
 
-      document.getElementById('result').innerHTML = allvalues;
-    })
-    .catch(error => {
-      console.error(error);
+      // Make a GET request to the function and pass the 'values' query parameter
+      fetch(`${url}?values=${values}`)
+        .then(response => response.json())
+        .then(data => {
+          // Extract the 'allvalues' value from the response
+          const allvalues = data.allvalues;
+
+          // Use the 'allvalues' value to populate the 'result' element
+          document.getElementById('result').innerHTML = allvalues;
+        })
+        .catch(error => {
+          // Log the error message
+          console.error(error);
+        });
     });
-});
   </script>
-
-
-  
