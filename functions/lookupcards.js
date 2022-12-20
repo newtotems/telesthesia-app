@@ -6,8 +6,8 @@ exports.handler = async (event, context) => {
   const secret = process.env.DB_SECRT;
   const ids = event.queryStringParameters.ids;
 
-  // Parse the ids as an array
-  const idsArray = ids.split(',');
+  // Parse the ids as an array of numbers
+  const idsArray = ids.split(',').map(id => parseInt(id, 10));
 
   // Connect to FaunaDB using the secret
   const client = new faunadb.Client({ secret });
