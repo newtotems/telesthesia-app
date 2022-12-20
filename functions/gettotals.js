@@ -7,10 +7,24 @@ exports.handler = async function(event, context) {
   });
 
   try {
-    // Query FaunaDB to get all documents in the 'cards' collection
+    // Get the 'values' query parameter from the event object
+    const values = event.queryStringParameters.values;
+
+    // Parse the values as an array of integers
+    const valuesArray = values.split(",").map(val => parseInt(val, 10));
+
+    // Create a new array called "firstFive" that contains the first 5 elements of valuesArray
+    const firstFive = valuesArray.slice(0, 5);
+
+    // Query FaunaDB to get all documents in the 'cards' collection with an ID in the 'firstFive' array
     const result = await client.query(
       faunadb.query.Map(
-        faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
+        // Get all documents in the 'cards' collection where the 'id' value is in the 'firstFive' array
+        faunadb.query.Filter(
+          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
+          faunadb.query.Lambda("X", faunadb.query.Contains(firstFive, faunadb.query.Select("id", faunadb.query.Get(faunadb.query.Var("X")))))
+        ),
+        // Map over each document and return the data
         faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
       )
     );
@@ -32,41 +46,41 @@ exports.handler = async function(event, context) {
         Object.keys(doc.rules).forEach(key => {
           const rule = doc.rules[key];
 
-          // Check the 'type' of the rule
-          if (rule.type === "additive") {
-            // Check if the 'criteria' of the rule is satisfied
-            if (rule.criteria.type === doc.type) {
-              // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-              allvalues += rule.value * Object.keys(doc.scores).length;
+                    // Check the 'type' of the rule
+                    if (rule.type === "additive") {
+                      // Check if the 'criteria' of the rule is satisfied
+                      if (rule.criteria.type === doc.type) {
+                        // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+                        allvalues += rule.value * Object.keys(doc.scores).length;
+                      }
+                    } else if (rule.type === "subtractive") {
+                      // Check if the 'criteria' of the rule is satisfied
+                      if (rule.criteria.type === doc.type) {
+                        // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+                        allvalues -= rule.value * Object.keys(doc.scores).length;
+                      }
+                    }
+                  });
+                }
+              });
+          
+              // Return the 'individualvalue' array and the 'allvalues' score
+              return {
+                statusCode: 200,
+                body: JSON.stringify({
+                  individualvalues: data.map(doc => doc.individualvalue),
+                  allvalues
+                })
+              };
+            } catch (error) {
+              // Log the error message
+              console.error(error);
+          
+              // Return a server error response
+              return {
+                statusCode: 500,
+                body: JSON.stringify({ error: "Error getting data from FaunaDB" })
+              };
             }
-          } else if (rule.type === "subtractive") {
-            // Check if the 'criteria' of the rule is satisfied
-            if (rule.criteria.type === doc.type) {
-              // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-              allvalues -= rule.value * Object.keys(doc.scores).length;
-            }
-          }
-        });
-      }
-    });
-
-       // Return the 'individualvalue' array and the 'allvalues' score
-       return {
-        statusCode: 200,
-        body: JSON.stringify({
-          individualvalues: data.map(doc => doc.individualvalue),
-          allvalues
-        })
-      };
-    } catch (error) {
-      // Log the error message
-      console.error(error);
-  
-      // Return a server error response
-      return {
-        statusCode: 500,
-        body: JSON.stringify({ error: "Error getting data from FaunaDB" })
-      };
-    }
-  };
-  
+          };
+          
