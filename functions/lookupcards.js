@@ -19,32 +19,32 @@ exports.handler = async function(event, context) {
     // Convert the strings in the 'firstFive' array to numbers
     const firstFiveNumbers = firstFive.map(val => Number(val));
 
+    // Create a new array called 'idQueries' that contains a query for each ID in the 'firstFiveNumbers' array
+    const idQueries = firstFiveNumbers.map(id => faunadb.query.Get(faunadb.query.Match(faunadb.query.Index("cards_by_id"), id)));
+
     // Query FaunaDB to get all documents in the 'cards' collection with an ID in the 'firstFiveNumbers' array
     const result = await client.query(
-        faunadb.query.Map(
-          // Get all documents in the 'cards' collection where the 'id' value is in the 'firstFiveNumbers' array
-          faunadb.query.Filter(
-            faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
-            faunadb.query.Lambda("X", faunadb.query.Contains(firstFiveNumbers, faunadb.query.Select("id", faunadb.query.Var("X"))))
-          ),
-          // Map over each document and return the data
-          faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
-        )
-      );
-  
+      faunadb.query.Map(
+        // Use a union to combine all of the ID queries
+        faunadb.query.Union(...idQueries),
+        // Map over each document and return the data
+        faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
+      )
+    );
+
     // Extract the data from the result
     const data = result.data.map(doc => {
-        // Add up the values in the 'scores' object and store the total in a new property called 'individualvalue'
-        let individualvalue = Object.values(doc.data.scores).reduce((total, score) => total + score, 0);
-  
-        return { ...doc.data, individualvalue };
-      });
-  
-      // Initialize the 'allvalues' variable to 0
-      let allvalues = 0;
-  
-      // Iterate over the 'data' array
-      data.forEach(doc => {
+      // Add up the values in the 'scores' object and store the total in a new property called 'individualvalue'
+      let individualvalue = Object.values(doc.data.scores).reduce((total, score) => total + score, 0);
+
+      return { ...doc.data, individualvalue };
+    });
+
+    // Initialize the 'allvalues' variable to 0
+    let allvalues = 0;
+
+    // Iterate over the 'data' array
+    data.forEach(doc => {
         // Add up the 'individualvalue' of each document to the 'allvalues' variable
         allvalues += doc.individualvalue;
   
