@@ -1,4 +1,4 @@
-<h1 id="total-score">0</h1>
+<h1 id="total">0</h1>
 
 <form>
   <label for="input-1">Input 1:</label>
@@ -22,22 +22,36 @@
 
 <!-- Add the event listener and call the function -->
 <script>
-document.getElementById('submit-button').addEventListener('click', (event) => {
-  event.preventDefault(); // prevent the form from submitting
+// Define the URL of the function
+const url = '/.netlify/functions/getValues';
 
-  // Get the values from the input fields
-  const input1 = document.getElementById('input-1').value;
-  const input2 = document.getElementById('input-2').value;
-  const input3 = document.getElementById('input-3').value;
-  const input4 = document.getElementById('input-4').value;
-  const input5 = document.getElementById('input-5').value;
+// Get the submit button element
+const submitButton = document.getElementById('submit-button');
 
-  // Call the Netlify function with the values as query parameters
-  fetch(`/functions/gettotals?input1=${input1}&input2=${input2}&input3=${input3}&input4=${input4}&input5=${input5}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
+// Add a submit event listener to the submit button
+submitButton.addEventListener('submit', e => {
+  // Prevent the default submit action
+  e.preventDefault();
+
+  // Get the input elements
+  const input1 = document.getElementById('input1');
+  const input2 = document.getElementById('input2');
+  const input3 = document.getElementById('input3');
+  const input4 = document.getElementById('input4');
+  const input5 = document.getElementById('input5');
+
+  // Create the 'values' constant by concatenating the values of the input elements
+  const values = input1.value + ',' + input2.value + ',' + input3.value + ',' + input4.value + ',' + input5.value;
+
+  // Make a GET request to the function and pass the 'values' query parameter
+  fetch(`${url}?values=${values}`)
+    .then(response => response.json())
+    .then(data => {
+      // Extract the 'allvalues' value from the response
+      const allvalues = data.allvalues;
+
+      // Use the 'allvalues' value to populate the 'total' div element
+      document.getElementById('total').innerHTML = allvalues;
     });
 });
-
 </script>
