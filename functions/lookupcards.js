@@ -25,11 +25,13 @@ exports.handler = async function(event, context) {
 
     // Iterate over the values in the 'valuesArray'
     for (const value of valuesArray) {
-      // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
+      // Query FaunaDB to get the document with the specified id
       const result = await client.query(
-        faunadb.query.Map(
-          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var(id), [value]))),
-          faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
+        faunadb.query.Let(
+          {
+            id: faunadb.query.Match(faunadb.query.Index("cards_by_id"), value)
+          },
+          faunadb.query.Get(faunadb.query.Var("id"))
         )
       );
 
@@ -47,31 +49,31 @@ exports.handler = async function(event, context) {
     // Add up the 'individualvalue' values for all documents and store the result in 'allvalues'
     let allvalues = data.reduce((acc, curr) => acc + curr.individualvalue, 0);
 
-        // Iterate over the documents in the 'data' array
-        data.forEach(doc => {
-            if (doc.rules) {
-              // Iterate over the keys in the 'rules' object
-              Object.keys(doc.rules).forEach(key => {
-                const rule = doc.rules[key];
-      
-                // Check the 'type' of the rule
-                if (rule.type === "additive") {
-                  // Check if the 'criteria' of the rule is satisfied
-                  if (rule.criteria.type === doc.type) {
-                    // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-                    allvalues += rule.value * Object.keys(doc.scores).length;
-                  }
-                } else if (rule.type === "subtractive") {
-                  // Check if the 'criteria' of the rule is satisfied
-                  if (rule.criteria.type === doc.type) {
-                    // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-                    allvalues -= rule.value * Object.keys(doc.scores).length;
-                  }
-                }
-              });
-            }
-          });
-            
+    // Iterate over the documents in the 'data' array
+    data.forEach(doc => {
+      if (doc.rules) {
+        // Iterate over the keys in the 'rules' object
+        Object.keys(doc.rules).forEach(key => {
+          const rule = doc.rules[key];
+
+              // Check the 'type' of the rule
+      if (rule.type === "additive") {
+        // Check if the 'criteria' of the rule is satisfied
+        if (rule.criteria.type === doc.type) {
+          // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+          allvalues += rule.value * Object.keys(doc.scores).length;
+        }
+      } else if (rule.type === "subtractive") {
+        // Check if the 'criteria' of the rule is satisfied
+        if (rule.criteria.type === doc.type) {
+          // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+          allvalues -= rule.value * Object.keys(doc.scores).length;
+        }
+      }
+    });
+  }
+});
+
     // Return the 'individualvalue' array and the 'allvalues' score
     return {
         statusCode: 200,
