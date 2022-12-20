@@ -6,7 +6,7 @@ async function computeTotalScores(animalIds) {
   const animalRecords = [];
   for (const animalId of animalIds) {
     const animalRecord = await client.query(
-      faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('animals'), animalId))
+      faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('cards'), animalId))
     );
     animalRecords.push(animalRecord);
   }
