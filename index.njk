@@ -1,72 +1,49 @@
----
-layout: layouts/home.njk
-eleventyNavigation:
-  key: Home
-  order: 1
----
-
 <form>
-  <label for="input1">Input 1:</label><br>
-  <input type="text" id="input1" name="input1"><br>
-  <label for="input2">Input 2:</label><br>
-  <input type="text" id="input2" name="input2"><br>
-  <label for="input3">Input 3:</label><br>
-  <input type="text" id="input3" name="input3"><br>
-  <label for="input4">Input 4:</label><br>
-  <input type="text" id="input4" name="input4"><br>
-  <label for="input5">Input 5:</label><br>
-  <input type="text" id="input5" name="input5"><br><br>
+  <input type="checkbox" id="checkbox1" name="checkbox1" value="1">
+  <label for="checkbox1">1</label><br>
+  <input type="checkbox" id="checkbox2" name="checkbox2" value="2">
+  <label for="checkbox2">2</label><br>
+  <input type="checkbox" id="checkbox3" name="checkbox3" value="3">
+  <label for="checkbox3">3</label><br>
+  <input type="checkbox" id="checkbox4" name="checkbox4" value="4">
+  <label for="checkbox4">4</label><br>
+  <input type="checkbox" id="checkbox5" name="checkbox5" value="5">
+  <label for="checkbox5">5</label><br>
+  <!-- Add more checkboxes for values 6 to 20 -->
 </form> 
 
+<button id="button">Submit</button>
 
-    <button id="button">Submit</button>
+<div id="result"></div>
 
-  <div id="result"></div>
+<script>
 
-  <script>
-  
-
-// Get the button element
 const button = document.getElementById('button');
 
-// Add a click event listener to the button
 button.addEventListener('click', () => {
+  // Get the checkboxes
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
-   // Define the URL of the function
-// Get the input elements
-const input1 = document.getElementById('input1');
-const input2 = document.getElementById('input2');
-const input3 = document.getElementById('input3');
-const input4 = document.getElementById('input4');
-const input5 = document.getElementById('input5');
+  // Convert the NodeList of checkboxes to an array
+  const values = Array.from(checkboxes).map(checkbox => checkbox.value);
 
-// Get the values of the inputs
-const value1 = input1.value;
-const value2 = input2.value;
-const value3 = input3.value;
-const value4 = input4.value;
-const value5 = input5.value;
-
-// Build the URL string with the values
-const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
-console.log(url);
+  // Build the URL string with the values
+  const url = `/.netlify/functions/lookupcards?values=${values.join(',')}`;
 
   // Make a GET request to the function
   fetch(url)
     .then(response => response.json())
-     .then(data => {
-        // Get the 'result' element
-        const result = document.getElementById('result');
+    .then(data => {
+      // Get the 'result' element
+      const result = document.getElementById('result');
 
-        // Set the HTML content of the 'result' element to the response data
-        
-        result.innerHTML =  data.allvalues;
-       
-      })
+      // Set the HTML content of the 'result' element to the response data
+      result.innerHTML = data.allvalues;
+    })
     .catch(error => {
       // Log the error message
       console.error(error);
     });
 });
 
-  </script>
+</script>
