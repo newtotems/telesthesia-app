@@ -1,3 +1,32 @@
+<script>
+  // Get a reference to the container element
+const cardListContainer = document.getElementById('cardList');
+
+// Fetch data from the 'getcardlist' Netlify function
+fetch('/.netlify/functions/getcardlist')
+  .then(response => response.json())
+  .then(cardData => {
+    // Loop through the card data and create checkbox elements for each record
+    cardData.forEach(card => {
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.id = `checkbox${card.id}`;
+      checkbox.name = `checkbox${card.id}`;
+      checkbox.value = card.id;
+
+      const label = document.createElement('label');
+      label.htmlFor = `checkbox${card.id}`;
+      label.textContent = card.name;
+
+      // Append the checkbox and label to the container element
+      cardListContainer.appendChild(checkbox);
+      cardListContainer.appendChild(label);
+    });
+  });
+</script>
+
+<div id="cardList"><div>
+
 <form>
   <div style="display:flex">
   <input type="checkbox" id="checkbox1" name="checkbox1" value="1">
