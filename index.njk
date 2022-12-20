@@ -30,9 +30,9 @@ const submitButton = document.getElementById('submit-button');
 
 // Add a submit event listener to the submit button
 submitButton.addEventListener('submit', e => {
+    console.log('submitted');
   // Prevent the default submit action
   e.preventDefault();
-  console.log('submitted')
 
 
   // Define the 5 values to pass to the 'values' query parameter
