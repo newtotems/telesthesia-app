@@ -14,15 +14,15 @@
 
 <div style="display:flex">
   <input type="checkbox" id="checkbox6" name="checkbox1" value="6">
-  <label for="checkbox6">1</label><br>
+  <label for="checkbox6">6</label><br>
   <input type="checkbox" id="checkbox7" name="checkbox2" value="7">
-  <label for="checkbox7">2</label><br>
+  <label for="checkbox7">7</label><br>
   <input type="checkbox" id="checkbox8" name="checkbox3" value="8">
-  <label for="checkbox8">3</label><br>
+  <label for="checkbox8">8</label><br>
   <input type="checkbox" id="checkbox9" name="checkbox4" value="9">
-  <label for="checkbox9">4</label><br>
+  <label for="checkbox9">9</label><br>
   <input type="checkbox" id="checkbox10" name="checkbox5" value="10">
-  <label for="checkbox10">5</label><br>
+  <label for="checkbox10">10</label><br>
 </div>
 </form> 
 
@@ -33,6 +33,23 @@
 <script>
 
 const button = document.getElementById('button');
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+// Add an event listener to each checkbox to enable/disable the button
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
+      // Count the number of checked checkboxes
+      const checkedCount = checkboxes.reduce((count, cb) => cb.checked ? count + 1 : count, 0);
+
+      // Enable the button if exactly 5 checkboxes are checked, otherwise disable it
+      if (checkedCount === 5) {
+        button.disabled = false;
+      } else {
+        button.disabled = true;
+      }
+    });
+  });
+
 
 button.addEventListener('click', () => {
   // Get the checkboxes
