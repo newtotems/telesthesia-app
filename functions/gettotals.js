@@ -1,7 +1,7 @@
 const faunadb = require('faunadb');
 
 // Replace with your own FaunaDB secret
-const secret = 'YOUR_FAUNADB_SECRET';
+const secret = process.env.FAUNADB_SECRET;
 
 // Create a FaunaDB client
 const client = new faunadb.Client({ secret });
@@ -24,3 +24,4 @@ exports.handler = async (event) => {
     body: JSON.stringify(results),
   };
 };
+    
