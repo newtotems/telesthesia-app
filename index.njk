@@ -5,7 +5,7 @@ eleventyNavigation:
   order: 1
 ---
   <div id="result"></div>
-  
+
 <div style="display: flex;">
   <div id="drop-target-1" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 1</div>
   <div id="drop-target-2" ondrop="drop(event)" ondragover="dragOver(event)">Drop Target 2</div>
@@ -58,6 +58,8 @@ button.addEventListener('click', () => {
   const value3 = dropTarget3.innerHTML;
   const value4 = dropTarget4.innerHTML;
   const value5 = dropTarget5.innerHTML;
+
+  console.log(value1);
 
   const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
   console.log(url);
