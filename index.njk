@@ -22,7 +22,7 @@
 
   <!-- Add the event listener and call the function -->
   <script>
- // Define the URL of the function
+// Define the URL of the function
 const url = '/.netlify/functions/lookupcards';
 
 // Get the submit button element
@@ -32,17 +32,11 @@ const submitButton = document.getElementById('submit-button');
 submitButton.addEventListener('submit', e => {
   // Prevent the default submit action
   e.preventDefault();
+  console.log('submitted')
 
-  // Get the input elements
-  const input1 = document.getElementById('input1');
-  const input2 = document.getElementById('input2');
-  const input3 = document.getElementById('input3');
-  const input4 = document.getElementById('input4');
-  const input5 = document.getElementById('input5');
 
-  // Create the 'values' constant by concatenating the values of the input elements
-  const values = input1.value + ',' + input2.value + ',' + input3.value + ',' + input4.value + ',' + input5.value;
-  console.log(values);
+  // Define the 5 values to pass to the 'values' query parameter
+  const values = '1,2,3,4,5';
 
   // Make a GET request to the function and pass the 'values' query parameter
   fetch(`${url}?values=${values}`)
@@ -51,8 +45,8 @@ submitButton.addEventListener('submit', e => {
       // Extract the 'allvalues' value from the response
       const allvalues = data.allvalues;
 
-      // Use the 'allvalues' value to populate the 'total' div element
-      document.getElementById('total').innerHTML = allvalues;
+      // Use the 'allvalues' value to populate the 'result' element
+      document.getElementById('result').innerHTML = allvalues;
     })
     .catch(error => {
       // Log the error message
