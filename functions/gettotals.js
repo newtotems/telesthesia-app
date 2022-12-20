@@ -7,11 +7,21 @@ exports.handler = async function(event, context) {
   });
 
   try {
-    // Query FaunaDB to get all documents in the 'cards' collection
+    // Get the 'ids' query parameter from the event object
+    const { ids } = event.queryStringParameters;
+
+    // Split the 'ids' string into an array of individual ID values
+    const idArray = ids.split(",");
+
+    // Query FaunaDB to get all documents in the 'cards' collection with an ID in the array of values
     const result = await client.query(
       faunadb.query.Map(
-        faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
-        faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
+        // Get all documents in the 'cards' collection where the 'id' value is in the array
+        faunadb.query.Filter(
+          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
+          faunadb.query.Lambda("X", faunadb.query.Contains(idArray, faunadb.query.Select("id", faunadb.query.Get(faunadb.query.Var("X"))))))
+        // Map over each document and return the data
+        ,faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
       )
     );
 
