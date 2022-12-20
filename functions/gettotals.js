@@ -16,7 +16,11 @@ exports.handler = async function(event, context) {
     );
 
     // Extract the data from the result
-    const data = result.data.map(doc => doc.data);
+    const data = result.data.map(doc => {
+      // Add up the values in the 'scores' object and store the total in a new property called 'totalscores'
+      const totalscores = Object.values(doc.data.scores).reduce((acc, curr) => acc + curr, 0);
+      return { ...doc.data, totalscores };
+    });
 
     // Return the data as the response to the function
     return {
