@@ -16,10 +16,11 @@ eleventyNavigation:
   <input type="text" id="input4" name="input4"><br>
   <label for="input5">Input 5:</label><br>
   <input type="text" id="input5" name="input5"><br><br>
+      <button id="button">Submit</button>
 </form> 
 
 
-    <button id="button">Submit</button>
+
 
   <div id="result"></div>
 
@@ -47,6 +48,7 @@ button.addEventListener('click', () => {
 
 // Build the URL string with the values
 const url = `/.netlify/functions/lookupcards?values=${value1},${value2},${value3},${value4},${value5}`;
+console.log(url);
 
   // Make a GET request to the function
   fetch(url)
