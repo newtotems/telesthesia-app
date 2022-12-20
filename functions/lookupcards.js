@@ -65,6 +65,8 @@ data.forEach(doc => {
       });
     }
   });
+
+  console.log(allvalues);
   
  // Return the 'individualvalue' array and the 'allvalues' score
 return {
