@@ -18,7 +18,25 @@ exports.handler = async function(event, context) {
     // Extract the data from the result
     const data = result.data.map(doc => {
       // Add up the values in the 'scores' object and store the total in a new property called 'totalscores'
-      const totalscores = Object.values(doc.data.scores).reduce((acc, curr) => acc + curr, 0);
+      let totalscores = Object.values(doc.data.scores).reduce((acc, curr) => acc + curr, 0);
+
+      // Check if the document has a 'rules' object
+      if (doc.data.rules) {
+        // Iterate over the keys in the 'rules' object
+        Object.keys(doc.data.rules).forEach(key => {
+          const rule = doc.data.rules[key];
+
+          // Check if the 'type' of the rule is 'additive'
+          if (rule.type === "additive") {
+            // Check if the 'criteria' of the rule is satisfied
+            if (rule.criteria.type === doc.data.type) {
+              // Adjust the 'totalscores' value based on the 'value' of the rule
+              totalscores += rule.value;
+            }
+          }
+        });
+      }
+
       return { ...doc.data, totalscores };
     });
 
