@@ -28,6 +28,7 @@ button.addEventListener('click', () => {
         // Set the HTML content of the 'result' element to the response data
         const d = JSON.stringify(data);
         result.innerHTML =  d;
+        console.log(data.allvalues);
         console.log(d.allvalues);
       })
     .catch(error => {
