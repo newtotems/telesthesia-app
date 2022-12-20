@@ -46,11 +46,45 @@ exports.handler = async function(event, context) {
       return { ...doc.data, totalscores };
     });
 
-// Add up the 'totalscores' values for all documents and store the result in 'overallscore'
-const overallscore = data.reduce((acc, curr) => acc + curr.totalscores, 0);
+    // Add up the 'totalscores' values for all documents and store the result in 'overallscore'
+    let overallscore = 0;
+    data.forEach(doc => {
+      // Iterate over the keys in the 'rules' object
+      if (doc.rules) {
+        Object.keys(doc.rules).forEach(key => {
+          const rule = doc.rules[key];
 
-// Return the 'overallscore'
-return {
-  statusCode: 200,
-  body: JSON.stringify({ overallscore })
+          // Check the 'type' of the rule
+          if (rule.type === "additive") {
+            // Check if the 'criteria' of the rule is satisfied
+            if (rule.criteria.type === doc.type) {
+              // Adjust the 'overallscore' value based on the 'value' of the rule
+              overallscore += rule.value;
+            }
+          } else if (rule.type === "subtractive") {
+            // Check if the 'criteria' of the rule is satisfied
+            if (rule.criteria.type === doc.type) {
+              // Adjust the 'overallscore' value based on the 'value' of the rule
+              overallscore -= rule.value;
+            }
+          }
+        });
+      }
+    });
+
+    // Return the 'overallscore'
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ overallscore })
+    };
+  } catch (error) {
+    // Log the error message
+    console.error(error);
+
+    // Return a server error response
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Error getting data from FaunaDB" })
+    };
+  }
 };
