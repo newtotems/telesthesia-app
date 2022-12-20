@@ -1,16 +1,11 @@
 const fs = require('fs');
-const url = require('url');
 
 // Read the JSON file and parse the data
 const data = fs.readFileSync('_data/cards.json');
 const cardslist = JSON.parse(data);
 
-// Parse the URL and extract the query string
-const parsedUrl = url.parse(request.url, true);
-const query = parsedUrl.query;
-
-// Extract the ids from the query string
-const ids = query.ids.split(',');
+// Specify the ids to include in the filtered array
+const ids = [1, 3, 5];
 
 // Filter the cardslist array based on the specified ids
 const filteredCards = cardslist.filter(card => ids.includes(card.id));
