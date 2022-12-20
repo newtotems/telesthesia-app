@@ -33,7 +33,7 @@
 <script>
 
 const button = document.getElementById('button');
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
 
 // Add an event listener to each checkbox to enable/disable the button
   checkboxes.forEach(checkbox => {
@@ -53,7 +53,7 @@ const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
 button.addEventListener('click', () => {
   // Get the checkboxes
-const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
 
   // Convert the NodeList of checkboxes to an array
   const values = Array.from(checkboxes).map(checkbox => checkbox.value);
