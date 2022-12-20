@@ -1,56 +1,32 @@
-async function computeTotalScores(animalIds) {
-  const client = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
-
-  const animalRecords = [];
-  for (const animalId of animalIds) {
-    const animalRecord = await client.query(
-      faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('animals'), animalId))
-    );
-    animalRecords.push(animalRecord);
-  }
-
-  function computeTotalScore(animal) {
-    let totalScore = 0;
-
-    // Add the individual scores
-    totalScore += animal.scores.vitality;
-    totalScore += animal.scores.intellect;
-    totalScore += animal.scores.social;
-    totalScore += animal.scores.balance;
-
-    // Apply the rules
-    for (const key in animal.rules) {
-      const rule = animal.rules[key];
-      if (rule.type === "additive") {
-        totalScore += rule.value;
-      } else if (rule.type === "subtractive") {
-        totalScore -= rule.value;
-      }
-    }
-
-    return totalScore;
-  }
-
-  const animalScores = [];
-  for (const animalRecord of animalRecords) {
-    const totalScore = computeTotalScore(animalRecord);
-    animalScores.push({
-      id: animalRecord.id,
-      name: animalRecord.name,
-      totalScore: totalScore
-    });
-  }
-
-  return animalScores;
-}
-
+const fs = require('fs');
 const url = require('url');
 
-const animalIds = url.parse(window.location.href, true).query.animalIds;
-computeTotalScores(animalIds)
-  .then(scores => {
-    console.log(scores);
-  })
-  .catch(error => {
-    console.error(error);
-  });
+// Read the JSON file and parse the data
+const data = fs.readFileSync('path/to/file.json');
+const cardslist = JSON.parse(data);
+
+// Parse the URL and extract the query string
+const parsedUrl = url.parse(request.url, true);
+const query = parsedUrl.query;
+
+// Extract the ids from the query string
+const ids = query.ids.split(',');
+
+// Filter the cardslist array based on the specified ids
+const filteredCards = cardslist.filter(card => ids.includes(card.id));
+
+// Compute the total score for the filtered cards
+let totalScore = 0;
+
+for (let i = 0; i < filteredCards.length; i++) {
+  const card = filteredCards[i];
+  let cardScore = card.scores.vitality + card.scores.intellect + card.scores.social + card.scores.balance;
+
+  if (card.rules.socialScore.type === "additive" && card.rules.socialScore.criteria.type === card.type) {
+    cardScore += card.rules.socialScore.value;
+  }
+
+  totalScore += cardScore;
+}
+
+console.log(totalScore);

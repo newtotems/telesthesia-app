@@ -1,0 +1,40 @@
+[{
+    "id": 1,
+    "name": "flamingo",
+    "type": "avian",
+    "rules": {
+        "socialScore": {
+            "type": "additive",
+            "value": 3,
+            "criteria": {
+                "type": "avian"
+            }
+        }
+    },
+    "scores": {
+        "vitality": 7,
+        "intellect": 4,
+        "social": 9,
+        "balance": 7
+    }
+},
+{
+    "id": 2,
+    "name": "flamingo2",
+    "type": "avian",
+    "rules": {
+        "socialScore": {
+            "type": "additive",
+            "value": 1,
+            "criteria": {
+                "type": "avian"
+            }
+        }
+    },
+    "scores": {
+        "vitality": 3,
+        "intellect": 4,
+        "social": 2,
+        "balance": 7
+    }
+}]

@@ -1,9 +1,47 @@
----
-layout: layouts/home.njk
-eleventyNavigation:
-  key: Home
-  order: 1
----
-index
+<h1 id="total-score">0</h1>
 
-<script src="/js/compute-scores.js"></script>
+<form>
+  <label for="input-1">Input 1:</label>
+  <input type="text" id="input-1" name="input-1">
+  <br>
+  <label for="input-2">Input 2:</label>
+  <input type="text" id="input-2" name="input-2">
+  <br>
+  <label for="input-3">Input 3:</label>
+  <input type="text" id="input-3" name="input-3">
+  <br>
+  <label for="input-4">Input 4:</label>
+  <input type="text" id="input-4" name="input-4">
+  <br>
+  <label for="input-5">Input 5:</label>
+  <input type="text" id="input-5" name="input-5">
+  <br>
+  <input type="submit" value="Submit" id="submit-button">
+</form>
+
+
+<!-- Add the event listener and call the function -->
+<script>
+ function getTotalScore(ids) {
+  // Make an HTTP GET request to the server with the ids as a query parameter
+  return fetch(`js/compute-scores.js?ids=${ids}`)
+    .then(response => response.text())
+    .then(totalScore => {
+      // Update the content of the element with the total score
+      document.getElementById('total-score').innerHTML = totalScore;
+    });
+}
+
+document.getElementById('submit-button').addEventListener('click', () => {
+  // Retrieve the values from the input elements
+  const input1 = document.getElementById('input-1').value;
+  const input2 = document.getElementById('input-2').value;
+  const input3 = document.getElementById('input-3').value;
+  const input4 = document.getElementById('input-4').value;
+  const input5 = document.getElementById('input-5').value;
+
+  // Pass the input values as a comma-separated string to the function
+  getTotalScore(`${input1},${input2},${input3},${input4},${input5}`);
+});
+
+</script>
