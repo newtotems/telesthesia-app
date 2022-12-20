@@ -20,16 +20,25 @@ exports.handler = async function(event, context) {
   const firstFive = valuesArray.slice(0, 5);
 
   try {
-     // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
-     const result = await client.query(
+    // Initialize an empty array to store the results
+    let results = [];
+
+    // Iterate over the values in the 'valuesArray'
+    for (const value of valuesArray) {
+      // Query FaunaDB to get all documents in the 'cards' collection whose id values are contained in the 'valuesArray'
+      const result = await client.query(
         faunadb.query.Map(
-          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var("id"), valuesArray))),
+          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"), faunadb.query.Contains(faunadb.query.Var("id"), [value]))),
           faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
         )
       );
 
-    // Extract the data from the result
-    const data = result.data.map(doc => {
+      // Add the result data to the 'results' array
+      results = results.concat(result.data);
+    }
+
+    // Extract the data from the results
+    const data = results.map(doc => {
       // Add up the values in the 'scores' object and store the total in a new property called 'individualvalue'
       let individualvalue = Object.values(doc.data.scores).reduce((acc, curr) => acc + curr, 0);
       return { ...doc.data, individualvalue };
@@ -62,24 +71,24 @@ exports.handler = async function(event, context) {
               });
             }
           });
-      
-             // Return the 'individualvalue' array and the 'allvalues' score
-             return {
-              statusCode: 200,
-              body: JSON.stringify({
-                individualvalues: data.map(doc => doc.individualvalue),
-                allvalues
-              })
-            };
-          } catch (error) {
-            // Log the error message
-            console.error(error);
-        
-            // Return a server error response
-            return {
-              statusCode: 500,
-              body: JSON.stringify({ error: "Error getting data from FaunaDB" })
-            };
-          }
-        };
-      
+            
+    // Return the 'individualvalue' array and the 'allvalues' score
+    return {
+        statusCode: 200,
+        body: JSON.stringify({
+          individualvalues: data.map(doc => doc.individualvalue),
+          allvalues
+        })
+      };
+    } catch (error) {
+      // Log the error message
+      console.error(error);
+  
+      // Return a server error response
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Error getting data from FaunaDB" })
+      };
+    }
+  };
+  
