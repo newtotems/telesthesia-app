@@ -1,12 +1,10 @@
-const faunadb = require('faunadb');
-
 async function computeTotalScores(animalIds) {
   const client = new faunadb.Client({ secret: process.env.FAUNADB_SECRET });
 
   const animalRecords = [];
   for (const animalId of animalIds) {
     const animalRecord = await client.query(
-      faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('cards'), animalId))
+      faunadb.query.Get(faunadb.query.Ref(faunadb.query.Collection('animals'), animalId))
     );
     animalRecords.push(animalRecord);
   }
@@ -46,7 +44,10 @@ async function computeTotalScores(animalIds) {
   return animalScores;
 }
 
-computeTotalScores(['1', '2', '3', '4', '5'])
+const url = require('url');
+
+const animalIds = url.parse(window.location.href, true).query.animalIds;
+computeTotalScores(animalIds)
   .then(scores => {
     console.log(scores);
   })
