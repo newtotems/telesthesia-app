@@ -10,7 +10,12 @@ exports.handler = async function(event, context) {
   const { ids } = event.queryStringParameters;
 
   // Split the 'ids' string into an array of individual ID values
-  const idArray = ids.split(",");
+  if (typeof ids === 'string') {
+    const idArray = ids.split(",");
+  } else {
+    ids = String(ids);
+    const idArray = ids.split(",");
+  }
 
   // Query FaunaDB to get all documents in the 'cards' collection with an ID in the array of values
   const result = await client.query(
