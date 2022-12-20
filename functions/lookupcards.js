@@ -13,74 +13,80 @@ exports.handler = async function(event, context) {
     // Parse the values as an array of integers
     const valuesArray = values.split(",").map(val => parseInt(val, 10));
 
-    // Create a new array called "firstFive" that contains the first 5 elements of valuesArray
-    const firstFive = valuesArray.slice(0, 5);
+    // Create a new array called "firstFive" that contains the first 5 elements of valuesArray as strings
+    const firstFive = valuesArray.slice(0, 5).map(val => String(val));
 
-    // Query FaunaDB to get all documents in the 'cards' collection with an ID in the 'firstFive' array
+    // Convert the strings in the 'firstFive' array to numbers
+    const firstFiveNumbers = firstFive.map(val => Number(val));
+
+    // Query FaunaDB to get all documents in the 'cards' collection with an ID in the 'firstFiveNumbers' array
     const result = await client.query(
-      faunadb.query.Map(
-        // Get all documents in the 'cards' collection where the 'id' value is in the 'firstFive' array
-        faunadb.query.Filter(
-          faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
-          faunadb.query.Lambda("X", faunadb.query.Contains(firstFive, faunadb.query.Select("id", faunadb.query.Var("X"))))
-        ),
-        // Map over each document and return the data
-        faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
-      )
-    );
-
+        faunadb.query.Map(
+          // Get all documents in the 'cards' collection where the 'id' value is in the 'firstFiveNumbers' array
+          faunadb.query.Filter(
+            faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index("all_cards"))),
+            faunadb.query.Lambda("X", faunadb.query.Contains(firstFiveNumbers, faunadb.query.Select("id", faunadb.query.Var("X"))))
+          ),
+          // Map over each document and return the data
+          faunadb.query.Lambda("X", faunadb.query.Get(faunadb.query.Var("X")))
+        )
+      );
+  
     // Extract the data from the result
     const data = result.data.map(doc => {
-      // Add up the values in the 'scores' object and store the total in a new property called 'individualvalue'
-      let individualvalue = Object.values(doc.data.scores).reduce((acc, curr) => acc + curr, 0);
-      return { ...doc.data, individualvalue };
-    });
-
-    // Add up the 'individualvalue' values for all documents and store the result in 'allvalues'
-    let allvalues = data.reduce((acc, curr) => acc + curr.individualvalue, 0);
-
-    // Iterate over the documents in the 'data' array
-    data.forEach(doc => {
-      if (doc.rules) {
-        // Iterate over the keys in the 'rules' object
-        Object.keys(doc.rules).forEach(key => {
-          const rule = doc.rules[key];
-
-                   // Check the 'type' of the rule
-                   if (rule.type === "additive") {
-                    // Check if the 'criteria' of the rule is satisfied
-                    if (rule.criteria.type === doc.type) {
-                      // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-                      allvalues += rule.value * Object.keys(doc.scores).length;
-                    }
-                  } else if (rule.type === "subtractive") {
-                    // Check if the 'criteria' of the rule is satisfied
-                    if (rule.criteria.type === doc.type) {
-                      // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
-                      allvalues -= rule.value * Object.keys(doc.scores).length;
-                    }
-                  }
-                });
+        // Add up the values in the 'scores' object and store the total in a new property called 'individualvalue'
+        let individualvalue = Object.values(doc.data.scores).reduce((total, score) => total + score, 0);
+  
+        return { ...doc.data, individualvalue };
+      });
+  
+      // Initialize the 'allvalues' variable to 0
+      let allvalues = 0;
+  
+      // Iterate over the 'data' array
+      data.forEach(doc => {
+        // Add up the 'individualvalue' of each document to the 'allvalues' variable
+        allvalues += doc.individualvalue;
+  
+        // Check if the document has a 'rules' property
+        if (doc.rules) {
+          // Iterate over the 'rules' array
+          doc.rules.forEach(rule => {
+            // Check the 'type' of the rule
+            if (rule.type === "additive") {
+              // Check if the 'criteria' of the rule is satisfied
+              if (rule.criteria.type === doc.type) {
+                // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+                allvalues += rule.value * Object.keys(doc.scores).length;
               }
-            });
-        
-            // Return the 'individualvalue' array and the 'allvalues' score
-            return {
-              statusCode: 200,
-              body: JSON.stringify({
-                individualvalues: data.map(doc => doc.individualvalue),
-                allvalues
-              })
-            };
-          } catch (error) {
-            // Log the error message
-            console.error(error);
-        
-            // Return a server error response
-            return {
-              statusCode: 500,
-              body: JSON.stringify({ error: "Error getting data from FaunaDB" })
-            };
-          }
-        };
-        
+            } else if (rule.type === "subtractive") {
+              // Check if the 'criteria' of the rule is satisfied
+              if (rule.criteria.type === doc.type) {
+                // Adjust the 'allvalues' value based on the 'value' of the rule and the number of criteria instances
+                allvalues -= rule.value * Object.keys(doc.scores).length;
+              }
+            }
+          });
+        }
+      });
+  
+      // Return the 'individualvalue' array and the 'allvalues' score
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          individualvalues: data.map(doc => doc.individualvalue),
+          allvalues
+        })
+      };
+    } catch (error) {
+      // Log the error message
+      console.error(error);
+  
+      // Return a server error response
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: "Error getting data from FaunaDB" })
+      };
+    }
+  };
+  
