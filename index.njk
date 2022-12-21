@@ -119,6 +119,14 @@ input[type="checkbox"]:disabled + label {
     checkbox.disabled = false;
   }
 
+  if (checkedCount < 5) {
+  const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
+  disabledBoxes.forEach(box => {
+    box.disabled = false;
+  });
+}
+
+
 }
 
 const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
@@ -142,7 +150,7 @@ function shakeLabel() {
 function stopShakingLabel() {
   setTimeout(() => {
     this.classList.remove('shake');
-  }, 5000);
+  }, 1000);
 }
 
 // Get the label elements
