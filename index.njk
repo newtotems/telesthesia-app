@@ -56,27 +56,30 @@ input[type="checkbox"]:checked + label {
 </style>
 
 <script>
-
   function updateCheckboxes() {
-  // Count the number of checked checkboxes
-  const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+    // Count the number of checked checkboxes
+    const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
 
-  // If there are 5 checked boxes, disable all unchecked boxes
-  if (checkedCount === 5) {
-    const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
-    uncheckedBoxes.forEach(box => {
-      box.disabled = true;
-    });
+    // If there are 5 checked boxes, disable all unchecked boxes
+    if (checkedCount === 5) {
+      const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+      uncheckedBoxes.forEach(box => {
+        box.disabled = true;
+      });
+    }
+    // If there are less than 5 checked boxes, enable all disabled boxes
+    else {
+      const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
+      disabledBoxes.forEach(box => {
+        box.disabled = false;
+      });
+    }
   }
-  // If there are less than 5 checked boxes, enable all disabled boxes
-  else {
-    const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
-    disabledBoxes.forEach(box => {
-      box.disabled = false;
-    });
-  }
-}
 
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateCheckboxes);
+  });
 
 const button = document.getElementById('button');
 const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
