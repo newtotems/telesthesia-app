@@ -98,7 +98,6 @@ input[type="checkbox"]:disabled + label {
     uncheckedBoxes.forEach(box => {
       box.disabled = true;
     });
-    checkbox.disabled = true;
     const uncheckedLabels = document.querySelectorAll('input[type="checkbox"]:not(:checked) + label');
     uncheckedLabels.forEach(uncheckedLabel => {
       uncheckedLabel.classList.remove('shake');
