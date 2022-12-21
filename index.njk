@@ -53,28 +53,53 @@ input[type="checkbox"]:checked + label {
   background-color: #00ff00;
 }
 
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation: shake 0.5s;
+}
+
 </style>
 
 <script>
    function updateCheckboxes() {
-    // Count the number of checked checkboxes
-    const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
+  // Count the number of checked checkboxes
+  const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
 
-    // If there are 5 checked boxes, disable all unchecked boxes
-    if (checkedCount === 5) {
-      const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
-      uncheckedBoxes.forEach(box => {
-        box.disabled = true;
-      });
-    }
-    // If there are less than 5 checked boxes, enable all disabled boxes
-    else {
-      const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
-      disabledBoxes.forEach(box => {
-        box.disabled = false;
-      });
-    }
+  // If there are 5 checked boxes, disable all unchecked boxes and add the shake class
+  if (checkedCount === 5) {
+    const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
+    uncheckedBoxes.forEach(box => {
+      box.disabled = true;
+      box.classList.add('shake');
+    });
   }
+  // If there are less than 5 checked boxes, enable all disabled boxes and remove the shake class
+  else {
+    const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
+    disabledBoxes.forEach(box => {
+      box.disabled = false;
+      box.classList.remove('shake');
+    });
+  }
+}
+
 
   const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
   checkboxElements.forEach(checkbox => {
