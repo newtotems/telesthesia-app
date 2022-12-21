@@ -84,6 +84,7 @@ input[type="checkbox"]:disabled + label {
 
 <script>
 function updateCheckboxes() {
+ function updateCheckboxes() {
   // Get the checkbox and label elements
   const checkbox = this;
   const label = document.querySelector(`label[for="${checkbox.id}"]`);
@@ -111,6 +112,10 @@ function updateCheckboxes() {
   else if (checkbox.disabled && checkedCount < 5) {
     checkbox.disabled = false;
     label.classList.remove('shake');
+  }
+  // If the checkbox is disabled and there are already 5 checked boxes, add the shake class to the label
+  else if (checkbox.disabled && checkedCount === 5) {
+    label.classList.add('shake');
   }
 }
 
