@@ -56,7 +56,7 @@ input[type="checkbox"]:checked + label {
 </style>
 
 <script>
-  function updateCheckboxes() {
+   function updateCheckboxes() {
     // Count the number of checked checkboxes
     const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
 
@@ -76,8 +76,8 @@ input[type="checkbox"]:checked + label {
     }
   }
 
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(checkbox => {
+  const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
+  checkboxElements.forEach(checkbox => {
     checkbox.addEventListener('change', updateCheckboxes);
   });
 
