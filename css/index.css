@@ -46,7 +46,9 @@ body {
   background-color: var(--background-color);
 }
 
-body {padding-top:95px;}
+#records {
+  margin-top: 95px;
+}
 
 p:last-child {
   margin-bottom: 0;
