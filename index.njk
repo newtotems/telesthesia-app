@@ -97,7 +97,7 @@ async function displayRecords() {
     const response = await fetch('/.netlify/functions/returnrecords')
     const data = await response.json()
 
-console.log(data.results);
+    console.log(data.results);
 
     // Extract the id and name for each record
     const records = data.results.map(record => ({
@@ -126,13 +126,8 @@ console.log(data.results);
   }
 }
 
-// Call the displayRecords function on page load
-window.addEventListener('load', displayRecords)
+displayRecords().then(updateCheckboxes);
 
-
-
-
- 
  function updateCheckboxes() {
   // Get the checkbox and label elements
   const checkbox = this;
