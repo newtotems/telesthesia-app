@@ -113,8 +113,8 @@ async function displayRecords() {
         recordsDiv.innerHTML += '<div style="display:flex">'
       }
       recordsDiv.innerHTML += `
-        <input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
-        <label for="checkbox${record.id}">${record.name}</label><br>
+        <div><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
+        <label for="checkbox${record.id}">${record.name}</label></div>
       `
       if (count % 5 === 4) {
         recordsDiv.innerHTML += '</div>'
