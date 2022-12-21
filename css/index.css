@@ -46,6 +46,8 @@ body {
   background-color: var(--background-color);
 }
 
+body {padding-top:95px;}
+
 p:last-child {
   margin-bottom: 0;
 }
@@ -120,13 +122,18 @@ header {
   position: fixed;
   width: 100%;
   height: 75px;
+  background-color: #fff;
 }
 
 header button {
   padding:20px;
   display: block;
   width: 100%;
+}
 
+.h_score {
+  flex-basis: 150px;
+    text-align: center;
 }
 
 /* Nav */
