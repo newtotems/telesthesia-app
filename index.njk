@@ -133,8 +133,8 @@ input[type="checkbox"]:disabled + label {
 }
 
 
-}
 
+// --------------- start shake label code -----------------------
 
 // Add the 'shake' class to the label when it is clicked
 function shakeLabel() {
@@ -160,6 +160,10 @@ labelElements.forEach(label => {
   label.addEventListener('click', stopShakingLabel);
 });
 
+// --------------- end shake label code -----------------------
+
+
+}
 
 const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
 checkboxElements.forEach(checkbox => {
