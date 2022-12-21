@@ -99,8 +99,8 @@ console.log(data.results);
 
     // Extract the id and name for each record
     const records = data.results.map(record => ({
-      id: record.data.id,
-      name: record.data.name
+      id: record.id,
+      name: record.name
     }))
 
     // Load the records into the div with the id of "records"
