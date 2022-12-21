@@ -80,6 +80,10 @@ main :first-child {
   margin-top: 0;
 }
 
+.flex20 {
+  flex-basis: 20%;
+}
+
 header:after {
   content: "";
   display: table;

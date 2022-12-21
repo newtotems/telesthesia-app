@@ -163,7 +163,7 @@ async function displayRecords() {
     
     records.forEach(record => {
       recordsDiv.innerHTML += `
-        <div><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
+        <div class=\"flex20\"><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
         <label for="checkbox${record.id}">${record.name}</label></div>
       `
     })
