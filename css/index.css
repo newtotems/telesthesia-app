@@ -71,7 +71,10 @@ a[href]:visited {
 }
 
 main {
-  padding: 1rem;
+  padding: 95px 0 0 0;
+  margin: 0 auto;
+  display: block;
+  max-width: 740px;
 }
 main :first-child {
   margin-top: 0;
