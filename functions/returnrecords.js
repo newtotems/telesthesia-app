@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
 
     // Extract the id and name for each record
     const results = response.data.map(record => ({
-      id: record.ref.id,
+      id: record.data.id,
       name: record.data.name
     }))
 
