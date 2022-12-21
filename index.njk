@@ -2,6 +2,12 @@
 <div id="result"></div>
 <button id="button" disabled>Check</button>
 
+----------
+
+<div id="records"></div>
+
+----------
+
 
 <form>
   <div style="display:flex">
@@ -83,6 +89,45 @@ input[type="checkbox"]:disabled + label {
 </style>
 
 <script>
+async function displayRecords() {
+  try {
+    // Call the Netlify function to fetch all records
+    const response = await fetch('/.netlify/functions/returnrecords')
+    const data = await response.json()
+
+    // Extract the id and name for each record
+    const records = data.results.map(record => ({
+      id: record.ref.id,
+      name: record.data.name
+    }))
+
+    // Load the records into the div with the id of "records"
+    const recordsDiv = document.getElementById('records')
+    let count = 0
+    records.forEach(record => {
+      if (count % 5 === 0) {
+        recordsDiv.innerHTML += '<div style="display:flex">'
+      }
+      recordsDiv.innerHTML += `
+        <input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
+        <label for="checkbox${record.id}">${record.name}</label><br>
+      `
+      if (count % 5 === 4) {
+        recordsDiv.innerHTML += '</div>'
+      }
+      count++
+    })
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+// Call the displayRecords function on page load
+window.addEventListener('load', displayRecords)
+
+
+
+
  
  function updateCheckboxes() {
   // Get the checkbox and label elements
