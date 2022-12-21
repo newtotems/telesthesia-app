@@ -119,6 +119,9 @@ console.log(data.results);
       }
       count++
     })
+
+    // Call updateCheckboxes() after displayRecords() has completed
+    updateCheckboxes();
   } catch (error) {
     console.error(error)
   }
