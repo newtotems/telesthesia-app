@@ -121,7 +121,7 @@ input[type="checkbox"]:disabled + label {
     label.classList.remove('shake');
   }
   // If the checkbox is disabled and there are already 4 checked boxes, add the shake class to the label
-  else if (checkbox.disabled && checkedCount === 5) {
+  else if (checkbox.disabled && checkedCount >= 5) {
     label.classList.add('shake');
   }
 }
