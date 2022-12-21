@@ -109,7 +109,6 @@ input[type="checkbox"]:disabled + label {
     uncheckedBoxes.forEach(box => {
       box.disabled = true;
     });
-    label.classList.remove('shake');
   }
   // If the checkbox is not disabled and there are less than 4 checked boxes, remove the shake class from the label
   else if (!checkbox.disabled && label.classList.contains('shake')) {
@@ -118,12 +117,8 @@ input[type="checkbox"]:disabled + label {
   // If the checkbox is disabled and there are less than 4 checked boxes, enable the checkbox and remove the shake class from the label
   else if (checkbox.disabled && checkedCount <= 5) {
     checkbox.disabled = false;
-    label.classList.remove('shake');
   }
-  // If the checkbox is disabled and there are already 4 checked boxes, add the shake class to the label
-  else if (checkbox.disabled && checkedCount >= 5) {
-    label.classList.add('shake');
-  }
+
 }
 
 const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
@@ -134,6 +129,33 @@ checkboxElements.forEach(checkbox => {
 
 
 //-------
+
+// Add the 'shake' class to the label when it is clicked
+function shakeLabel() {
+  // Only add the 'shake' class if the checkbox is disabled
+  if (this.previousElementSibling.disabled) {
+    this.classList.add('shake');
+  }
+}
+
+// Remove the 'shake' class from the label after 5 seconds
+function stopShakingLabel() {
+  setTimeout(() => {
+    this.classList.remove('shake');
+  }, 5000);
+}
+
+// Get the label elements
+const labelElements = document.querySelectorAll('label');
+
+// Add the 'shake' and 'stopShaking' event listeners to the labels
+labelElements.forEach(label => {
+  label.addEventListener('click', shakeLabel);
+  label.addEventListener('click', stopShakingLabel);
+});
+
+
+//=========
 
 const button = document.getElementById('button');
 const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
