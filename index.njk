@@ -78,25 +78,30 @@ input[type="checkbox"]:checked + label {
 </style>
 
 <script>
-  function updateCheckboxes() {
+ function updateCheckboxes() {
+  // Get the checkbox and label elements
+  const checkbox = this;
+  const label = document.querySelector(`label[for="${checkbox.id}"]`);
+
   // Count the number of checked checkboxes
   const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
 
-  // If there are 5 checked boxes, disable all unchecked boxes and add the shake class
-  if (checkedCount === 5) {
-    const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
-    uncheckedBoxes.forEach(box => {
-      box.disabled = true;
-      box.classList.add('shake');
+  // If the checkbox is disabled and has the shake class, remove the shake class from the label
+  if (checkbox.disabled && label.classList.contains('shake')) {
+    label.classList.remove('shake');
+  }
+  // If the checkbox is not disabled and there are 5 checked boxes, disable the checkbox, add the shake class to the label, and remove the shake class from all other labels
+  else if (!checkbox.disabled && checkedCount === 5) {
+    checkbox.disabled = true;
+    label.classList.add('shake');
+    const uncheckedLabels = document.querySelectorAll('input[type="checkbox"]:not(:checked) + label');
+    uncheckedLabels.forEach(uncheckedLabel => {
+      uncheckedLabel.classList.remove('shake');
     });
   }
-  // If there are less than 5 checked boxes, enable all disabled boxes and remove the shake class
-  else {
-    const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
-    disabledBoxes.forEach(box => {
-      box.disabled = false;
-      box.classList.remove('shake');
-    });
+  // If the checkbox is not disabled and there are less than 5 checked boxes, remove the shake class from the label
+  else if (!checkbox.disabled && label.classList.contains('shake')) {
+    label.classList.remove('shake');
   }
 }
 
@@ -104,6 +109,7 @@ const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
 checkboxElements.forEach(checkbox => {
   checkbox.addEventListener('change', updateCheckboxes);
 });
+
 
 //-------
 
