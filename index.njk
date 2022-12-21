@@ -91,36 +91,6 @@ input[type="checkbox"]:disabled + label {
 </style>
 
 <script>
-async function displayRecords() {
-  try {
-    // Call the Netlify function to fetch all records
-    const response = await fetch('/.netlify/functions/returnrecords')
-    const data = await response.json()
-
-    console.log(data.results);
-
-    // Extract the id and name for each record
-    const records = data.results.map(record => ({
-      id: record.id,
-      name: record.name
-    }))
-
-    // Load the records into the div with the id of "records"
-    const recordsDiv = document.getElementById('records')
-    
-    records.forEach(record => {
-      recordsDiv.innerHTML += `
-        <div><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
-        <label for="checkbox${record.id}">${record.name}</label></div>
-      `
-    })
-  } catch (error) {
-    console.error(error)
-  }
-}
-
-displayRecords().then(updateCheckboxes);
-
  function updateCheckboxes() {
   // Get the checkbox and label elements
   const checkbox = this;
@@ -166,12 +136,42 @@ displayRecords().then(updateCheckboxes);
 
 }
 
+async function displayRecords() {
+  try {
+    // Call the Netlify function to fetch all records
+    const response = await fetch('/.netlify/functions/returnrecords')
+    const data = await response.json()
+
+    console.log(data.results);
+
+    // Extract the id and name for each record
+    const records = data.results.map(record => ({
+      id: record.id,
+      name: record.name
+    }))
+
+    // Load the records into the div with the id of "records"
+    const recordsDiv = document.getElementById('records')
+    
+    records.forEach(record => {
+      recordsDiv.innerHTML += `
+        <div><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
+        <label for="checkbox${record.id}">${record.name}</label></div>
+      `
+    })
+  } catch (error) {
+    console.error(error)
+  }
+
 const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
 checkboxElements.forEach(checkbox => {
   checkbox.addEventListener('change', updateCheckboxes);
 });
 
 
+}
+
+displayRecords();
 
 //-------
 
