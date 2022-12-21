@@ -134,8 +134,13 @@ header button {
 }
 
 .h_score {
-  flex-basis: 150px;
+  flex-basis: 20%;
     text-align: center;
+}
+
+.h_check {
+  flex-basis: 80%;
+
 }
 
 /* Nav */
