@@ -92,7 +92,7 @@ input[type="checkbox"]:disabled + label {
   const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
 
   // If the checkbox is not disabled and there are 5 checked boxes, disable all unchecked boxes, add the shake class to the label, and remove the shake class from all other labels
-  if (!checkbox.disabled && checkedCount === 5) {
+  if (!checkbox.disabled && checkedCount > 5) {
     const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
     uncheckedBoxes.forEach(box => {
       box.disabled = true;
@@ -113,7 +113,7 @@ input[type="checkbox"]:disabled + label {
     label.classList.remove('shake');
   }
   // If the checkbox is disabled and there are already 5 checked boxes, add the shake class to the label
-  else if (checkbox.disabled && checkedCount === 5) {
+  else if (checkbox.disabled && checkedCount > 5) {
     label.classList.add('shake');
   }
 }
