@@ -107,6 +107,12 @@ input[type="checkbox"]:disabled + label {
   else if (!checkbox.disabled && label.classList.contains('shake')) {
     label.classList.remove('shake');
   }
+  // disable all others then reach 5
+  else if (checkedCount === 5) {
+    uncheckedBoxes.forEach(box => {
+      box.disabled = true;
+    });
+  }
   // If the checkbox is disabled and there are less than 5 checked boxes, enable the checkbox and remove the shake class from the label
   else if (checkbox.disabled && checkedCount < 5) {
     checkbox.disabled = false;
