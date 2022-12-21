@@ -95,6 +95,7 @@ input[type="checkbox"]:disabled + label {
   const checkbox = this;
   const label = document.querySelector(`label[for="${checkbox.id}"]`);
   console.log(label);
+  console.log(checkbox);
 
   // Count the number of checked checkboxes
   const checkedCount = document.querySelectorAll('input[type="checkbox"]:checked').length;
