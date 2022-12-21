@@ -107,19 +107,12 @@ async function displayRecords() {
 
     // Load the records into the div with the id of "records"
     const recordsDiv = document.getElementById('records')
-    let count = 0
+    
     records.forEach(record => {
-      if (count % 5 === 0) {
-        recordsDiv.innerHTML += '<div style="display:flex">'
-      }
       recordsDiv.innerHTML += `
         <div><input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
         <label for="checkbox${record.id}">${record.name}</label></div>
       `
-      if (count % 5 === 4) {
-        recordsDiv.innerHTML += '</div>'
-      }
-      count++
     })
   } catch (error) {
     console.error(error)
