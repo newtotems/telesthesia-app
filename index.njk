@@ -104,7 +104,7 @@ input[type="checkbox"]:disabled + label {
     });
   }
   // If the checkbox is not disabled and there are 4 checked boxes, disable all unchecked boxes and remove the shake class from the label
-  else if (!checkbox.disabled && checkedCount === 5) {
+  else if (!checkbox.disabled && checkedCount === 4) {
     const uncheckedBoxes = document.querySelectorAll('input[type="checkbox"]:not(:checked)');
     uncheckedBoxes.forEach(box => {
       box.disabled = true;
@@ -114,17 +114,20 @@ input[type="checkbox"]:disabled + label {
   else if (!checkbox.disabled && label.classList.contains('shake')) {
     label.classList.remove('shake');
   }
-  // If the checkbox is disabled and there are less than 4 checked boxes, enable the checkbox and remove the shake class from the label
-  else if (checkbox.disabled && checkedCount <= 5) {
-    checkbox.disabled = false;
+  // If the checkbox is disabled and there are less than 4 checked boxes, enable all disabled checkboxes and remove the shake class from the label
+  else if (checkbox.disabled && checkedCount < 5) {
+    const disabledBoxes = document.querySelectorAll('input[type="checkbox"]:disabled');
+    disabledBoxes.forEach(box => {
+      box.disabled = false;
+    });
   }
-
 }
 
 const checkboxElements = document.querySelectorAll('input[type="checkbox"]');
 checkboxElements.forEach(checkbox => {
   checkbox.addEventListener('change', updateCheckboxes);
 });
+
 
 
 
