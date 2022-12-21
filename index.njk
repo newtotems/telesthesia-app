@@ -8,7 +8,7 @@
 
 ----------
 
-
+<!-- 
 <form>
   <div style="display:flex">
   <input type="checkbox" id="checkbox1" name="checkbox1" value="1">
@@ -36,8 +36,7 @@
   <label for="checkbox10">10</label><br>
 </div>
 </form> 
-
-
+-->
 
 <style>
   input[type="checkbox"] {
@@ -107,16 +106,10 @@ console.log(data.results);
     const recordsDiv = document.getElementById('records')
     let count = 0
     records.forEach(record => {
-      if (count % 5 === 0) {
-        recordsDiv.innerHTML += '<div style="display:flex">'
-      }
       recordsDiv.innerHTML += `
         <input type="checkbox" id="checkbox${record.id}" name="checkbox${record.id}" value="${record.id}">
         <label for="checkbox${record.id}">${record.name}</label><br>
       `
-      if (count % 5 === 4) {
-        recordsDiv.innerHTML += '</div>'
-      }
       count++
     })
   } catch (error) {
