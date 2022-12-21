@@ -168,40 +168,6 @@ checkboxElements.forEach(checkbox => {
   checkbox.addEventListener('change', updateCheckboxes);
 });
 
-
-}
-
-displayRecords();
-
-//-------
-
-// Add the 'shake' class to the label when it is clicked
-function shakeLabel() {
-  // Only add the 'shake' class if the checkbox is disabled
-  if (this.previousElementSibling.disabled) {
-    this.classList.add('shake');
-  }
-}
-
-// Remove the 'shake' class from the label after 5 seconds
-function stopShakingLabel() {
-  setTimeout(() => {
-    this.classList.remove('shake');
-  }, 1000);
-}
-
-// Get the label elements
-const labelElements = document.querySelectorAll('label');
-
-// Add the 'shake' and 'stopShaking' event listeners to the labels
-labelElements.forEach(label => {
-  label.addEventListener('click', shakeLabel);
-  label.addEventListener('click', stopShakingLabel);
-});
-
-
-//=========
-
 const button = document.getElementById('button');
 const checkboxes = Array.from(document.querySelectorAll('input[type="checkbox"]'));
 
@@ -246,5 +212,41 @@ button.addEventListener('click', () => {
       console.error(error);
     });
 });
+
+
+
+}
+
+displayRecords();
+
+//-------
+
+// Add the 'shake' class to the label when it is clicked
+function shakeLabel() {
+  // Only add the 'shake' class if the checkbox is disabled
+  if (this.previousElementSibling.disabled) {
+    this.classList.add('shake');
+  }
+}
+
+// Remove the 'shake' class from the label after 5 seconds
+function stopShakingLabel() {
+  setTimeout(() => {
+    this.classList.remove('shake');
+  }, 1000);
+}
+
+// Get the label elements
+const labelElements = document.querySelectorAll('label');
+
+// Add the 'shake' and 'stopShaking' event listeners to the labels
+labelElements.forEach(label => {
+  label.addEventListener('click', shakeLabel);
+  label.addEventListener('click', stopShakingLabel);
+});
+
+
+//=========
+
 
 </script>
