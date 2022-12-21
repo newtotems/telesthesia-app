@@ -95,6 +95,8 @@ async function displayRecords() {
     const response = await fetch('/.netlify/functions/returnrecords')
     const data = await response.json()
 
+console.log(data);
+
     // Extract the id and name for each record
     const records = data.results.map(record => ({
       id: record.data.id,
