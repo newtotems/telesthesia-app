@@ -39,59 +39,50 @@ exports.handler = async function(event, context) {
       playerTotalScore += card.scores.vitality + card.scores.intelligence + card.scores.balance + card.scores.social + card.scores.energy;
     });
   
-    // Evaluate and apply defense rules for each data set
-    o.forEach(card => {
-      card.rules.forEach(rule => {
-        if (rule.type === "Defense") {
-          if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] > rule.condition.scoreType.threshold) {
-            opponentTotalScore += rule.effect.modifier;
-          }
+        // Evaluate and apply defense rules for each data set
+        o.forEach(card => {
+            card.rules.forEach(rule => {
+              if (rule.type === "Defense") {
+                if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] > rule.condition.scoreType.threshold) {
+                  opponentTotalScore += rule.effect.modifier;
+                }
+              }
+            });
+          });
+          p.forEach(card => {
+            card.rules.forEach(rule => {
+              if (rule.type === "Defense") {
+                if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] > rule.condition.scoreType.threshold) {
+                  playerTotalScore += rule.effect.modifier;
+                }
+              }
+            });
+          });
+        
+      // Evaluate and apply attack rules for each data set
+      o.forEach(card => {
+          card.rules.forEach(rule => {
+            if (rule.type === "Attack") {
+              if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] < rule.condition.scoreType.threshold) {
+                playerTotalScore += rule.effect.modifier;
+              }
+            }
+          });
+        });
+        p.forEach(card => {
+          card.rules.forEach(rule => {
+            if (rule.type === "Attack") {
+              if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] < rule.condition.scoreType.threshold) {
+                opponentTotalScore += rule.effect.modifier;
+              }
+            }
+          });
+        });
+        
+        // Return the updated total scores
+        return {
+          opponentTotalScore: opponentTotalScore,
+          playerTotalScore: playerTotalScore
         }
-      });
-    });
-    p.forEach(card => {
-      card.rules.forEach(rule => {
-        if (rule.type === "Defense") {
-          if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] > rule.condition.scoreType.threshold) {
-            playerTotalScore += rule.effect.modifier;
-          }
-        }
-      });
-    });
-  
-// Evaluate and apply attack rules for each data set
-o.forEach(card => {
-    card.rules.forEach(rule => {
-      if (rule.type === "Attack") {
-        if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] < rule.condition.scoreType.threshold) {
-          playerTotalScore += rule.effect.modifier;
-        }
-      }
-    });
-  });
-  p.forEach(card => {
-    card.rules.forEach(rule => {
-      if (rule.type === "Attack") {
-        if (rule.condition.value === card.type && card.scores[rule.condition.scoreType.name] < rule.condition.scoreType.threshold) {
-          opponentTotalScore += rule.effect.modifier;
-        }
-      }
-    });
-  });
-  
-  // Return the updated total scores
-  return {
-    opponentTotalScore: opponentTotalScore,
-    playerTotalScore: playerTotalScore
-  };
-}
-  
-    return {
-      statusCode: 200,
-      body: "Success"
-    };
-  };
-  
-
-
-
+    }
+};
