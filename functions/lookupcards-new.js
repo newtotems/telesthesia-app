@@ -27,7 +27,6 @@ exports.handler = async function(event, context) {
   
     // logic here
 
-    /*
     function calculateTotalScores(o, p) {
     let opponentTotalScore = 0;
     let playerTotalScore = 0;
@@ -86,7 +85,6 @@ o.forEach(card => {
     playerTotalScore: playerTotalScore
   };
 }
-    */
   
     return {
       statusCode: 200,
