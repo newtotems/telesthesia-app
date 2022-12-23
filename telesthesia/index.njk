@@ -85,15 +85,6 @@ if (data.text) {
   document.getElementById('console__text').appendChild(textNode);
 }
 
-// If neither image nor text were found in the response data
-if (!data.image && !data.text) {
-  // Create a text node with the "nothing here" message
-  const textNode = document.createTextNode('nothing here');
-
-  // Add the text node to the console__text div
-  document.getElementById('console__text').appendChild(textNode);
-}
-
   }
 }
 
