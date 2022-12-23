@@ -33,7 +33,11 @@ async function checklocation(lat, lng) {
   // Replace this with your own Netlify function URL
   const functionUrl = 'https://tranquil-phoenix-a6c306.netlify.app/.netlify/functions/checklocation';
 
-  // Send the latitude and longitude as parameters to the function
+ // Round the lat and lng values to four decimal places
+  const roundedLat = lat.toFixed(4);
+  const roundedLng = lng.toFixed(4);
+
+  // Send the rounded latitude and longitude as parameters to the function
   const response = await fetch(functionUrl, {
     method: 'POST',
     headers: {
@@ -41,7 +45,7 @@ async function checklocation(lat, lng) {
       'Origin': 'https://tranquil-phoenix-a6c306.netlify.app',
       'Accept': 'application/json'
     },
-  body: JSON.stringify({ lat, lng }) // Stringify the body data as JSON
+    body: `lat=${roundedLat}&lng=${roundedLng}`
   });
 
   // Check for a successful response
