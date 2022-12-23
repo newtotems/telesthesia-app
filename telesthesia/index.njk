@@ -35,27 +35,30 @@ function checklocation(lat, lng) {
 
   // Send the latitude and longitude as parameters to the function
   var xhr = new XMLHttpRequest();
-  xhr.open('POST', functionUrl, true);
-  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-  xhr.onload = function() {
-    // Check for a successful response
-    if (xhr.status === 200) {
-      // Get the response data
-      var data = JSON.parse(xhr.responseText);
+xhr.open('POST', functionUrl, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.setRequestHeader('Origin', 'https://example.com'); // Add the Origin header
+xhr.setRequestHeader('Accept', 'application/json'); // Add the Accept header
+xhr.onload = function() {
+  // Check for a successful response
+  if (xhr.status === 200) {
+    // Get the response data
+    var data = JSON.parse(xhr.responseText);
 
-      // Check for image and text in the response data
-      if (data.image && data.text) {
-        // Display the image and text
-        var imageElement = document.createElement('img');
-        imageElement.src = data.image;
-        document.body.appendChild(imageElement);
+    // Check for image and text in the response data
+    if (data.image && data.text) {
+      // Display the image and text
+      var imageElement = document.createElement('img');
+      imageElement.src = data.image;
+      document.body.appendChild(imageElement);
 
-        var textElement = document.createTextNode(data.text);
-        document.body.appendChild(textElement);
-      }
+      var textElement = document.createTextNode(data.text);
+      document.body.appendChild(textElement);
     }
-  };
-  xhr.send('lat=' + lat + '&lng=' + lng);
+  }
+};
+xhr.send('lat=' + lat + '&lng=' + lng);
+
 }
 
     </script>
