@@ -34,10 +34,16 @@ exports.handler = async (event, context) => {
         const result = await client.query(
           faunadb.query.Count(faunadb.query.Index('all_negative_responses'))
         );
+        console.log(result);
   
         // Generate a random number up to the maximum value of the number of records
         const maxRecordId = result;
         const randomRecordId = Math.round(Math.random() * maxRecordId);
+
+        console.log(maxRecordId);
+        console.log(randomRecordId);
+
+
   
         // Fetch the record with the generated ID from the all_negative_responses index
         const record = await client.query(
