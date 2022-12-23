@@ -20,6 +20,9 @@ exports.handler = async (event, context) => {
     // Return the image and text fields from the matching record
     return {
       statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://tranquil-phoenix-a6c306.netlify.app'
+      },
       body: JSON.stringify({
         image: result.data.image,
         text: result.data.text
@@ -29,6 +32,9 @@ exports.handler = async (event, context) => {
     // Return a message if no matching record was found
     return {
       statusCode: 404,
+      headers: {
+        'Access-Control-Allow-Origin': 'https://tranquil-phoenix-a6c306.netlify.app'
+      },
       body: 'nothing here'
     };
   }
