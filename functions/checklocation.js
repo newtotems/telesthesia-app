@@ -3,8 +3,8 @@ const faunadb = require('faunadb');
 exports.handler = async (event, context) => {
   // Parse the lat and long values from the request body
   const body = JSON.parse(event.body);
-  const lat = body.lat;
-  const lng = body.lng;
+  const lat = Number(body.lat);
+  const lng = Number(body.lng);
 
   console.log(lat,lng);
 
