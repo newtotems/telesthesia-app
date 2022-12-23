@@ -62,21 +62,31 @@ async function checklocation(lat, lng) {
 document.getElementById('console__image').innerHTML = '';
 document.getElementById('console__text').innerHTML = '';
 
-// Check for image and text in the response data
-if (data.image && data.text) {
+// Remove any existing elements from the console__image and console__text elements
+document.getElementById('console__image').innerHTML = '';
+document.getElementById('console__text').innerHTML = '';
+
+// Check for image in the response data
+if (data.image) {
   // Create an image element and set its src attribute to the image field from the response data
   const imageElement = document.createElement('img');
   imageElement.src = data.image;
 
   // Add the image element to the console__image div
   document.getElementById('console__image').appendChild(imageElement);
+}
 
+// Check for text in the response data
+if (data.text) {
   // Create a text node with the text field from the response data
   const textNode = document.createTextNode(data.text);
 
   // Add the text node to the console__text div
   document.getElementById('console__text').appendChild(textNode);
-} else {
+}
+
+// If neither image nor text were found in the response data
+if (!data.image && !data.text) {
   // Create a text node with the "nothing here" message
   const textNode = document.createTextNode('nothing here');
 
