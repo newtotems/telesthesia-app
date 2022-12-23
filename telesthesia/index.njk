@@ -5,6 +5,11 @@ layout: layouts/telesthesia-base.njk
     <!-- Create a div element to hold the map -->
     <div id="map"></div>
 
+     <div id="console">
+        <div id="console__image"></div>
+        <div id="console__text"></div>
+    </div>
+
     <!-- Include the Leaflet JavaScript file -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
@@ -53,16 +58,22 @@ async function checklocation(lat, lng) {
     // Get the response data
     const data = await response.json();
 
-    // Check for image and text in the response data
-    if (data.image && data.text) {
-      // Display the image and text
-      const imageElement = document.createElement('img');
-      imageElement.src = data.image;
-      document.body.appendChild(imageElement);
+// Check for image and text in the response data
+if (data.image && data.text) {
+  // Create an image element and set its src attribute to the image field from the response data
+  const imageElement = document.createElement('img');
+  imageElement.src = data.image;
 
-      const textElement = document.createTextNode(data.text);
-      document.body.appendChild(textElement);
-    }
+  // Add the image element to the console__image div
+  document.getElementById('console__image').appendChild(imageElement);
+
+  // Create a text node with the text field from the response data
+  const textNode = document.createTextNode(data.text);
+
+  // Add the text node to the console__text div
+  document.getElementById('console__text').appendChild(textNode);
+}
+
   }
 }
 
