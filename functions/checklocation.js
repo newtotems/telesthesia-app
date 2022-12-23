@@ -36,7 +36,7 @@ exports.handler = async (event, context) => {
         );
   
         // Generate a random number up to the maximum value of the number of records
-        const maxRecordId = result.data;
+        const maxRecordId = result.data.count;
         const randomRecordId = Math.floor(Math.random() * maxRecordId);
   
         // Fetch the record with the generated ID from the all_negative_responses index
@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
   
         // Return the text field from the fetched record
         return {
-          statusCode: 404,
+          statusCode: 200,
           headers: {
             'Access-Control-Allow-Origin': '*'
           },
