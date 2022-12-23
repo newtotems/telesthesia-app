@@ -19,7 +19,7 @@ exports.handler = async (event, context) => {
       )
     );
 
-    var jr = JSON.stringify(result);
+    var jr = JSON.stringify(result.data);
     console.log(jr);
 
     // Return the image and text fields from the matching record
