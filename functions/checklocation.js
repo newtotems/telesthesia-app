@@ -21,7 +21,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       headers: {
-        'Access-Control-Allow-Origin': 'https://tranquil-phoenix-a6c306.netlify.app'
+        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
         image: result.data.image,
@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 404,
       headers: {
-        'Access-Control-Allow-Origin': 'https://tranquil-phoenix-a6c306.netlify.app'
+        'Access-Control-Allow-Origin': '*'
       },
       body: 'nothing here'
     };
