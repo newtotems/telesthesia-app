@@ -31,7 +31,7 @@ map.on('click', function(event) {
 
 async function checklocation(lat, lng) {
   // Replace this with your own Netlify function URL
-  const functionUrl = '/.netlify/functions/checklocation';
+  const functionUrl = 'https://tranquil-phoenix-a6c306.netlify.app/.netlify/functions/checklocation';
 
   // Send the latitude and longitude as parameters to the function
   const response = await fetch(functionUrl, {
