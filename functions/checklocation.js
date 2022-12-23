@@ -52,7 +52,7 @@ exports.handler = async (event, context) => {
         headers: {
           'Access-Control-Allow-Origin': '*'
         },
-        body: 'An error occurred while processing your request'
+        body: 'ERROR unknwn'
       };
     }
   }
