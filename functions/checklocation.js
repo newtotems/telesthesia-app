@@ -19,6 +19,9 @@ exports.handler = async (event, context) => {
       )
     );
 
+    var jr = JSON.stringify(result);
+    console.log(jr);
+
     // Return the image and text fields from the matching record
     return {
       statusCode: 200,
