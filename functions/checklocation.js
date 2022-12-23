@@ -34,8 +34,9 @@ exports.handler = async (event, context) => {
     // Fetch the record with the ID of 1 from the all_negative_responses index
     try {
       const record = await client.query(
-        faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), 1)
+        faunadb.query.Get(faunadb.query.Ref(faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), 1)))
       );
+
 
       // Return the text field from the fetched record
       return {
