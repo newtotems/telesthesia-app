@@ -36,8 +36,8 @@ exports.handler = async (event, context) => {
         );
   
         // Generate a random number up to the maximum value of the number of records
-        const maxRecordId = result.data.count;
-        const randomRecordId = Math.floor(Math.random() * maxRecordId);
+        const maxRecordId = result;
+        const randomRecordId = Math.round(Math.random() * maxRecordId);
   
         // Fetch the record with the generated ID from the all_negative_responses index
         const record = await client.query(
