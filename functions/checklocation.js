@@ -29,10 +29,10 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
-    // Try to get a random record from the negative_responses collection
+    // Try to get a random record from the all_negative_responses index
     try {
       const result = await client.query(
-        faunadb.query.Random(faunadb.query.Collection('negative_responses'))
+        faunadb.query.Random(faunadb.query.Index('all_negative_responses'))
       );
 
       // Return the text field from the random record
@@ -46,13 +46,13 @@ exports.handler = async (event, context) => {
         })
       };
     } catch (error) {
-      // Return an error if unable to get a random record from the negative_responses collection
+      // Return an error if unable to get a random record from the all_negative_responses index
       return {
         statusCode: 500,
         headers: {
           'Access-Control-Allow-Origin': '*'
         },
-        body: 'Error: Unable to get a random record from the negative_responses collection'
+        body: 'Error: Unable to get a random record from the all_negative_responses index'
       };
     }
   }
