@@ -6,6 +6,8 @@ exports.handler = async (event, context) => {
   const lat = body.lat;
   const lng = body.lng;
 
+  console.log(lat,lng);
+
   // Create a FaunaDB client
   const client = new faunadb.Client({ secret: process.env.DB_SECRT });
 
