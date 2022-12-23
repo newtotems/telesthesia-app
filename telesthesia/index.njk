@@ -58,6 +58,10 @@ async function checklocation(lat, lng) {
     // Get the response data
     const data = await response.json();
 
+// Remove any existing elements from the console__image and console__text elements
+document.getElementById('console__image').innerHTML = '';
+document.getElementById('console__text').innerHTML = '';
+
 // Check for image and text in the response data
 if (data.image && data.text) {
   // Create an image element and set its src attribute to the image field from the response data
@@ -69,6 +73,12 @@ if (data.image && data.text) {
 
   // Create a text node with the text field from the response data
   const textNode = document.createTextNode(data.text);
+
+  // Add the text node to the console__text div
+  document.getElementById('console__text').appendChild(textNode);
+} else {
+  // Create a text node with the "nothing here" message
+  const textNode = document.createTextNode('nothing here');
 
   // Add the text node to the console__text div
   document.getElementById('console__text').appendChild(textNode);
