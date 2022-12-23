@@ -1,0 +1,61 @@
+---
+layout: layouts/telesthesia-base.njk
+---
+
+    <!-- Create a div element to hold the map -->
+    <div id="map"></div>
+
+    <!-- Include the Leaflet JavaScript file -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+    <!-- Initialize the map -->
+    <script>
+     // Create the Leaflet map object
+var map = L.map('map').setView([51.505, -0.09], 13);
+
+// Add a tile layer to the map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+  maxZoom: 18
+}).addTo(map);
+
+// Add a click listener to the map
+map.on('click', function(event) {
+  // Get the latitude and longitude of the click event
+  var lat = event.latlng.lat;
+  var lng = event.latlng.lng;
+
+  // Send the latitude and longitude to the checklocation function
+  checklocation(lat, lng);
+});
+
+function checklocation(lat, lng) {
+  // Replace this with your own Netlify function URL
+  var functionUrl = 'https://example.com/.netlify/functions/checklocation';
+
+  // Send the latitude and longitude as parameters to the function
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', functionUrl, true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.onload = function() {
+    // Check for a successful response
+    if (xhr.status === 200) {
+      // Get the response data
+      var data = JSON.parse(xhr.responseText);
+
+      // Check for image and text in the response data
+      if (data.image && data.text) {
+        // Display the image and text
+        var imageElement = document.createElement('img');
+        imageElement.src = data.image;
+        document.body.appendChild(imageElement);
+
+        var textElement = document.createTextNode(data.text);
+        document.body.appendChild(textElement);
+      }
+    }
+  };
+  xhr.send('lat=' + lat + '&lng=' + lng);
+}
+
+    </script>
