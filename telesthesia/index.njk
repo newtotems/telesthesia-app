@@ -62,10 +62,6 @@ async function checklocation(lat, lng) {
 document.getElementById('console__image').innerHTML = '';
 document.getElementById('console__text').innerHTML = '';
 
-// Remove any existing elements from the console__image and console__text elements
-document.getElementById('console__image').innerHTML = '';
-document.getElementById('console__text').innerHTML = '';
-
 // Check for image in the response data
 if (data.image) {
   // Create an image element and set its src attribute to the image field from the response data
