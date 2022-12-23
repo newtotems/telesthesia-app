@@ -41,7 +41,7 @@ async function checklocation(lat, lng) {
       'Origin': 'https://tranquil-phoenix-a6c306.netlify.app',
       'Accept': 'application/json'
     },
-    body: `lat=${lat}&lng=${lng}`
+  body: JSON.stringify({ lat, lng }) // Stringify the body data as JSON
   });
 
   // Check for a successful response
