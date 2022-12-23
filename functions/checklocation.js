@@ -31,7 +31,7 @@ exports.handler = async (event, context) => {
   } catch (error) {
     // Return a message if no matching record was found
     return {
-      statusCode: 404,
+      statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*'
       },
