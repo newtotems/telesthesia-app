@@ -29,45 +29,30 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
-    // Try to get a random record from the all_negative_responses index
+    // Fetch the record with the ID of 1 from the all_negative_responses index
     try {
-        const result = await client.query(
-          faunadb.query.Count(faunadb.query.Index('all_negative_responses'))
-        );
-        console.log(result);
-  
-        // Generate a random number up to the maximum value of the number of records
-        const maxRecordId = result;
-        const randomRecordId = Math.round(Math.random() * maxRecordId);
+      const record = await client.query(
+        faunadb.query.Get(faunadb.query.Ref(faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), 1)))
+      );
 
-        console.log(maxRecordId);
-        console.log(randomRecordId);
-
-
-  
-        // Fetch the record with the generated ID from the all_negative_responses index
-        const record = await client.query(
-          faunadb.query.Get(faunadb.query.Ref(faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), randomRecordId)))
-        );
-  
-        // Return the text field from the fetched record
-        return {
-          statusCode: 200,
-          headers: {
-            'Access-Control-Allow-Origin': '*'
-          },
-          body: JSON.stringify({
-            text: record.data.text
-          })
-        };
+      // Return the text field from the fetched record
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          text: record.data.text
+        })
+      };
     } catch (error) {
-      // Return an error if unable to get a random record from the all_negative_responses index
+      // Return a message if an error occurred
       return {
         statusCode: 500,
         headers: {
           'Access-Control-Allow-Origin': '*'
         },
-        body: 'Error: Unable to get a random record from the all_negative_responses index'
+        body: 'An error occurred while processing your request'
       };
     }
   }
