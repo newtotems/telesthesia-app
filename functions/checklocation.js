@@ -3,8 +3,8 @@ const faunadb = require('faunadb');
 exports.handler = async (event, context) => {
   // Parse the lat and long values from the request body
   const body = JSON.parse(event.body);
-  const lat = Number(body.lat); // Convert the lat value to a number
-  const lng = Number(body.lng); // Convert the lng value to a number
+  const lat = body.lat;
+  const lng = body.lng;
 
   // Create a FaunaDB client
   const client = new faunadb.Client({ secret: process.env.DB_SECRT });
@@ -29,15 +29,31 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
-    // Return a message if no matching record was found
-    return {
-      statusCode: 200,
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      },
-      body: JSON.stringify({
-        text: 'nothing here'
-      })
-    };
+    // Try to get a random record from the negative_responses collection
+    try {
+      const result = await client.query(
+        faunadb.query.Random(faunadb.query.Collection('negative_responses'))
+      );
+
+      // Return the text field from the random record
+      return {
+        statusCode: 200,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          text: result.data.text
+        })
+      };
+    } catch (error) {
+      // Return an error if unable to get a random record from the negative_responses collection
+      return {
+        statusCode: 500,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: 'Error: Unable to get a random record from the negative_responses collection'
+      };
+    }
   }
 };
