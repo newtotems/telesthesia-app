@@ -2,9 +2,20 @@ const faunadb = require('faunadb');
 
 exports.handler = async (event, context) => {
   // Parse the lat and long values from the request body
-  const body = JSON.parse(event.body);
-  const lat = Number(body.lat);
-  const lng = Number(body.lng);
+  try {
+    const body = JSON.parse(event.body);
+    const lat = Number(body.lat);
+    const lng = Number(body.lng);
+  } catch (error) {
+    console.error('Error parsing request body:', error);
+    return {
+      statusCode: 400,
+      headers: {
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: 'ERROR: Invalid request body'
+    };
+  }
 
   console.log(lat,lng);
 
@@ -31,13 +42,14 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
+    console.error('Error querying locations_by_latlong index:', error);
+
     // Fetch the record with the ID of 1 from the all_negative_responses index
     try {
       const record = await client.query(
         faunadb.query.Get(faunadb.query.Ref(faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), 1)))
       );
-
-
+      
       // Return the text field from the fetched record
       return {
         statusCode: 200,
