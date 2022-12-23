@@ -31,20 +31,29 @@ exports.handler = async (event, context) => {
   } catch (error) {
     // Try to get a random record from the all_negative_responses index
     try {
-      const result = await client.query(
-        faunadb.query.Random(faunadb.query.Index('all_negative_responses'))
-      );
-
-      // Return the text field from the random record
-      return {
-        statusCode: 200,
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({
-          text: result.data.text
-        })
-      };
+        const result = await client.query(
+          faunadb.query.Count(faunadb.query.Index('all_negative_responses'))
+        );
+  
+        // Generate a random number up to the maximum value of the number of records
+        const maxRecordId = result.data;
+        const randomRecordId = Math.floor(Math.random() * maxRecordId);
+  
+        // Fetch the record with the generated ID from the all_negative_responses index
+        const record = await client.query(
+          faunadb.query.Get(faunadb.query.Ref(faunadb.query.Match(faunadb.query.Index('all_negative_responses_by_id'), randomRecordId)))
+        );
+  
+        // Return the text field from the fetched record
+        return {
+          statusCode: 404,
+          headers: {
+            'Access-Control-Allow-Origin': '*'
+          },
+          body: JSON.stringify({
+            text: record.data.text
+          })
+        };
     } catch (error) {
       // Return an error if unable to get a random record from the all_negative_responses index
       return {
