@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title or metadata.title }}</title>
     <meta name="description" content="{{ description or metadata.description }}">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&display=swap" rel="stylesheet">
+<style> @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&display=swap'); </style>
     <style>
         body {
             padding: 0;
             margin: 0;
+            font-family: 'Martian Mono', monospace;
         }
         html, body, main, #map, #mapcontainer {
             height: 100%;
@@ -44,7 +46,7 @@
       }
        #console__text {
         flex: 0 0 80%; /* Set the flex basis to 80% and allow the element to shrink or grow */
-        color: #44f293;
+        color: #266861;
        }
         #mapcontainer {
 
