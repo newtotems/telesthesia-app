@@ -9,19 +9,21 @@ exports.handler = async (event, context) => {
   // Parse the request body
   const body = JSON.parse(event.body)
   const lat = Number(body.lat)
+  const latstring = lat.toString()
   const lng = Number(body.lng)
+  const lngstring = lng.toString()
 
-  // Try to retrieve a matching location from the 'locations_lat_and_lon' index
+  const latlng = latstring + lngstring
+  console.log(latlng)
+  console.log(typeof latlng)
+
+  // Try to retrieve a matching location from the 'all_locations' index
   try {
-    // Retrieve the matching location from the 'locations_lat_and_lon' index
+    // Retrieve the matching location from the 'all_locations' index
     const result = await client.query(
       faunadb.query.Get(
         faunadb.query.Match(
-          faunadb.query.Index('locations_lat_and_lon'),
-          faunadb.query.And(
-            faunadb.query.Equals(faunadb.query.Var('lat'), lat),
-            faunadb.query.Equals(faunadb.query.Var('lng'), lng)
-          )
+          faunadb.query.Index('locations_latlong'),latlng
         )
       )
     )
