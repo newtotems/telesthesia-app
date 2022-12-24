@@ -37,11 +37,31 @@ exports.handler = async (event, context) => {
       })
     }
   } catch (error) {
-    // If there is no matching location, return 'no match' in the 'text' field of the response
+    // If there is no matching location, query the 'all_neg_responses' index for a random record
+    const randomResult = await client.query(
+      faunadb.query.Map(
+        // Retrieve all records from the 'all_neg_responses' index
+        faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_neg_responses'))),
+        // Select a random record from the retrieved records
+        faunadb.query.Lambda(
+          'record',
+          faunadb.query.If(
+            faunadb.query.Equals(
+              faunadb.query.Random(),
+              faunadb.query.Select(['data', 'id'], faunadb.query.Var('record'))
+            ),
+            faunadb.query.Select(['data', 'text'], faunadb.query.Var('record')),
+            null
+          )
+        )
+      )
+    )
+
+    // Return the 'text' field from the random record in the response
     return {
       statusCode: 200,
       body: JSON.stringify({
-        text: 'no match'
+        text: randomResult.data[0]
       })
     }
   }
