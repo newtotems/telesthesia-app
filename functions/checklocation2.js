@@ -37,31 +37,25 @@ exports.handler = async (event, context) => {
       })
     }
   } catch (error) {
-    // If there is no matching location, query the 'all_neg_responses' index for a random record
-    const randomResult = await client.query(
+    // If there is no matching location, read all records in the 'all_neg_responses' collection
+    const allRecords = await client.query(
       faunadb.query.Map(
-        // Retrieve all records from the 'all_neg_responses' index
-        faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_neg_responses'))),
-        // Select a random record from the retrieved records
-        faunadb.query.Lambda(
-          'record',
-          faunadb.query.If(
-            faunadb.query.Equals(
-              faunadb.query.Random(),
-              faunadb.query.Select(['data', 'id'], faunadb.query.Var('record'))
-            ),
-            faunadb.query.Select(['data', 'text'], faunadb.query.Var('record')),
-            null
-          )
-        )
+        faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_neg_responses')))
       )
     )
 
-    // Return the 'text' field from the random record in the response
+    // Get the number of records in the 'all_neg_responses' collection
+    const numRecords = allRecords.data.length
+    // Choose a random number between 0 and the number of records
+    const randomIndex = Math.floor(Math.random() * numRecords)
+    // Select the corresponding record in 'all_neg_responses'
+    const randomRecord = allRecords.data[randomIndex]
+
+    // Return the selected record in the response as the 'text' field
     return {
       statusCode: 200,
       body: JSON.stringify({
-        text: randomResult.data[0]
+        text: randomRecord
       })
     }
   }
