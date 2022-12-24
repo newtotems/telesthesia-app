@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     // Return 'true' if the index exists
     return {
       statusCode: 200,
-      body: JSON.stringify(true)
+      body: 'exists'
     }
   } else {
     // If the index does not exist, get all negative responses from the 'all_negative_responses' collection
