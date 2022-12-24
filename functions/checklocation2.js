@@ -19,6 +19,8 @@ exports.handler = async (event, context) => {
   // Select a random negative response from the list of all negative responses
   const randomIndex = Math.floor(Math.random() * result.data.length)
   const negativeResponse = result.data[randomIndex]
+  const nr = JSON.stringify(negativeResponse)
+  console.log(nr)
 
   // Return the selected negative response
   return {
