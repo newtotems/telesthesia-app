@@ -271,13 +271,14 @@ if (data.image) {
 
 // Check for text in the response data
 if (data.text) {
+  var str = data.text;
   // Create a text node with the text field from the response data
  // const textNode = document.createTextNode(data.text);
 
   // Add the text node to the console__text div
   //document.getElementById('console__text').appendChild(textNode);
-  var tty = new teletype(document.getElementById("console__text"),function(){
-    tty.printText(data.text);
+  var tty = new teletype(document.getElementById("console__text"),function(str){
+    tty.printText(str);
   })
 }
 
