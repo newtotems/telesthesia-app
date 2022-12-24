@@ -6,22 +6,22 @@ const client = new faunadb.Client({
 })
 
 exports.handler = async (event, context) => {
-  // Get all collections in the database
+  // Get all documents in the 'locations' collection
   const result = await client.query(
     faunadb.query.Map(
-      // Get all collections
-      faunadb.query.Paginate(faunadb.query.Collections()),
-      // Retrieve the name of each collection
+      // Get all documents in the 'locations' collection
+      faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_locations'))),
+      // Retrieve the document data for each location
       faunadb.query.Lambda((ref) => faunadb.query.Get(ref))
     )
   )
 
-  // Return the names of the collections in the response
-  const collectionNames = result.data.map((collection) => collection.name)
+  // Return the data for each location in the response
+  const locations = result.data.map((location) => location.data)
   return {
     statusCode: 200,
     body: JSON.stringify({
-      collections: collectionNames
+      locations: locations
     })
   }
 }
