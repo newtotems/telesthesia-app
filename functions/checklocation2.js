@@ -18,10 +18,7 @@ exports.handler = async (event, context) => {
       faunadb.query.Get(
         faunadb.query.Match(
           faunadb.query.Index('all_locations'),
-          faunadb.query.And(
-            faunadb.query.Equals(faunadb.query.Var('lat'), lat),
-            faunadb.query.Equals(faunadb.query.Var('lng'), lng)
-          )
+          faunadb.query.Equals(faunadb.query.Var('latlng'), latlng)
         )
       )
     )
