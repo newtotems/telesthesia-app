@@ -15,6 +15,7 @@ exports.handler = async (event, context) => {
 
   const latlng = latstring + lngstring
   console.log(latlng)
+  console.log(typeof latlng)
 
   // Try to retrieve a matching location from the 'all_locations' index
   try {
