@@ -6,22 +6,38 @@ const client = new faunadb.Client({
 })
 
 exports.handler = async (event, context) => {
-  // Get all documents in the 'locations' collection
-  const result = await client.query(
-    faunadb.query.Map(
-      // Get all documents in the 'locations' collection
-      faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_locations'))),
-      // Retrieve the document data for each location
-      faunadb.query.Lambda((ref) => faunadb.query.Get(ref))
-    )
-  )
+  // Parse the request body
+  const body = JSON.parse(event.body)
+  const lat = body.lat
+  const lng = body.lng
 
-  // Return the data for each location in the response
-  const locations = result.data.map((location) => location.data)
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      locations: locations
-    })
+  // Try to retrieve a matching location from the 'all_locations' index
+  try {
+    // Retrieve the matching location from the 'all_locations' index
+    const result = await client.query(
+      faunadb.query.Get(
+        faunadb.query.Match(
+          faunadb.query.Index('all_locations'),
+          [lat, lng]
+        )
+      )
+    )
+
+    // Return the 'image' and 'text' fields from the matching location in the response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        image: result.data.image,
+        text: result.data.text
+      })
+    }
+  } catch (error) {
+    // If there is no matching location, return 'no match' in the 'text' field of the response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        text: 'no match'
+      })
+    }
   }
 }
