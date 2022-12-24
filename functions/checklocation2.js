@@ -13,12 +13,14 @@ exports.handler = async (event, context) => {
 
   // Check if the index exists
   if (result.data) {
+    console.log('Locations index exists')
     // Return 'true' if the index exists
     return {
       statusCode: 200,
-      body: 'exists'
+      body: JSON.stringify(true)
     }
   } else {
+    console.log('Locations index does not exist')
     // If the index does not exist, get all negative responses from the 'all_negative_responses' collection
     const negativeResult = await client.query(
       faunadb.query.Map(
