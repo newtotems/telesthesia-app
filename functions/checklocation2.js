@@ -28,7 +28,7 @@ exports.handler = async (event, context) => {
         faunadb.lambda((x) => faunadb.query.Get(x))
       )
     )
-
+    
     // Return the 'image' and 'text' fields from the matching location in the response
     return {
       statusCode: 200,
