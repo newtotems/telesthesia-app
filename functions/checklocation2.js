@@ -6,23 +6,42 @@ const client = new faunadb.Client({
 })
 
 exports.handler = async (event, context) => {
-  // Query the 'all_negative_responses' collection to retrieve all negative responses
+  // Parse the request body to get the 'lat' and 'long' parameters
+  const body = JSON.parse(event.body)
+  const lat = body.lat
+  const long = body.lng
+
+  // Query the 'locations_by_latlong' index to see if there is a matching record
   const result = await client.query(
-    faunadb.query.Map(
-      // Get all documents from the 'all_negative_responses' collection
-      faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_negative_responses'))),
-      // Retrieve the document data for each negative response
-      faunadb.query.Lambda((ref) => faunadb.query.Get(ref))
+    faunadb.query.Get(
+      faunadb.query.Match(faunadb.query.Index('locations_by_latlong'), [lat, long])
     )
   )
 
-  // Select a random negative response from the list of all negative responses
-  const randomIndex = Math.floor(Math.random() * result.data.length)
-  const negativeResponse = result.data[randomIndex]
+  // Check if a matching record was found
+  if (result.data) {
+    // Return the 'image' and 'text' fields from the matching record
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        image: result.data.image,
+        text: result.data.text
+      })
+    }
+  } else {
+    // If there is no matching record, get a random negative response from the 'all_negative_responses' collection
+    const negativeResult = await client.query(
+      faunadb.query.Get(
+        faunadb.query.Random(faunadb.query.Match(faunadb.query.Index('all_negative_responses')))
+      )
+    )
 
-  // Return the selected negative response
-  return {
-    statusCode: 200,
-    body: JSON.stringify(negativeResponse)
+    // Return the 'text' field from the random negative response
+    return {
+      statusCode: 200,
+      body: JSON.stringify({
+        text: negativeResult.data.text
+      })
+    }
   }
 }
