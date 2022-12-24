@@ -82,7 +82,16 @@ if (data.text) {
   const textNode = document.createTextNode(data.text);
 
   // Add the text node to the console__text div
-  document.getElementById('console__text').appendChild(textNode);
+//  document.getElementById('console__text').appendChild(textNode);
+
+var termynal = new Termynal('#console__image',
+    {
+        lineData: [
+            { type: 'input', value: textNode }
+        ]
+    }
+)
+
 }
 
   }
