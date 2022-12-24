@@ -20,7 +20,7 @@ layout: layouts/telesthesia-base.njk
   const map = new mapboxgl.Map({
     container: 'map', // The ID of the div element to hold the map
     style: 'mapbox://styles/mapbox/streets-v11', // The Mapbox style to use
-    center: [51.5041,-0.0738], // The center point of the map
+    center: [-0.0738,51.5041], // The center point of the map
     zoom: 12 // The zoom level of the map
   });
 
@@ -29,7 +29,8 @@ map.on('click', function(e) {
   // Get the latitude and longitude of the click event
   var lat = e.lngLat.lat;
   var lng = e.lngLat.lng;
-    console.log(lat, lng);
+  console.log('the lat is' + lat);
+  console.log(lat, lng);
 
   // Send the latitude and longitude to the checklocation function
   checklocation(lat, lng);
