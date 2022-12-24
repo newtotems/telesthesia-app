@@ -8,8 +8,8 @@ const client = new faunadb.Client({
 exports.handler = async (event, context) => {
   // Parse the request body to get the 'lat' and 'long' parameters
   const body = JSON.parse(event.body)
-  const lat = body.lat
-  const long = body.lng
+  const lat = Number(body.lat)
+  const long = Number(body.lng)
 
   // Query the 'locations_by_latlong' index to see if there is a matching record
   const result = await client.query(
