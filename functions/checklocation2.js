@@ -14,7 +14,7 @@ exports.handler = async (event, context) => {
   // Query the 'locations_by_latlong' index to see if there is a matching record
   const result = await client.query(
     faunadb.query.Get(
-      faunadb.query.Match(faunadb.query.Index('locations_by_latlong'), [lat, long])
+      faunadb.query.Match(faunadb.query.Index('by_latlon'), [lat, long])
     )
   )
 
