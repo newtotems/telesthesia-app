@@ -8,8 +8,8 @@ const client = new faunadb.Client({
 exports.handler = async (event, context) => {
   // Parse the request body
   const body = JSON.parse(event.body)
-  const lat = Number(body.lat)
-  const lng = Number(body.lng)
+  const lat = body.lat
+  const lng = body.lng
 
   // Try to retrieve a matching location from the 'all_locations' index
   try {
@@ -18,7 +18,10 @@ exports.handler = async (event, context) => {
       faunadb.query.Get(
         faunadb.query.Match(
           faunadb.query.Index('all_locations'),
-          [lat, lng]
+          faunadb.query.And(
+            faunadb.query.Equals(faunadb.query.Var('lat'), lat),
+            faunadb.query.Equals(faunadb.query.Var('lng'), lng)
+          )
         )
       )
     )
