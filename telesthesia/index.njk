@@ -11,18 +11,18 @@ layout: layouts/telesthesia-base.njk
     </div>
 
     <!-- Include the Leaflet JavaScript file -->
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
 
     <!-- Initialize the map -->
     <script>
-     // Create the Leaflet map object
-var map = L.map('map').setView([51.505, -0.09], 13);
-
-// Add a tile layer to the map
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-  maxZoom: 18
-}).addTo(map);
+    // Create a new Mapbox map
+    mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
+  const map = new mapboxgl.Map({
+    container: 'map', // The ID of the div element to hold the map
+    style: 'mapbox://styles/mapbox/streets-v11', // The Mapbox style to use
+    center: [-122.4194, 37.7749], // The center point of the map
+    zoom: 12 // The zoom level of the map
+  });
 
 // Add a click listener to the map
 map.on('click', function(event) {
