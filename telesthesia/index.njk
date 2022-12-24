@@ -29,6 +29,7 @@ map.on('click', function(e) {
   // Get the latitude and longitude of the click event
   var lat = e.lngLat.lat;
   var lng = e.lngLat.lng;
+    console.log(lat, lng);
 
   // Send the latitude and longitude to the checklocation function
   checklocation(lat, lng);
