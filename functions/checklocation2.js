@@ -8,19 +8,19 @@ const client = new faunadb.Client({
 exports.handler = async (event, context) => {
   // Check if the 'locations_by_latlong' index exists
   const result = await client.query(
-    faunadb.query.Exists(faunadb.query.Index('locations_by_latlong'))
+    faunadb.query.Exists(faunadb.query.Collection('locations'))
   )
 
   // Check if the index exists
   if (result.data) {
-    console.log('Locations index exists')
+    console.log('Locations collection exists')
     // Return 'true' if the index exists
     return {
       statusCode: 200,
       body: JSON.stringify(true)
     }
   } else {
-    console.log('Locations index does not exist')
+    console.log('Locations collection does not exist')
     // If the index does not exist, get all negative responses from the 'all_negative_responses' collection
     const negativeResult = await client.query(
       faunadb.query.Map(
