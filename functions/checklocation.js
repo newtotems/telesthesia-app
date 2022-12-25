@@ -33,7 +33,7 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         image: result.data.image,
-        text: result.data.text
+        text: lat + ', ' + lng + ':\n' + result.data.text
       })
     }
   } catch (error) {
