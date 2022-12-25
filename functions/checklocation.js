@@ -58,7 +58,7 @@ exports.handler = async (event, context) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      text: lat + ', ' + lng + ': ' + allRecords.data[randomIndex]
+      text: lat + ', ' + lng + ':\n' + allRecords.data[randomIndex]
     })
   }
   }
