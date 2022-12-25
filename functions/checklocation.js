@@ -32,8 +32,11 @@ exports.handler = async (event, context) => {
     return {
       statusCode: 200,
       body: JSON.stringify({
+        lat: lat,
+        lng: lng,
         image: result.data.image,
-        text: lat + ', ' + lng + ':\n' + result.data.text
+        text: lat + ', ' + lng + ':\n' + result.data.text,
+        success: true
       })
     }
   } catch (error) {
@@ -58,7 +61,10 @@ exports.handler = async (event, context) => {
   return {
     statusCode: 200,
     body: JSON.stringify({
-      text: lat + ', ' + lng + ':\n' + allRecords.data[randomIndex]
+      lat: lat,
+      lng: lng,
+      text: lat + ', ' + lng + ':\n' + allRecords.data[randomIndex],
+      success: false
     })
   }
   }
