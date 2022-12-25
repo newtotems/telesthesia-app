@@ -35,7 +35,7 @@ exports.handler = async (event, context) => {
         lat: lat,
         lng: lng,
         image: result.data.image,
-        text: lat + ', ' + lng + ':\n' + result.data.text,
+        text: result.data.text,
         success: true
       })
     }
@@ -63,7 +63,7 @@ exports.handler = async (event, context) => {
     body: JSON.stringify({
       lat: lat,
       lng: lng,
-      text: lat + ', ' + lng + ':\n' + allRecords.data[randomIndex],
+      text: allRecords.data[randomIndex],
       success: false
     })
   }
