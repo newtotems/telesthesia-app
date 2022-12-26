@@ -86,7 +86,6 @@ if (data.text) {
 
 
   // Update the position of the circle using the CSS 'left' and 'top' properties
-    const latLngString = `${lat},${lng}`;
 
     // Create a new source for the marker data
   map.addSource('marker', {
@@ -102,9 +101,9 @@ if (data.text) {
 
   // Create a new layer for the marker
   map.addLayer({
-    id: latLngString,
+    id: `marker-${Date.now()}`,
     type: 'circle',
-    source: latLngString,
+    source: `marker-${Date.now()}`,
     paint: {
       'circle-radius': 10,
       'circle-color': '#ff0000'
