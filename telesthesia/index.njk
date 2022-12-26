@@ -92,6 +92,15 @@ var termynal = new Termynal('#console__text',
 
 }
 
+if (data.success === false) {
+
+ var el = document.createElement('div');
+  el.classList.add('success');
+
+  var marker = new mapboxgl.Marker(el)
+    .setLngLat(e.lngLat)
+    .addTo(map);
+
   }
 }
 
