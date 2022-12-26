@@ -86,17 +86,29 @@ if (data.text) {
 
 
   // Update the position of the circle using the CSS 'left' and 'top' properties
-  const pixelCoords = map.project([data.lng, data.lat]);
+  
+    // Create a new source for the marker data
+  map.addSource('marker', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [lng, lat]
+      }
+    }
+  });
 
- // Create a new circle element
-  const circle = document.createElement('div');
-  circle.className = 'circle';
-
-  circle.style.left = (pixelCoords.x) + 'px';
-  circle.style.top = (pixelCoords.y) + 'px';
-
-  // Add the circle to the map container
-  document.getElementById('map').appendChild(circle);
+  // Create a new layer for the marker
+  map.addLayer({
+    id: 'marker',
+    type: 'circle',
+    source: 'marker',
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#ff0000'
+    }
+  });
 
 var termynal = new Termynal('#console__text',
     {
