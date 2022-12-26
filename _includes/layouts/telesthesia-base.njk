@@ -63,9 +63,10 @@
     font-size: 11px;
        }
 
-       #console__text + span {
-        color: #fff;
-       }
+      #console__text span:first-of-type {
+  color: white;
+}
+
 
   #console::before {
     content: "Telesthesia:";
@@ -148,14 +149,6 @@ main {
     margin-left: 0.5em;
     -webkit-animation: blink 1s infinite;
             animation: blink 1s infinite;
-}
-
-.circle, .marker {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: red;
-  position: absolute;
 }
 
 
