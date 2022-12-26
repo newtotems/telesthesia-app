@@ -32,6 +32,13 @@ map.on('click', function(e) {
   var lat = e.lngLat.lat;
   var lng = e.lngLat.lng;
 
+   var el = document.createElement('div');
+  el.classList.add('marker');
+
+  var marker = new mapboxgl.Marker(el)
+    .setLngLat(e.lngLat)
+    .addTo(map);
+
   // Send the latitude and longitude to the checklocation function
   checklocation(lat, lng);
 });
@@ -91,8 +98,6 @@ var termynal = new Termynal('#console__text',
 )
 
 }
-
-
 
   }
 }
