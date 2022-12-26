@@ -32,16 +32,6 @@ map.on('click', function(e) {
   var lat = e.lngLat.lat;
   var lng = e.lngLat.lng;
 
-   var el = document.createElement('div');
-  el.classList.add('marker');
-
-    map.jumpTo({center: e.lngLat});
-
-
-  var marker = new mapboxgl.Marker(el)
-    .setLngLat(e.lngLat)
-    .addTo(map);
-
   // Send the latitude and longitude to the checklocation function
   checklocation(lat, lng);
 });
