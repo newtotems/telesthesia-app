@@ -81,38 +81,6 @@ if (data.text) {
   console.log(data.text);
   console.log(textNode);
 
-  // Add the text node to the console__text div
-//  document.getElementById('console__text').appendChild(textNode);
-
-  const id = Date.now();
-
-  // Update the position of the circle using the CSS 'left' and 'top' properties
-
-    // Create a new source for the marker data
-  map.addSource('marker', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [lng, lat]
-      }
-    }
-  });
-
-  // Create a new layer for the marker
-  map.addLayer({
-    id: id,
-    type: 'circle',
-    source: id,
-    paint: {
-      'circle-radius': 10,
-      'circle-color': '#ff0000'
-    },
-    // Set the element property to the class name of the marker
-    element: 'marker'
-  });
-
 var termynal = new Termynal('#console__text',
     {
         lineData: [
