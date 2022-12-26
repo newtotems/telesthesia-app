@@ -84,13 +84,16 @@ if (data.text) {
   // Add the text node to the console__text div
 //  document.getElementById('console__text').appendChild(textNode);
 
+
+  // Update the position of the circle using the CSS 'left' and 'top' properties
+  const pixelCoords = map.project([data.lng, data.lat]);
+
  // Create a new circle element
   const circle = document.createElement('div');
   circle.className = 'circle';
 
-  // Update the position of the circle using the CSS 'left' and 'top' properties
-  circle.style.left = (data.lat - 10) + 'px';
-  circle.style.top = (data.lng - 10) + 'px';
+  circle.style.left = (pixelCoords.x) + 'px';
+  circle.style.top = (pixelCoords.y) + 'px';
 
   // Add the circle to the map container
   document.getElementById('map').appendChild(circle);
