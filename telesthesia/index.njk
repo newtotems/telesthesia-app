@@ -32,6 +32,15 @@ map.on('click', function(e) {
   var lat = e.lngLat.lat;
   var lng = e.lngLat.lng;
 
+   // create the mark div element
+  var mark = document.createElement('div');
+  mark.className = 'marker';
+
+  // add the mark div to the map at the click location
+  new mapboxgl.Marker(mark)
+    .setLngLat(lngLat)
+    .addTo(map);
+
   // Send the latitude and longitude to the checklocation function
   checklocation(lat, lng);
 });
