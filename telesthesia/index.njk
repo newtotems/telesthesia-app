@@ -89,8 +89,8 @@ if (data.text) {
   circle.className = 'circle';
 
   // Update the position of the circle using the CSS 'left' and 'top' properties
-  circle.style.left = (e.point.x - 10) + 'px';
-  circle.style.top = (e.point.y - 10) + 'px';
+  circle.style.left = (lat - 10) + 'px';
+  circle.style.top = (lng - 10) + 'px';
 
   // Add the circle to the map container
   document.getElementById('map').appendChild(circle);
