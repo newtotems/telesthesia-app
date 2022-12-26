@@ -81,11 +81,14 @@ if (data.text) {
   console.log(data.text);
   console.log(textNode);
 
+let arr = [];
+let ll = arr.push(data.lng, data.lat);
+
   const el = document.createElement('div');
   el.className = 'map-marker';
 
   // make a marker for each feature and add to the map
-  new mapboxgl.Marker(el).setLngLat(geometry.coordinates).addTo(map);
+  new mapboxgl.Marker(el).setLngLat(arr).addTo(map);
 
 var termynal = new Termynal('#console__text',
     {
