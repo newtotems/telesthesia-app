@@ -78,14 +78,33 @@ if (data.image) {
 if (data.text) {
   // Create a text node with the text field from the response data
   const textNode = document.createTextNode(data.text);
-  console.log(data.text);
-  console.log(textNode);
+  
+  var latr = data.lat.replace('.', '').replace('-', '')
+  var lngr = data.lng.replace('.', '').replace('-', '')
+  var llstr = lngr + latr
+  
+  map.addSource('marker', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Point',
+        coordinates: [lngr, latr]
+      }
+    }
+  });
 
-   circleMarker = new  mapboxgl.circle(e.latlng, 200, {
-                color: 'red',
-                fillColor: '#f03',
-                fillOpacity: 0.5
-            }).addTo(map);
+  // Create a new layer for the marker
+  map.addLayer({
+    id: 'marker-' + llstr,
+    type: 'circle',
+    source: 'marker',
+    paint: {
+      'circle-radius': 10,
+      'circle-color': '#ff0000'
+    }
+  });
+});
 
 var termynal = new Termynal('#console__text',
     {
