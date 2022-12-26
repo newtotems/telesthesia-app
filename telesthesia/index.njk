@@ -84,6 +84,17 @@ if (data.text) {
   // Add the text node to the console__text div
 //  document.getElementById('console__text').appendChild(textNode);
 
+ // Create a new circle element
+  const circle = document.createElement('div');
+  circle.className = 'circle';
+
+  // Update the position of the circle using the CSS 'left' and 'top' properties
+  circle.style.left = (e.point.x - 10) + 'px';
+  circle.style.top = (e.point.y - 10) + 'px';
+
+  // Add the circle to the map container
+  document.getElementById('map').appendChild(circle);
+
 var termynal = new Termynal('#console__text',
     {
         lineData: [
