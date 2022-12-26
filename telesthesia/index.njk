@@ -38,7 +38,7 @@ map.on('click', function(e) {
 
   // add the mark div to the map at the click location
   new mapboxgl.Marker(mark)
-    .setLngLat(lngLat)
+    .setLngLat(e.lngLat)
     .addTo(map);
 
   // Send the latitude and longitude to the checklocation function
