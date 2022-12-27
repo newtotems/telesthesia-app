@@ -12,6 +12,10 @@ layout: layouts/telesthesia-base.njk
         <div id="console__image"></div>
     </div>
 
+    <div id="log">
+
+    </div>
+
     <!-- Include the Leaflet JavaScript file -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
     <!-- Initialize the map -->
@@ -99,6 +103,13 @@ var termynal = new Termynal('#console__text',
     }
 )
 
+}
+
+if (data.success === true) {
+  console.log('true');
+}
+else {
+  console.log('false')
 }
 
   }
