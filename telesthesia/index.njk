@@ -108,11 +108,9 @@ var termynal = new Termynal('#console__text',
 }
 
 if (data.success === true) {
-  console.log('true');
   logDiv.innerHTML += `<p>${data.lat} , ${data.lng} : Data found</p>`;
 }
 else {
-  console.log('false');
   logDiv.innerHTML += `<p>${data.lat} , ${data.lng} : No data found</p>`;
 
 }
