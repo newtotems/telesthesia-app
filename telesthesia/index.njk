@@ -51,7 +51,7 @@ map.on('click', function(e) {
 
 async function checklocation(lat, lng) {
   // Replace this with your own Netlify function URL
-  const functionUrl = 'https://tranquil-phoenix-a6c306.netlify.app/.netlify/functions/checklocation';
+  const functionUrl = 'https://telesthesia-app.netlify.app/.netlify/functions/checklocation';
 
  // Round the lat and lng values to four decimal places
   const roundedLat = lat.toFixed(4);
@@ -62,7 +62,7 @@ async function checklocation(lat, lng) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Origin': 'https://tranquil-phoenix-a6c306.netlify.app',
+      'Origin': 'https://telesthesia-app.netlify.app.netlify.app',
       'Accept': 'application/json'
     },
     body: JSON.stringify({ lat: roundedLat, lng: roundedLng }) // Stringify the body data as JSON
