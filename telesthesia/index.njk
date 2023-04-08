@@ -72,12 +72,20 @@ async function checklocation(lat, lng) {
   if (response.ok) {
     // Get the response data
     const data = await response.json();
-    const logDiv = document.getElementById('log');
- 
+    const logDiv = document.getElementById('log'); 
+    const consoleContainer = document.getElementById('console');
 
 // Remove any existing elements from the console__image and console__text elements
 document.getElementById('console__image').innerHTML = '';
 document.getElementById('console__text').innerHTML = '';
+
+// If success add a success class to the div
+if (data.success === true) {
+ consoleContainer.classList.add("success");
+}
+else {
+consoleContainer.classList.remove("success");
+}
 
 // Check for image in the response data
 if (data.image) {
@@ -91,6 +99,7 @@ if (data.image) {
 
 // Check for text in the response data
 if (data.text) {
+
   // Create a text node with the text field from the response data
   const textNode = document.createTextNode(data.text);
   console.log(data.text);
