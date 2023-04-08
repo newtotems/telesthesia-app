@@ -16,38 +16,46 @@ layout: layouts/telesthesia-base.njk
 
     </div>
 
-    <!-- Include the Leaflet JavaScript file -->
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
     <!-- Initialize the map -->
     <script>
-    // Create a new Mapbox map
-    mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
-  const map = new mapboxgl.Map({
-    container: 'map', // The ID of the div element to hold the map
-    style: 'mapbox://styles/theboydavid/ckp4183ve7x8f18k8ftffl277',
-//    style: 'mapbox://styles/mapbox/streets-v11', // The Mapbox style to use
-    center: [-0.0738,51.5041], // The center point of the map
+   // Initialize the map
+function initMap() {
+  // Create a new Google Maps object
+  const map = new google.maps.Map(document.getElementById('map'), {
+    center: { lat: 51.5041, lng: -0.0738 }, // The center point of the map
     zoom: 12 // The zoom level of the map
   });
 
-// Add a click listener to the map
-map.on('click', function(e) {
-  // Get the latitude and longitude of the click event
-  var lat = e.lngLat.lat;
-  var lng = e.lngLat.lng;
+  // Add a click listener to the map
+  map.addListener('click', function(e) {
+    // Get the latitude and longitude of the click event
+    var lat = e.latLng.lat();
+    var lng = e.latLng.lng();
 
-   // create the mark div element
-  var mark = document.createElement('div');
-  mark.className = 'marker';
+    // create the mark div element
+    var mark = document.createElement('div');
+    mark.className = 'marker';
 
-  // add the mark div to the map at the click location
-  new mapboxgl.Marker(mark)
-    .setLngLat(e.lngLat)
-    .addTo(map);
+    // add the mark div to the map at the click location
+    new google.maps.Marker({
+      position: e.latLng,
+      map: map
+    });
 
-  // Send the latitude and longitude to the checklocation function
-  checklocation(lat, lng);
-});
+    // Send the latitude and longitude to the checklocation function
+    checklocation(lat, lng);
+  });
+}
+
+// Load the Google Maps API
+function loadMap() {
+  var script = document.createElement('script');
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDEzcqZMh8FgwGyMwpT0jhlrJkIBR8tT6w&callback=initMap';
+  document.head.appendChild(script);
+}
+
+// Call the loadMap function to load the Google Maps API
+loadMap();
 
 async function checklocation(lat, lng) {
   // Replace this with your own Netlify function URL
@@ -61,8 +69,8 @@ async function checklocation(lat, lng) {
   const response = await fetch(functionUrl, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-      'Origin': 'https://telesthesia-app.netlify.app.netlify.app',
+      'Content-Type': 'application/json',
+      'Origin': 'https://telesthesia-app.netlify.app',
       'Accept': 'application/json'
     },
     body: JSON.stringify({ lat: roundedLat, lng: roundedLng }) // Stringify the body data as JSON
@@ -127,4 +135,4 @@ else {
   }
 }
 
-    </script>
+</script>
