@@ -31,9 +31,8 @@ layout: layouts/telesthesia-base.njk
   });
 
   // zoom
-  map.addControl(new mapboxgl.NavigationControl({
-    position: 'top-left'
-}));
+ const nav = new mapboxgl.NavigationControl();
+map.addControl(nav, 'top-left');
 
 // Add a click listener to the map
 map.on('click', function(e) {
