@@ -30,6 +30,11 @@ layout: layouts/telesthesia-base.njk
     zoom: 12 // The zoom level of the map
   });
 
+  // zoom
+  map.addControl(new mapboxgl.NavigationControl({
+    position: 'top-left'
+}));
+
 // Add a click listener to the map
 map.on('click', function(e) {
   // Get the latitude and longitude of the click event
