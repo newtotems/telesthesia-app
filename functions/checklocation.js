@@ -1,33 +1,28 @@
 const faunadb = require('faunadb');
-const Bottleneck = require('bottleneck');
 
 // Create a new FaunaDB client
 const client = new faunadb.Client({
   secret: process.env.DB_SECRT
 });
 
-// Create a new limiter with 3 tokens and a 60 second window
-const limiter = new Bottleneck({
-  reservoir: 3,
-  reservoirRefreshInterval: 60 * 1000
-});
+exports.handler = async (event, context) => {
 
-exports.handler = limiter.wrap(async (event, context) => {
-
-  // Check the HTTP Referer header
-  const headers = event.headers;
-  const referer = headers['Referer'] || headers['referer'];
-  if (referer !== 'https://telesthesia-app.netlify.app/telesthesia/') {
-    return {
-      statusCode: 403,
-      body: 'Forbidden: Invalid Referer URL'
-    };
-  }
-
+    // Check the HTTP Referer header
+    const headers = event.headers;
+    const referer = headers['Referer'] || headers['referer'];
+    if (referer !== 'https://telesthesia-app.netlify.app/telesthesia/') {
+      return {
+        statusCode: 403,
+        body: 'Forbidden: Invalid Referer URL'
+      };
+    }
+  
   // Parse the request body
   const body = JSON.parse(event.body);
   const lat = Number(body.lat);
   const lng = Number(body.lng);
+
+
 
   // Try to retrieve a matching location from the 'locations_lat_and_lon' index
   try {
@@ -81,4 +76,4 @@ exports.handler = limiter.wrap(async (event, context) => {
       })
     }
   }
-});
+};
