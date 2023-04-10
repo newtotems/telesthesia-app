@@ -9,7 +9,9 @@ zoom: 12 // The zoom level of the map
 });
 
 // zoom
-const nav = new mapboxgl.NavigationControl();
+const nav = new mapboxgl.NavigationControl({
+    showCompass : false
+});
 map.addControl(nav, 'top-left');
 
 // Add a click listener to the map
