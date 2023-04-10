@@ -57,9 +57,9 @@ async function checklocation(lat, lng) {
   // Replace this with your own Netlify function URL
   const functionUrl = 'https://telesthesia-app.netlify.app/.netlify/functions/checklocation';
 
- // Round the lat and lng values to four decimal places
-  const roundedLat = lat.toFixed(4);
-  const roundedLng = lng.toFixed(4);
+ // Round the lat and lng values to three decimal places
+  const roundedLat = lat.toFixed(3);
+  const roundedLng = lng.toFixed(3);
 
   // Send the rounded latitude and longitude as parameters to the function
   const response = await fetch(functionUrl, {
