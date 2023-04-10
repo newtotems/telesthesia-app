@@ -6,10 +6,23 @@ const client = new faunadb.Client({
 });
 
 exports.handler = async (event, context) => {
+
+    // Check the HTTP Referer header
+    const headers = event.headers;
+    const referer = headers['Referer'] || headers['referer'];
+    if (referer !== 'https://telesthesia-app.netlify.app/telesthesia/') {
+      return {
+        statusCode: 403,
+        body: 'Forbidden: Invalid Referer URL'
+      };
+    }
+  
   // Parse the request body
   const body = JSON.parse(event.body);
   const lat = Number(body.lat);
   const lng = Number(body.lng);
+
+
 
   // Try to retrieve a matching location from the 'locations_lat_and_lon' index
   try {
