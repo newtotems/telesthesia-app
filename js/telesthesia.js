@@ -44,7 +44,7 @@ const response = await fetch(functionUrl, {
 method: 'POST',
 headers: {
   'Content-Type': 'application/x-www-form-urlencoded',
-  'Origin': 'https://telesthesia-app.netlify.app.netlify.app',
+  'Origin': 'https://telesthesia-app.netlify.app',
   'Accept': 'application/json'
 },
 body: JSON.stringify({ lat: roundedLat, lng: roundedLng }) // Stringify the body data as JSON
