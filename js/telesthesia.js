@@ -33,6 +33,47 @@ new mapboxgl.Marker(mark)
 checklocation(lat, lng);
 });
 
+
+// load the carousel of readings
+fetch('/getviewings')
+  .then(response => response.json())
+  .then(data => {
+    const carouselInner = document.getElementById('carousel-inner');
+
+    // Create carousel items
+    data.viewings.forEach(viewing => {
+      if (viewing.viewing) {
+        const carouselItem = document.createElement('div');
+        carouselItem.classList.add('carousel-item');
+        carouselItem.textContent = viewing.viewing;
+        carouselInner.appendChild(carouselItem);
+      }
+    });
+
+    // Set the first carousel item to be active
+    const firstItem = carouselInner.firstChild;
+    firstItem.classList.add('active');
+
+    // Add event listeners to carousel controls
+    const carouselControls = document.querySelectorAll('.carousel-control');
+    carouselControls.forEach(control => {
+      control.addEventListener('click', e => {
+        e.preventDefault();
+
+        const currentActiveItem = document.querySelector('.carousel-item.active');
+        const nextItem = e.target.classList.contains('carousel-control-prev')
+          ? currentActiveItem.previousSibling || carouselInner.lastChild
+          : currentActiveItem.nextSibling || carouselInner.firstChild;
+
+        currentActiveItem.classList.remove('active');
+        nextItem.classList.add('active');
+      });
+    });
+  })
+  .catch(error => console.error(error));
+
+// function to check locations  
+
 async function checklocation(lat, lng) {
 // Replace this with your own Netlify function URL
 const functionUrl = 'https://telesthesia-app.netlify.app/.netlify/functions/checklocation';
