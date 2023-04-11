@@ -15,7 +15,7 @@
             font-family: 'Martian Mono', monospace;
             background: #194146;
         }
-        html, body, main, #map, #mapcontainer {
+        html, body, main, #map, #mapcontainer, .tab-content, .tab-container {
             height: 100%;
             width: 100%;
             overflow: hidden;
@@ -48,6 +48,39 @@
     right: 40px;
     width: 180px;
 }
+
+.tab-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tab-container input[type="radio"] {
+  display: none;
+}
+
+.tab-container label {
+  padding: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #eee;
+  border: 1px solid #ddd;
+}
+
+.tab-container input[type="radio"]:checked + label {
+  background-color: #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.tab-content {
+  display: none;
+  width: 100%;
+}
+
+.tab-container input[type="radio"]:checked + label + .tab-content {
+  display: block;
+}
+
 
 .panel, .carousel-item {
     min-height: 20px;
