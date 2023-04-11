@@ -38,39 +38,48 @@ checklocation(lat, lng);
 fetch('/getviewings')
   .then(response => response.json())
   .then(data => {
-    const carouselInner = document.getElementById('carousel-inner');
+    const gridContainer = document.getElementById('grid-container');
+    const carousel = document.getElementById('carousel');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
 
-    // Create carousel items
-    data.viewings.forEach(viewing => {
-      if (viewing.viewing) {
-        const carouselItem = document.createElement('div');
-        carouselItem.classList.add('carousel-item');
-        carouselItem.textContent = viewing.viewing;
-        carouselInner.appendChild(carouselItem);
+    let activeIndex = 0;
+    const viewings = data.viewings.filter(viewing => viewing.viewing);
+
+    // Draw carousel items
+    viewings.forEach((viewing, index) => {
+      const carouselItem = document.createElement('div');
+      carouselItem.classList.add('carousel-item');
+      carouselItem.textContent = viewing.viewing;
+      carousel.appendChild(carouselItem);
+
+      // Set first item as active
+      if (index === activeIndex) {
+        carouselItem.classList.add('active');
       }
     });
 
-    // Set the first carousel item to be active
-    const firstItem = carouselInner.firstChild;
-    firstItem.classList.add('active');
-
-    // Add event listeners to carousel controls
-    const carouselControls = document.querySelectorAll('.carousel-control');
-    carouselControls.forEach(control => {
-      control.addEventListener('click', e => {
-        e.preventDefault();
-
-        const currentActiveItem = document.querySelector('.carousel-item.active');
-        const nextItem = e.target.classList.contains('carousel-control-prev')
-          ? currentActiveItem.previousSibling || carouselInner.lastChild
-          : currentActiveItem.nextSibling || carouselInner.firstChild;
-
+    // Add event listeners to buttons
+    prevBtn.addEventListener('click', () => {
+      if (activeIndex > 0) {
+        const currentActiveItem = carousel.querySelector('.active');
         currentActiveItem.classList.remove('active');
-        nextItem.classList.add('active');
-      });
+        activeIndex--;
+        carousel.children[activeIndex].classList.add('active');
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (activeIndex < viewings.length - 1) {
+        const currentActiveItem = carousel.querySelector('.active');
+        currentActiveItem.classList.remove('active');
+        activeIndex++;
+        carousel.children[activeIndex].classList.add('active');
+      }
     });
   })
   .catch(error => console.error(error));
+
 
 // function to check locations  
 
