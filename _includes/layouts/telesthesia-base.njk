@@ -15,7 +15,7 @@
             font-family: 'Martian Mono', monospace;
             background: #194146;
         }
-        html, body, main, #map, #mapcontainer, .tab-content, .tab-container {
+        html, body, main, #map, #mapcontainer {
             height: 100%;
             width: 100%;
             overflow: hidden;
@@ -42,45 +42,14 @@
   opacity: 0.5;
         }
 
+#toggle-viewings {position: absolute;}
+
 #data-container {
  position: fixed;
     top: 40px;
     right: 40px;
     width: 180px;
 }
-
-.tab-container {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tab-container input[type="radio"] {
-  display: none;
-}
-
-.tab-container label {
-  padding: 10px;
-  margin-right: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  background-color: #eee;
-  border: 1px solid #ddd;
-}
-
-.tab-container input[type="radio"]:checked + label {
-  background-color: #fff;
-  border-bottom: 1px solid #fff;
-}
-
-.tab-content {
-  display: none;
-  width: 100%;
-}
-
-.tab-container input[type="radio"]:checked + label + .tab-content {
-  display: block;
-}
-
 
 .panel, .carousel-item {
     min-height: 20px;
@@ -167,91 +136,9 @@ main {
     text-shadow: 2px 2px #000000;
 }
 
-#grid-container {
-  max-width: 1920px;
-  margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  align-items: stretch;
-  margin: -10px;
+.hidden {
+  display: none;
 }
-
-
-.grid-item {
-  flex: 1 0 calc(100% / 6 - 20px);
-  max-width: calc(100% / 6 - 20px);
-  margin: 10px;
-  border: 1px solid #ddd;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.carousel-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.carousel {
-  position: relative;
-  width: 80%;
-  max-width: 800px;
-  overflow: hidden;
-}
-
-.carousel-item {
-display:none;
-}
-
-.carousel-item.active {
-display:block;
-}
-
-.carousel-inner {
-  display: flex;
-  width: 100%;
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  color: #fff;
-}
-
-.carousel-control-prev {
-  left: 0;
-}
-
-.carousel-control-next {
-  right: 0;
-}
-
-.carousel-control-icon {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid #fff;
-  border-right: 2px solid #fff;
-  transform: rotate(-45deg);
-}
-
-.carousel-control-prev .carousel-control-icon {
-  transform: rotate(135deg);
-}
-
-
 
       /**
  * termynal.js

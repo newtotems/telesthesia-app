@@ -58,6 +58,14 @@ fetch('/getviewings')
   })
   .catch(error => console.error(error));
 
+  // toggle viewings
+  const toggleViewingsButton = document.getElementById('toggle-viewings');
+const viewingsContainer = document.getElementById('viewings');
+
+toggleViewingsButton.addEventListener('click', () => {
+  viewingsContainer.classList.toggle('hidden');
+});
+
 
 // function to check locations  
 
