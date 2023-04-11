@@ -2,8 +2,20 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-    <!-- Create a div element to hold the map -->
-    <div id="mapcontainer">
+
+<div class="tab-container">
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Tab 1</label>
+  
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Tab 2</label>
+  
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Tab 3</label>
+  
+  <div class="tab-content">
+
+       <div id="mapcontainer">
       <div id="map"></div>
     </div>
 
@@ -14,22 +26,20 @@ layout: layouts/telesthesia-base.njk
         <div id="console__image"></div>
     </div>
 
-<div class="carousel-container">
-  <div id="carousel">
-    <div class="carousel-inner" id="carousel-inner"></div>
-    <a class="carousel-control carousel-control-prev" href="#carousel" role="button" data-slide="prev" id="carousel-prev">
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control carousel-control-next" href="#carousel" role="button" data-slide="next" id="carousel-next">
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
-</div>
-
-
     </div>
 
     <div id="log"></div>
+
+  </div>
+  
+  <div class="tab-content">
+    <div id="viewings"></div>
+  </div>
+  
+  <div class="tab-content">
+    <p>Content for Tab 3 goes here.</p>
+  </div>
+</div>
 
     <!-- Include the Leaflet JavaScript file -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>

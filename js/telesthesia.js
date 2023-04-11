@@ -34,56 +34,29 @@ checklocation(lat, lng);
 });
 
 
-// load the carousel of readings
+//load the viewings
+// load the viewings list
 fetch('/getviewings')
-.then(response => response.json())
-.then(data => {
-  const carouselInner = document.getElementById('carousel-inner');
-  const carouselPrev = document.getElementById('carousel-prev');
-  const carouselNext = document.getElementById('carousel-next');
-  const viewings = data.viewings;
-  let activeIndex = 0;
+  .then(response => response.json())
+  .then(data => {
+    const viewingsContainer = document.getElementById('viewings');
+    const viewings = data.viewings;
 
-  // Draw carousel items
-  const drawCarouselItems = () => {
-    carouselInner.innerHTML = '';
-    viewings.forEach((viewing, index) => {
-      const carouselItem = document.createElement('div');
-      carouselItem.classList.add('carousel-item');
-      if (index === activeIndex) {
-        carouselItem.classList.add('active');
-      }
-      const carouselItemText = document.createElement('p');
-      carouselItemText.textContent = viewing.viewing;
-      carouselItem.appendChild(carouselItemText);
-      carouselInner.appendChild(carouselItem);
-    });
-  };
+    // Draw viewings list
+    const drawViewingsList = () => {
+      viewingsContainer.innerHTML = '';
+      viewings.forEach(viewing => {
+        const viewingItem = document.createElement('div');
+        viewingItem.classList.add('viewing-item');
+        viewingItem.textContent = viewing.viewing;
+        viewingsContainer.appendChild(viewingItem);
+      });
+    };
 
-  // Handle previous button click
-  carouselPrev.addEventListener('click', () => {
-    if (activeIndex === 0) {
-      activeIndex = viewings.length - 1;
-    } else {
-      activeIndex--;
-    }
-    drawCarouselItems();
-  });
-
-  // Handle next button click
-  carouselNext.addEventListener('click', () => {
-    if (activeIndex === viewings.length - 1) {
-      activeIndex = 0;
-    } else {
-      activeIndex++;
-    }
-    drawCarouselItems();
-  });
-
-  // Draw initial carousel items
-  drawCarouselItems();
-})
-.catch(error => console.error(error));
+    // Draw initial viewings list
+    drawViewingsList();
+  })
+  .catch(error => console.error(error));
 
 
 // function to check locations  
