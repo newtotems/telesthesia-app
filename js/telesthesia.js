@@ -40,8 +40,8 @@ fetch('/getviewings')
   .then(data => {
     const gridContainer = document.getElementById('grid-container');
     const carousel = document.getElementById('carousel');
-    const prevBtn = document.getElementById('prev');
-    const nextBtn = document.getElementById('next');
+    const prevBtn = document.getElementById('carousel-prev');
+    const nextBtn = document.getElementById('carousel-next');
 
     let activeIndex = 0;
     const viewings = data.viewings.filter(viewing => viewing.viewing);
