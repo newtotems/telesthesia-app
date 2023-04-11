@@ -36,49 +36,54 @@ checklocation(lat, lng);
 
 // load the carousel of readings
 fetch('/getviewings')
-  .then(response => response.json())
-  .then(data => {
-    const gridContainer = document.getElementById('grid-container');
-    const carousel = document.getElementById('carousel');
-    const prevBtn = document.getElementById('carousel-prev');
-    const nextBtn = document.getElementById('carousel-next');
+.then(response => response.json())
+.then(data => {
+  const carouselInner = document.getElementById('carousel-inner');
+  const carouselPrev = document.getElementById('carousel-prev');
+  const carouselNext = document.getElementById('carousel-next');
+  const viewings = data.viewings;
+  let activeIndex = 0;
 
-    let activeIndex = 0;
-    const viewings = data.viewings.filter(viewing => viewing.viewing);
-
-    // Draw carousel items
+  // Draw carousel items
+  const drawCarouselItems = () => {
+    carouselInner.innerHTML = '';
     viewings.forEach((viewing, index) => {
       const carouselItem = document.createElement('div');
       carouselItem.classList.add('carousel-item');
-      carouselItem.textContent = viewing.viewing;
-      carousel.appendChild(carouselItem);
-
-      // Set first item as active
       if (index === activeIndex) {
         carouselItem.classList.add('active');
       }
+      const carouselItemText = document.createElement('p');
+      carouselItemText.textContent = viewing.viewing;
+      carouselItem.appendChild(carouselItemText);
+      carouselInner.appendChild(carouselItem);
     });
+  };
 
-    // Add event listeners to buttons
-    prevBtn.addEventListener('click', () => {
-      if (activeIndex > 0) {
-        const currentActiveItem = carousel.querySelector('.active');
-        currentActiveItem.classList.remove('active');
-        activeIndex--;
-        carousel.children[activeIndex].classList.add('active');
-      }
-    });
+  // Handle previous button click
+  carouselPrev.addEventListener('click', () => {
+    if (activeIndex === 0) {
+      activeIndex = viewings.length - 1;
+    } else {
+      activeIndex--;
+    }
+    drawCarouselItems();
+  });
 
-    nextBtn.addEventListener('click', () => {
-      if (activeIndex < viewings.length - 1) {
-        const currentActiveItem = carousel.querySelector('.active');
-        currentActiveItem.classList.remove('active');
-        activeIndex++;
-        carousel.children[activeIndex].classList.add('active');
-      }
-    });
-  })
-  .catch(error => console.error(error));
+  // Handle next button click
+  carouselNext.addEventListener('click', () => {
+    if (activeIndex === viewings.length - 1) {
+      activeIndex = 0;
+    } else {
+      activeIndex++;
+    }
+    drawCarouselItems();
+  });
+
+  // Draw initial carousel items
+  drawCarouselItems();
+})
+.catch(error => console.error(error));
 
 
 // function to check locations  
