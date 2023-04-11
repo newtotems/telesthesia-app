@@ -33,40 +33,6 @@ new mapboxgl.Marker(mark)
 checklocation(lat, lng);
 });
 
-
-//load the viewings
-// load the viewings list
-fetch('/getviewings')
-  .then(response => response.json())
-  .then(data => {
-    const viewingsContainer = document.getElementById('viewings');
-    const viewings = data.viewings;
-
-    // Draw viewings list
-    const drawViewingsList = () => {
-      viewingsContainer.innerHTML = '';
-      viewings.forEach(viewing => {
-        const viewingItem = document.createElement('div');
-        viewingItem.classList.add('viewing-item');
-        viewingItem.textContent = viewing.viewing;
-        viewingsContainer.appendChild(viewingItem);
-      });
-    };
-
-    // Draw initial viewings list
-    drawViewingsList();
-  })
-  .catch(error => console.error(error));
-
-  // toggle viewings
-  const toggleViewingsButton = document.getElementById('toggle-viewings');
-const viewingsContainer = document.getElementById('viewings');
-
-toggleViewingsButton.addEventListener('click', () => {
-  viewingsContainer.classList.toggle('hidden');
-});
-
-
 // function to check locations  
 
 async function checklocation(lat, lng) {
