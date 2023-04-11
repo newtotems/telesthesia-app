@@ -15,6 +15,18 @@
             font-family: 'Martian Mono', monospace;
             background: #194146;
         }
+
+body::before {
+    content: '';
+    display: block;
+    z-index: 1;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
+    pointer-events: none;
+}
+
         html, body, main, #map, #mapcontainer {
             height: 100%;
             width: 100%;
