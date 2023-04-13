@@ -10,7 +10,7 @@ exports.handler = async (event, context) => {
     // Check the HTTP Referer header
     const headers = event.headers;
     const referer = headers['Referer'] || headers['referer'];
-    if (referer !== 'https://telesthesia-app.netlify.app/') {
+    if (referer !== 'https://telesthesia-app.netlify.app/map/') {
       return {
         statusCode: 403,
         body: 'Forbidden: Invalid Referer URL'
