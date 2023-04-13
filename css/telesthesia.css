@@ -105,19 +105,7 @@ height: 13px;
 background: #00ffb2;
 border-radius: 50%;
 }
-/*
-.marker::after {
-content: "";
-display: block;
-border: 2px solid white;
-border-radius: 50%;
-width: 100%;
-height: 100%;
-position: absolute;
-top: 0;
-left: 0;
-}
-*/
+
 #log {
 position: absolute;
 bottom: 50px;
@@ -126,6 +114,23 @@ color: #fff;
 font-size: 7px;
 line-height: 3px;
 text-shadow: 2px 2px #000000;
+}
+
+.main-nav {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.main-nav__item {
+
+}
+
+.main-nav__item h2 {
+
+}
+
+.main-nav__item h2 span {
+
 }
 
 /**
