@@ -16,7 +16,7 @@ box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
 pointer-events: none;
 }
 
-html, body, main, #map, #mapcontainer, .tabset, .tab-panels section {
+html, body, main, #map, #mapcontainer {
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -42,24 +42,6 @@ top: 0;
 left: 0;
 opacity: 0.5;
 }
-
-.tabset > input[type="radio"] {
-    position: absolute;
-    left: -200vw;
-  }
-  
-  .tabset .tab-panel {
-    display: none;
-  }
-  
-  .tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
-  .tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
-  .tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
-  .tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
-  .tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
-  .tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
-    display: block;
-  }
 
 #data-container {
 position: fixed;
