@@ -1,21 +1,52 @@
 ---
 layout: layouts/telesthesia-base.njk
 ---
-    <!-- Create a div element to hold the map -->
-    <div id="mapcontainer">
-      <div id="map"></div>
-    </div>
 
-    <div id="data-container">
 
-     <div id="console" class="panel">
-        <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
-        <div id="console__image"></div>
-    </div>
 
-    </div>
+<div class="tabset">
+  <!-- Tab 1 -->
+  <input type="radio" name="tabset" id="tab1" aria-controls="map" checked>
+  <label for="tab1">Map</label>
+  <!-- Tab 2 -->
+  <input type="radio" name="tabset" id="tab2" aria-controls="viewings">
+  <label for="tab2">Viewings</label>
+  <!-- Tab 3 -->
+  <input type="radio" name="tabset" id="tab3" aria-controls="stats">
+  <label for="tab3">Stats</label>
+  
+  <div class="tab-panels">
+    <section id="map" class="tab-panel">
+            <!-- Create a div element to hold the map -->
+                <div id="mapcontainer">
+                  <div id="map"></div>
+                </div>
 
-    <div id="log"></div>
+                <div id="data-container">
+
+                <div id="console" class="panel">
+                    <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
+                    <div id="console__image"></div>
+                </div>
+
+                </div>
+
+                <div id="log"></div>
+  </section>
+
+    <section id="viewings" class="tab-panel">
+  Viewings
+    </section>
+    <section id="stats" class="tab-panel">
+  Stats
+    </section>
+  </div>
+  
+</div>
+
+
+
+   
 
     <!-- Include the Leaflet JavaScript file -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
