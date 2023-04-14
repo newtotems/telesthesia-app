@@ -44,30 +44,33 @@ opacity: 0.5;
 }
 
 .Layers {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     justify-content: center;
     width: 400px;
+    margin: 0 auto;
     padding: 0;
-    z-index: 2;
+    list-style: none;
   }
   
   .Layers li {
-    display: inline-block;
     margin: 0 10px;
-    list-style: none;
   }
-
-  .layer-button {
-    border:none;
+  
+  .Layer {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
   }
-
-  .viewings-visible .layer-button--viewings,   .stats-visible .layer-button--stats {
-    background: #20dfdf;
+  
+  .Layer-visible {
+    display: block;
   }
+  
 
   #viewingscontainer, #statscontainer  {
     display: none;
@@ -82,14 +85,6 @@ opacity: 0.5;
     transform: translate(-50%, -50%)
   }
 
-  .viewings-visible #viewingscontainer, .stats-visible #statscontainer  {
-    display:block;
-  }
-
-
-  .viewings-visible .layer-button--viewings,   .stats-visible .layer-button--stats {
-    background: #20dfdf;
-  }
 
 #data-container {
 position: fixed;
