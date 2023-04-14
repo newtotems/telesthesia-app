@@ -117,20 +117,32 @@ text-shadow: 2px 2px #000000;
 }
 
 .main-nav {
-    max-width: 800px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
-.main-nav__item {
+.main-nav a {
+   text-decoration: none;
+}
 
+.main-nav__item {
+    background: #306066;
+    padding: 15px;
+    margin: 20px;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #467d85;
 }
 
 .main-nav__item h2 {
-
+    margin: 0;
+    border-bottom: 1px solid #42757d;
+    padding-bottom: 10px;
+    font-size: 16px;
 }
 
-.main-nav__item h2 span {
-
+.main-nav__item p {
+        font-size: 12px;
 }
 
 /**
