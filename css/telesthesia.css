@@ -46,10 +46,16 @@ opacity: 0.5;
 .Layers {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
     width: 400px;
     margin: 0 auto;
     padding: 0;
     list-style: none;
+    z-index: 999;
   }
   
   .Layers li {
@@ -71,6 +77,17 @@ opacity: 0.5;
     display: block;
   }
   
+  .Layers button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+  }
+  
+  .Layers button.active {
+    background-color: #000;
+    color: #fff;
+  }
+    
 
   #viewingscontainer, #statscontainer  {
     display: none;

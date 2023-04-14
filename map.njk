@@ -31,26 +31,37 @@ layout: layouts/telesthesia-base.njk
 <script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
     <!-- Initialize the map -->
     <script>
-const viewingsButton = document.getElementById('viewings-button');
-const statsButton = document.getElementById('stats-button');
-const viewingsLayer = document.getElementById('viewings-layer');
-const statsLayer = document.getElementById('stats-layer');
+const layers = document.querySelectorAll('.Layer');
+const buttons = document.querySelectorAll('.Layers button');
 
-viewingsButton.addEventListener('click', () => {
-  if (viewingsLayer.classList.contains('Layer-visible')) {
-    viewingsLayer.classList.remove('Layer-visible');
-  } else {
-    viewingsLayer.classList.add('Layer-visible');
-    statsLayer.classList.remove('Layer-visible');
-  }
+function toggleLayer(layer) {
+  layer.classList.toggle('Layer-visible');
+}
+
+function toggleButton(button) {
+  button.classList.toggle('active');
+}
+
+function deactivateOthers(currentButton) {
+  buttons.forEach(function(button) {
+    if (button !== currentButton && button.classList.contains('active')) {
+      const layerId = button.getAttribute('data-layer');
+      const layer = document.querySelector(`.Layer[data-layer="${layerId}"]`);
+      toggleLayer(layer);
+      toggleButton(button);
+    }
+  });
+}
+
+buttons.forEach(function(button) {
+  button.addEventListener('click', function() {
+    const layerId = this.getAttribute('data-layer');
+    const layer = document.querySelector(`.Layer[data-layer="${layerId}"]`);
+    const isActive = layer.classList.contains('Layer-visible');
+    deactivateOthers(this);
+    toggleLayer(layer);
+    toggleButton(this);
+  });
 });
 
-statsButton.addEventListener('click', () => {
-  if (statsLayer.classList.contains('Layer-visible')) {
-    statsLayer.classList.remove('Layer-visible');
-  } else {
-    statsLayer.classList.add('Layer-visible');
-    viewingsLayer.classList.remove('Layer-visible');
-  }
-});
       </script>
