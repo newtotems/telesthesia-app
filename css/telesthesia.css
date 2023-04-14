@@ -43,6 +43,24 @@ left: 0;
 opacity: 0.5;
 }
 
+.Layers {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    width: 400px;
+    padding: 0;
+  }
+  
+  .Layers li {
+    display: inline-block;
+    margin: 0 10px;
+    list-style: none;
+  }
+  
+
 #data-container {
 position: fixed;
 top: 40px;
