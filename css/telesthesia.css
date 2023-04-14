@@ -76,7 +76,7 @@ opacity: 0.5;
   .Layer {
     display: none;
     position: absolute;
-    top: 0;
+    top: 50px;
     left: 50%;
     transform: translateX(-50%);
     padding: 20px;
