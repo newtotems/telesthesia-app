@@ -2,11 +2,6 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-<ul class="Layers">
-  <li><button id="viewings-button">Viewings</button></li>
-  <li><button id="stats-button">Stats</button></li>
-</ul>
-
     <!-- Create a div element to hold the map -->
     <div id="mapcontainer">
       <div id="map"></div>
@@ -23,8 +18,22 @@ layout: layouts/telesthesia-base.njk
 
     <div id="log"></div>
 
-    <div id="viewings-layer" class="Layer">Viewings Layer</div>
-<div id="stats-layer" class="Layer">Stats Layer</div>
+
+
+  <ul class="Layers">
+    <li><button data-layer="viewings">Viewings</button></li>
+    <li><button data-layer="stats">Stats</button></li>
+  </ul>
+  <div class="Layer" data-layer="viewings">
+    <h2>Viewings Layer</h2>
+    <p>This is the Viewings layer content.</p>
+  </div>
+  <div class="Layer" data-layer="stats">
+    <h2>Stats Layer</h2>
+    <p>This is the Stats layer content.</p>
+  </div>
+
+
 
     <!-- Include the Leaflet JavaScript file -->
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
