@@ -76,7 +76,7 @@ opacity: 0.5;
     min-height: 100px;
   }
 
-  .viewings-visible #viewings-container, .stats-visible #stats-container  {
+  .viewings-visible #viewingscontainer, .stats-visible #statscontainer  {
     display:block;
   }
 
