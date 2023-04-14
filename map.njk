@@ -39,3 +39,19 @@ layout: layouts/telesthesia-base.njk
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
 <script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
     <!-- Initialize the map -->
+    <script>
+      const buttons = document.querySelectorAll('.Layers button');
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const layer = button.getAttribute('data-layer');
+    const body = document.querySelector('body');
+    
+    if (body.classList.contains(`${layer}-visible`)) {
+      body.classList.remove(`${layer}-visible`);
+    } else {
+      body.classList.add(`${layer}-visible`);
+    }
+  });
+});
+      </script>
