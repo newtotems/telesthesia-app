@@ -69,6 +69,22 @@ opacity: 0.5;
     background: #20dfdf;
   }
 
+  #viewings-container, #stats-container  {
+    display:none;
+    background-color: white;
+    min-width: 100px;
+    min-height: 100px;
+  }
+
+  .viewings-visible #viewings-container, .stats-visible #stats-container  {
+    display:block;
+  }
+
+
+  .viewings-visible .layer-button--viewings,   .stats-visible .layer-button--stats {
+    background: #20dfdf;
+  }
+
 #data-container {
 position: fixed;
 top: 40px;
