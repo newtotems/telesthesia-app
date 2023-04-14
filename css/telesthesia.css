@@ -134,6 +134,10 @@ text-shadow: 2px 2px #000000;
     border: 1px solid #467d85;
 }
 
+.main-nav__item:hover {
+    background: #244f54;
+}
+
 .main-nav__item h2 {
     margin: 0;
     border-bottom: 1px solid #42757d;
