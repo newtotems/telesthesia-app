@@ -61,14 +61,13 @@ opacity: 0.5;
     list-style: none;
   }
 
-  .viewings-visible .layer-button--viewings {
-    background: green;
+  .layer-button {
+    border:none;
   }
 
-  .stats-visible .layer-button--stats {
-    background: green;
+  .viewings-visible .layer-button--viewings,   .stats-visible .layer-button--stats {
+    background: #20dfdf;
   }
-  
 
 #data-container {
 position: fixed;
