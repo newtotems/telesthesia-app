@@ -3,7 +3,7 @@ layout: layouts/telesthesia-base.njk
 ---
 
   <ul class="Layers">
-    <li><button id="btnHide">Hide All</button></li>
+    <li><button id="btnHide" class="active">Map</button></li>
     <li><button id="btnViewings">Viewings</button></li>
     <li><button id="btnStats">Stats</button></li>
   </ul>
@@ -70,5 +70,8 @@ btnHide.addEventListener('click', () => {
   // remove active class from both buttons
   btnViewings.classList.remove('active');
   btnStats.classList.remove('active');
+
+  // add active class to btnHide
+  btnHide.classList.add('active');
 });
       </script>
