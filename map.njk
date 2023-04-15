@@ -48,6 +48,7 @@ const btnMap = document.getElementById('btnMap');
 btnViewings.addEventListener('click', () => {
   document.getElementById('viewings').style.display = 'block';
   document.getElementById('stats').style.display = 'none';
+  document.getElementById('map').style.display = 'none';
 
   // add active class to btnViewings and remove from others
   btnViewings.classList.add('active');
@@ -58,6 +59,7 @@ btnViewings.addEventListener('click', () => {
 btnStats.addEventListener('click', () => {
   document.getElementById('stats').style.display = 'block';
   document.getElementById('viewings').style.display = 'none';
+  document.getElementById('map').style.display = 'none';
 
   // add active class to btnStats and remove from others
   btnStats.classList.add('active');
@@ -66,24 +68,20 @@ btnStats.addEventListener('click', () => {
 });
 
 btnMap.addEventListener('click', () => {
-  // toggle display of viewings and stats
   const viewings = document.getElementById('viewings');
   const stats = document.getElementById('stats');
-  viewings.style.display = viewings.style.display === 'none' ? 'block' : 'none';
-  stats.style.display = stats.style.display === 'none' ? 'block' : 'none';
-
-  // remove active class from all buttons
+  
+  // hide viewings and stats
+  viewings.style.display = 'none';
+  stats.style.display = 'none';
+  
+  // add active class to btnMap and remove from others
+  btnMap.classList.add('active');
   btnViewings.classList.remove('active');
   btnStats.classList.remove('active');
-  btnMap.classList.remove('active');
-
-  // add active class to btnMap if both viewings and stats are hidden, otherwise add to the appropriate button
-  if (viewings.style.display === 'none' && stats.style.display === 'none') {
-    btnMap.classList.add('active');
-  } else if (viewings.style.display === 'block') {
-    btnViewings.classList.add('active');
-  } else if (stats.style.display === 'block') {
-    btnStats.classList.add('active');
-  }
 });
+
+// set initial active button to Map
+btnMap.classList.add('active');
+
       </script>
