@@ -2,112 +2,162 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-<div class="container">
-  <div class="main">
-    <!-- Content for main div -->
-  </div>
-  <div class="secondary">
-    <div class="tabbed-area active">
-      <!-- Content for first tab -->
-    </div>
-    <div class="tabbed-area">
-      <!-- Content for second tab -->
-    </div>
-    <div class="tabbed-area">
-      <!-- Content for third tab -->
-    </div>
-    <div class="tab-buttons">
-      <button class="tab-button active" data-tab="1">Tab 1</button>
-      <button class="tab-button" data-tab="2">Tab 2</button>
-      <button class="tab-button" data-tab="3">Tab 3</button>
-    </div>
-  </div>
-  <button class="view-menu">View Menu</button>
-</div>
-
-
 <style>
-/* Styles for desktop screens */
-.container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
+ * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-.main {
-  width: 80%;
-}
+      body {
+        font-family: Arial, sans-serif;
+      }
 
-.secondary {
-  width: 20%;
-}
+      /* Styles for desktop screens */
+      .container {
+        display: flex;
+        width: 100%;
+      }
 
-.tabbed-area {
-  display: none;
-}
+      .main {
+        width: 80%;
+        background-color: #f0f0f0;
+        padding: 20px;
+      }
 
-.tabbed-area.active {
-  display: block;
-}
+      .secondary {
+        width: 20%;
+        background-color: #ccc;
+        padding: 20px;
+      }
 
-.tab-buttons {
-  display: flex;
-  flex-direction: row;
-}
+      .tabbed-area {
+        display: none;
+      }
 
-.tab-button {
-  flex-grow: 1;
-}
+      .tabbed-area.active {
+        display: block;
+      }
 
-.tab-button.active {
-  font-weight: bold;
-}
+      .tab-buttons {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
 
-/* Styles for mobile screens */
-@media only screen and (max-width: 600px) {
-  .container {
-    position: relative;
-  }
+      .tab-button {
+        background-color: #fff;
+        border: 1px solid #ccc;
+        padding: 10px;
+        cursor: pointer;
+        font-weight: bold;
+      }
 
-  .main {
-    width: 100%;
-    transition: transform 0.3s ease-in-out;
-  }
+      .tab-button.active {
+        background-color: #ccc;
+        color: #fff;
+        border: 1px solid #ccc;
+      }
 
-  .secondary {
-    position: absolute;
-    top: 0;
-    right: -40%;
-    width: 40%;
-    height: 100%;
-    background-color: #f5f5f5;
-    transition: transform 0.3s ease-in-out;
-  }
+      /* Styles for mobile screens */
+      @media only screen and (max-width: 600px) {
+        .container {
+          position: relative;
+        }
 
-  .tabbed-area {
-    display: block;
-  }
+        .main {
+          width: 100%;
+          transition: transform 0.3s ease-in-out;
+        }
 
-  .tab-buttons {
-    display: none;
-  }
+        .secondary {
+          position: absolute;
+          top: 0;
+          right: -40%;
+          width: 40%;
+          height: 100%;
+          background-color: #f5f5f5;
+          transition: transform 0.3s ease-in-out;
+        }
 
-  .view-menu {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-  }
+        .tabbed-area {
+          display: block;
+        }
 
-  .main.menu-open {
-    transform: translateX(-40%);
-  }
+        .tab-buttons {
+          display: none;
+        }
 
-  .secondary.menu-open {
-    transform: translateX(-100%);
-    right: 0;
-  }
-}
+        .view-menu {
+          position: absolute;
+          top: 0;
+          right: 0;
+          z-index: 1;
+        }
 
+        .main.menu-open {
+          transform: translateX(-40%);
+        }
 
+        .secondary.menu-open {
+          transform: translateX(-100%);
+          right: 0;
+        }
+      }
 </style>
+
+
+  <div class="container">
+    <div class="main">
+      <h1>Main Content</h1>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <div class="tab-buttons">
+        <div class="tab-button active" onclick="showTab('tab1')">Tab 1</div>
+        <div class="tab-button" onclick="showTab('tab2')">Tab 2</div>
+        <div class="tab-button" onclick="showTab('tab3')">Tab 3</div>
+      </div>
+      <div class="tabbed-area active" id="tab1">
+        <h2>Tab 1</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+      <div class="tabbed-area" id="tab2">
+        <h2>Tab 2</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+      <div class="tabbed-area" id="tab3">
+        <h2>Tab 3</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      </div>
+    </div>
+    <div class="secondary">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="#">Link 1</a></li>
+        <li><a href="#">Link 2</a></li>
+        <li><a href="#">Link 3</a></li>
+      </ul>
+    </div>
+    <button class="view-menu" onclick="toggleMenu()">View Menu</button>
+  </div>
+
+  <script>
+    function showTab(tabId) {
+      var tabs = document.getElementsByClassName("tabbed-area");
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+      }
+      document.getElementById(tabId).classList.add("active");
+    }
+
+    function toggleMenu() {
+      var main = document.getElementsByClassName("main")[0];
+      var secondary = document.getElementsByClassName("secondary")[0];
+      if (main.classList.contains("menu-open")) {
+        main.classList.remove("menu-open");
+        secondary.classList.remove("menu-open");
+      } else {
+        main.classList.add("menu-open");
+        secondary.classList.add("menu-open");
+      }
+    }
+  </script>
