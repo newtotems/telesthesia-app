@@ -152,25 +152,39 @@ button:hover {
   <div class="pusher">
     <div class="panel">
       <h2>Sidebar</h2>
-      <nav class="menu">
-        
-        <ul>
-           <li><a href="#">Data 1</a></li>
-            <li><a href="#">Data 2</a></li>
-            <li><a href="#">Data 3</a></li>
-            <li><a href="#">Data 4</a></li>
-            <li><a href="#">Data 5</a></li>
-        </ul>
-      </nav>
      </div>
      <div class="content">
 		  <div class="content-inner">
-        <h1>Testing a push menu</h1>
         <button class="mobile-menu">Push</button>
+
+
+ <div id="mapcontainer">
+      <div id="map"></div>
+    </div>
+
+    <div id="data-container">
+
+     <div id="console" class="panel">
+        <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
+        <div id="console__image"></div>
+    </div>
+
+    </div>
+
+    <div id="log"></div>
+
+
+
        </div>
     </div>
   </div>
 </div>
+
+
+    <!-- Include the Leaflet JavaScript file -->
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+<script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
+    <!-- Initialize the map -->
 
 <script>
 const button = document.querySelector('.mobile-menu');
