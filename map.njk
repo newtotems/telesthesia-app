@@ -2,6 +2,12 @@
 layout: layouts/telesthesia-base.njk
 ---
 
+  <ul class="Layers">
+    <li><button id="btnHide">Hide All</button></li>
+    <li><button id="btnViewings">Viewings</button></li>
+    <li><button id="btnStats">Stats</button></li>
+  </ul>
+
     <!-- Create a div element to hold the map -->
     <div id="mapcontainer">
       <div id="map"></div>
@@ -18,17 +24,12 @@ layout: layouts/telesthesia-base.njk
 
     <div id="log"></div>
 
-
-
-  <ul class="Layers">
-    <li><button data-layer="viewings">Viewings</button></li>
-    <li><button data-layer="stats">Stats</button></li>
-  </ul>
-  <div class="Layer" data-layer="viewings">
+  <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
     <h2>Viewings Layer</h2>
     <p>This is the Viewings layer content.</p>
   </div>
-  <div class="Layer" data-layer="stats">
+
+  <div class="Layer" data-layer="stats" id="stats" style="display: none;">
     <h2>Stats Layer</h2>
     <p>This is the Stats layer content.</p>
   </div>
@@ -40,37 +41,22 @@ layout: layouts/telesthesia-base.njk
 <script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
     <!-- Initialize the map -->
     <script>
-const layers = document.querySelectorAll('.Layer');
-const buttons = document.querySelectorAll('.Layers button');
+const btnViewings = document.getElementById('btnViewings');
+const btnStats = document.getElementById('btnStats');
+const btnHide = document.getElementById('btnHide');
 
-function toggleLayer(layer) {
-  layer.classList.toggle('Layer-visible');
-}
-
-function toggleButton(button) {
-  button.classList.toggle('active');
-}
-
-function deactivateOthers(currentButton) {
-  buttons.forEach(function(button) {
-    if (button !== currentButton && button.classList.contains('active')) {
-      const layerId = button.getAttribute('data-layer');
-      const layer = document.querySelector(`.Layer[data-layer="${layerId}"]`);
-      toggleLayer(layer);
-      toggleButton(button);
-    }
-  });
-}
-
-buttons.forEach(function(button) {
-  button.addEventListener('click', function() {
-    const layerId = this.getAttribute('data-layer');
-    const layer = document.querySelector(`.Layer[data-layer="${layerId}"]`);
-    const isActive = layer.classList.contains('Layer-visible');
-    deactivateOthers(this);
-    toggleLayer(layer);
-    toggleButton(this);
-  });
+btnViewings.addEventListener('click', () => {
+  document.getElementById('viewings').style.display = 'block';
+  document.getElementById('stats').style.display = 'none';
 });
 
+btnStats.addEventListener('click', () => {
+  document.getElementById('stats').style.display = 'block';
+  document.getElementById('viewings').style.display = 'none';
+});
+
+btnHide.addEventListener('click', () => {
+  document.getElementById('viewings').style.display = 'none';
+  document.getElementById('stats').style.display = 'none';
+});
       </script>
