@@ -68,10 +68,15 @@ opacity: 0.5;
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
+
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 12px;
   }
   
   .Layers button.active {
-    color: red;
+    background: #148b8b;
   }
   
   .Layer {
