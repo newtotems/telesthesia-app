@@ -44,6 +44,7 @@ layout: layouts/telesthesia-base.njk
 const btnViewings = document.getElementById('btnViewings');
 const btnStats = document.getElementById('btnStats');
 const btnHide = document.getElementById('btnHide');
+const btnMap = document.getElementById('btnMap');
 
 btnViewings.addEventListener('click', () => {
   document.getElementById('viewings').style.display = 'block';
@@ -52,6 +53,7 @@ btnViewings.addEventListener('click', () => {
   // add active class to btnViewings and remove from others
   btnViewings.classList.add('active');
   btnStats.classList.remove('active');
+  btnMap.classList.remove('active');
 });
 
 btnStats.addEventListener('click', () => {
@@ -61,17 +63,33 @@ btnStats.addEventListener('click', () => {
   // add active class to btnStats and remove from others
   btnStats.classList.add('active');
   btnViewings.classList.remove('active');
+  btnMap.classList.remove('active');
 });
 
 btnHide.addEventListener('click', () => {
   document.getElementById('viewings').style.display = 'none';
   document.getElementById('stats').style.display = 'none';
 
-  // remove active class from both buttons
+  // remove active class from all buttons
   btnViewings.classList.remove('active');
   btnStats.classList.remove('active');
+  btnMap.classList.remove('active');
 
   // add active class to btnHide
   btnHide.classList.add('active');
+});
+
+// add click event to Map button to remove active class from all other buttons
+btnMap.addEventListener('click', () => {
+  document.getElementById('viewings').style.display = 'none';
+  document.getElementById('stats').style.display = 'none';
+
+  // remove active class from all buttons
+  btnViewings.classList.remove('active');
+  btnStats.classList.remove('active');
+  btnHide.classList.remove('active');
+
+  // add active class to btnMap
+  btnMap.classList.add('active');
 });
       </script>
