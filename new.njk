@@ -3,161 +3,195 @@ layout: layouts/telesthesia-base.njk
 ---
 
 <style>
- * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+*,
+*:after,
+*::before {
+  box-sizing: border-box;
+}
 
-      body {
-        font-family: Arial, sans-serif;
-      }
+html,
+body,
+.container,
+.pusher,
+.content {
+  height: 100%;
+}
 
-      /* Styles for desktop screens */
-      .container {
-        display: flex;
-        width: 100%;
-      }
+body {
+  background: #444;
+  color: fab;
+  font-weight: 300;
+  font-family: "Open Sans", sans-serif;
+}
 
-      .main {
-        width: 80%;
-        background-color: #f0f0f0;
-        padding: 20px;
-      }
+a {
+  text-decoration: none;
+  color: #fff;
+  outline: none;
+}
 
-      .secondary {
-        width: 20%;
-        background-color: #ccc;
-        padding: 20px;
-      }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-      .tabbed-area {
-        display: none;
-      }
+button {
+  border: none;
+  padding: 0.5rem 1.2rem;
+  background: #388a5a;
+  color: #fff;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+  margin: 1rem;
+  border-radius: 0.3rem;
+}
 
-      .tabbed-area.active {
-        display: block;
-      }
+button:hover {
+  background: #2c774b;
+}
 
-      .tab-buttons {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
-      }
+.content {
+  overflow-y: scroll;
+  background: #f3efe0;
+}
 
-      .tab-button {
-        background-color: #fff;
-        border: 1px solid #ccc;
-        padding: 10px;
-        cursor: pointer;
-        font-weight: bold;
-      }
+.content,
+.content-inner {
+  position: relative;
+}
 
-      .tab-button.active {
-        background-color: #ccc;
-        color: #fff;
-        border: 1px solid #ccc;
-      }
+.container {
+  position: relative;
+  overflow: hidden;
+}
 
-      /* Styles for mobile screens */
-      @media only screen and (max-width: 600px) {
-        .container {
-          position: relative;
-        }
+.pusher {
+  position: relative;
+  left: 0;
+  z-index: 99;
+  height: 100%;
+  transition: transform 0.5s;
+}
 
-        .main {
-          width: 100%;
-          transition: transform 0.3s ease-in-out;
-        }
+.pusher::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.2);
+  content: "";
+  opacity: 0;
+  transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
 
-        .secondary {
-          position: absolute;
-          top: 0;
-          right: -40%;
-          width: 40%;
-          height: 100%;
-          background-color: #f5f5f5;
-          transition: transform 0.3s ease-in-out;
-        }
+.menu-open .pusher::after {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 
-        .tabbed-area {
-          display: block;
-        }
+.panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  visibility: hidden;
+  width: 300px;
+  height: 100%;
+  background: fab;
+  transition: all 0.5s;
+}
 
-        .tab-buttons {
-          display: none;
-        }
+.panel::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  content: "";
+  opacity: 1;
+  transition: opacity 0.5s;
+}
 
-        .view-menu {
-          position: absolute;
-          top: 0;
-          right: 0;
-          z-index: 1;
-        }
+.menu-open .panel::after {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
+}
 
-        .main.menu-open {
-          transform: translateX(-40%);
-        }
+.menu-open .pusher {
+  transform: translate3d(300px, 0, 0);
+}
 
-        .secondary.menu-open {
-          transform: translateX(-100%);
-          right: 0;
-        }
-      }
+.panel {
+  transform: translate3d(-100%, 0, 0);
+}
+
+.menu-open .panel {
+  visibility: visible;
+  transition: transform 0.5s;
+}
+
+.panel::after {
+  display: none;
+}
+
+
 </style>
 
-
-  <div class="container">
-    <div class="main">
-      <h1>Main Content</h1>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <div class="tab-buttons">
-        <div class="tab-button active" onclick="showTab('tab1')">Tab 1</div>
-        <div class="tab-button" onclick="showTab('tab2')">Tab 2</div>
-        <div class="tab-button" onclick="showTab('tab3')">Tab 3</div>
-      </div>
-      <div class="tabbed-area active" id="tab1">
-        <h2>Tab 1</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="tabbed-area" id="tab2">
-        <h2>Tab 2</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-      <div class="tabbed-area" id="tab3">
-        <h2>Tab 3</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
+<div class="container">
+  <div class="pusher">
+    <div class="panel">
+      <h2>Sidebar</h2>
+      <nav class="menu">
+        
+        <ul>
+           <li><a href="#">Data 1</a></li>
+            <li><a href="#">Data 2</a></li>
+            <li><a href="#">Data 3</a></li>
+            <li><a href="#">Data 4</a></li>
+            <li><a href="#">Data 5</a></li>
+        </ul>
+      </nav>
+     </div>
+     <div class="content">
+		  <div class="content-inner">
+        <h1>Testing a push menu</h1>
+        <button class="mobile-menu">Push</button>
+       </div>
     </div>
-    <div class="secondary">
-      <h2>Menu</h2>
-      <ul>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
-      </ul>
-    </div>
-    <button class="view-menu" onclick="toggleMenu()">View Menu</button>
   </div>
+</div>
 
-  <script>
-    function showTab(tabId) {
-      var tabs = document.getElementsByClassName("tabbed-area");
-      for (var i = 0; i < tabs.length; i++) {
-        tabs[i].classList.remove("active");
-      }
-      document.getElementById(tabId).classList.add("active");
-    }
+<script>
+const button = document.querySelector('.mobile-menu');
+const container = document.querySelector('.container');
+const body = document.querySelector('body');
 
-    function toggleMenu() {
-      var main = document.getElementsByClassName("main")[0];
-      var secondary = document.getElementsByClassName("secondary")[0];
-      if (main.classList.contains("menu-open")) {
-        main.classList.remove("menu-open");
-        secondary.classList.remove("menu-open");
-      } else {
-        main.classList.add("menu-open");
-        secondary.classList.add("menu-open");
-      }
-    }
-  </script>
+const bodyClick = (event) => {
+  if (!event.target.closest('.menu')) {
+    body.removeEventListener('click', bodyClick);
+    container.classList.toggle('menu-open');
+  }
+};
+
+button.addEventListener('click', (event) => {
+  event.stopPropagation();
+  event.preventDefault();
+  
+  setTimeout(() => {
+    container.classList.toggle('menu-open');
+  }, 25);
+
+  body.addEventListener('click', bodyClick);
+});
+</script>
