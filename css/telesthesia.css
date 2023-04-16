@@ -148,27 +148,23 @@ color: white;
 .tab-container input {
   display: none;
 }
-
-.tab-container input#tab1:checked ~ .line {
-  left: 0%;
-}
 .tab-container input#tab1:checked ~ .content-container #c1 {
   opacity: 1;
 }
-.tab-container input#tab2:checked ~ .line {
-  left: 25%;
-}
 .tab-container input#tab2:checked ~ .content-container #c2 {
   opacity: 1;
-}
-.tab-container input#tab3:checked ~ .line {
-  left: 50%;
 }
 .tab-container label {
   display: inline-block;
   text-align: center;
   background: white;
   position: relative;
+  width: 45%;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.tab-container input:checked + label {
+background: green;
 }
 
 .tab-container .content-container {
@@ -183,7 +179,6 @@ color: white;
   top: 0;
   opacity: 0;
   transition: 0.25s ease;
-  color: #333;
 }
 
 
