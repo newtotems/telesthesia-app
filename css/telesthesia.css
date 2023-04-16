@@ -170,6 +170,9 @@ background: #25adad;
 .tab-container .content-container {
   position: relative;
   height: 100vh;
+  clear: both;
+    border-top: 1px solid #1bbaba;
+    z-index: 1;
 }
 .tab-container .content-container .content {
   position: absolute;
