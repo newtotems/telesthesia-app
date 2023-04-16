@@ -87,14 +87,12 @@ right: 40px;
 width: 180px;
 }
 
-.panel, .carousel-item {
-min-height: 20px;
-background-color: rgba(0, 0, 29, 0.3);
+.panel{
+background:transparent;
 z-index: 1;
-padding: 20px;
-/* display: flex; */
+padding: 10px 20px;
 font-size: 12px;
-border: 1px solid #20dfdf;
+height: 100vh;
 }
 
 #console__image {
@@ -104,7 +102,7 @@ max-width: 100%; /* Set a maximum width of 100px */
 #console__image img {
 max-width: 100%;}
 
-#console__text, .carousel-item {
+#console__text {
 flex: 0 0 80%; /* Set the flex basis to 80% and allow the element to shrink or grow */
 color: #21f9f9;
 line-height: 18px;
@@ -132,7 +130,7 @@ padding: 2px 5px;
 }
 
 main {
-border: 15px solid #194146;
+border: 10px solid #194146;
 box-sizing: border-box;
 }
 
@@ -274,7 +272,7 @@ margin: 20px;
 background-color: rgba(0, 0, 29, 0.5);
 }
 
-body::before {
+.layout__map::before {
 box-shadow: 0 0 200px rgba(0,0,0,0.5) inset;
 }
 
