@@ -44,71 +44,41 @@ opacity: 0.5;
 }
 
  
-  .Layers {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    width: 400px;
-    justify-content: space-between;
-    padding: 0;
-    margin: 0;
-    z-index: 2;
-  }
-  
-  .Layers li {
-    list-style: none;
-    margin: 0;
-  }
-  
-  .Layers button {
-    border: none;
-    background: none;
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
+  /* Desktop layout */
+.layout {
+  display: flex;
+  height: 100vh;
+}
 
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 12px;
-  }
-  
-  .Layers button.active {
-    background: #148b8b;
-  }
-  
-  .Layer {
-    display: none;
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 20px;
-    background-color: #fff;
-    z-index: 2;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
-  }
-  
-  .Layer.Layer-visible {
-    display: block;
-  }
-      
+.layout__map {
+  width: 75%;
+  height: 100%;
+}
 
-  #viewingscontainer, #statscontainer  {
-    display: none;
-    background-color: white;
-    min-width: 300px;
-    max-width: 800px;
-    max-height: 100px;
-    padding: 20px;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%)
+#mapcontainer,   #map {
+height: 100vh}
+
+.layout__data {
+  width: 25%;
+  height: 100%;
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
   }
 
+  .layout__map {
+    width: 100%;
+    height: 75vh;
+  }
+
+  .layout__data {
+    width: 100%;
+    height: 25vh;
+  }
+}
 
 #data-container {
 position: fixed;

@@ -2,83 +2,37 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-  <ul class="Layers">
-    <li><button id="btnMap" class="active">Map</button></li>
-    <li><button id="btnViewings">Viewings</button></li>
-    <li><button id="btnStats">Stats</button></li>
-  </ul>
+<div class="layout">
 
-    <!-- Create a div element to hold the map -->
-    <div id="mapcontainer">
-      <div id="map"></div>
-    </div>
+  <div class="layout__map">
 
-    <div id="data-container">
+      <div id="mapcontainer">
+        <div id="map"></div>
+      </div>
 
-     <div id="console" class="panel">
-        <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
-        <div id="console__image"></div>
-    </div>
-
-    </div>
-
-    <div id="log"></div>
-
-  <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
-    <h2>Viewings Layer</h2>
-    <p>This is the Viewings layer content.</p>
   </div>
 
-  <div class="Layer" data-layer="stats" id="stats" style="display: none;">
-    <h2>Stats Layer</h2>
-    <p>This is the Stats layer content.</p>
+  <div class="layout__data">
+          <div id="console" class="panel">
+          <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
+          <div id="console__image"></div>
+      </div>
+
+  <div id="log"></div>
+
+    <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
+      <h2>Viewings Layer</h2>
+      <p>This is the Viewings layer content.</p>
+    </div>
+
+    <div class="Layer" data-layer="stats" id="stats" style="display: none;">
+      <h2>Stats Layer</h2>
+      <p>This is the Stats layer content.</p>
+    </div>
+
   </div>
 
-    <!-- Include the Leaflet JavaScript file -->
+</div>
+
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
 <script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
-    <!-- Initialize the map -->
-    <script>
-const btnViewings = document.getElementById('btnViewings');
-const btnStats = document.getElementById('btnStats');
-const btnMap = document.getElementById('btnMap');
-
-btnViewings.addEventListener('click', () => {
-  document.getElementById('viewings').style.display = 'block';
-  document.getElementById('stats').style.display = 'none';
-
-  // add active class to btnViewings and remove from others
-  btnViewings.classList.add('active');
-  btnStats.classList.remove('active');
-  btnMap.classList.remove('active');
-});
-
-btnStats.addEventListener('click', () => {
-  document.getElementById('stats').style.display = 'block';
-  document.getElementById('viewings').style.display = 'none';
-
-  // add active class to btnStats and remove from others
-  btnStats.classList.add('active');
-  btnViewings.classList.remove('active');
-  btnMap.classList.remove('active');
-});
-
-btnMap.addEventListener('click', () => {
-  const viewings = document.getElementById('viewings');
-  const stats = document.getElementById('stats');
-  
-  // hide viewings and stats
-  viewings.style.display = 'none';
-  stats.style.display = 'none';
-  
-  // add active class to btnMap and remove from others
-  btnMap.classList.add('active');
-  btnViewings.classList.remove('active');
-  btnStats.classList.remove('active');
-});
-
-// set initial active button to Map
-btnMap.classList.add('active');
-document.getElementById('map').style.display = 'block';
-
-      </script>
