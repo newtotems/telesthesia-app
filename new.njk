@@ -2,43 +2,6 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-<div class="layout">
-
-<div class="layout__map">
-
-    <div id="mapcontainer">
-      <div id="map"></div>
-    </div>
-
-</div>
-
-<div class="layout__data">
-
-         <div id="console" class="panel">
-        <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
-        <div id="console__image"></div>
-    </div>
-
-    <div id="log"></div>
-
-  <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
-    <h2>Viewings Layer</h2>
-    <p>This is the Viewings layer content.</p>
-  </div>
-
-  <div class="Layer" data-layer="stats" id="stats" style="display: none;">
-    <h2>Stats Layer</h2>
-    <p>This is the Stats layer content.</p>
-  </div>
-
-</div>
-
-
-</div>
-
-<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
-<script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
-
 <style>
 /* Desktop layout */
 .layout {
@@ -77,3 +40,40 @@ height: 100vh}
 }
 
 </style>
+
+<div class="layout">
+
+<div class="layout__map">
+
+    <div id="mapcontainer">
+      <div id="map"></div>
+    </div>
+
+</div>
+
+<div class="layout__data">
+
+         <div id="console" class="panel">
+        <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
+        <div id="console__image"></div>
+    </div>
+
+    <div id="log"></div>
+
+  <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
+    <h2>Viewings Layer</h2>
+    <p>This is the Viewings layer content.</p>
+  </div>
+
+  <div class="Layer" data-layer="stats" id="stats" style="display: none;">
+    <h2>Stats Layer</h2>
+    <p>This is the Stats layer content.</p>
+  </div>
+
+</div>
+
+
+</div>
+
+<script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
+<script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
