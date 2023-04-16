@@ -70,7 +70,7 @@ height: 100vh}
     flex-direction: column;
   }
 
-  .layout__map {
+  .layout__map, #map, #mapcontainer {
     width: 100%;
     height: 80vh;
     position: relative;
