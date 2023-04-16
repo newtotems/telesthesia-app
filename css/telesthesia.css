@@ -117,6 +117,7 @@ display:block;
 color: white;
 }
 
+/*
 #console::before {
 content: "Telesthesia:";
 display: block;
@@ -127,6 +128,7 @@ color: #20dfdf;
 background: #194146;
 padding: 2px 5px;
 }
+*/
 
 main {
 border: 10px solid #194146;
