@@ -86,6 +86,11 @@ height: 100vh}
     height: 20vh;
     position: relative;
   }
+
+  .panel {
+    height:100%;
+    padding: 10px;
+  }
 }
 
 #data-container {
