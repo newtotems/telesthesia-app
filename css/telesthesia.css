@@ -108,6 +108,14 @@ font-size: 12px;
 height: 100vh;
 }
 
+#console h1 {
+  font-family: 'Russo One', sans-serif;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 20px;
+}
+
 #console__image {
 flex: 0 0 20%; /* Set the flex basis to 20% and allow the element to shrink or grow */
 max-width: 100%; /* Set a maximum width of 100px */
