@@ -2,216 +2,75 @@
 layout: layouts/telesthesia-base.njk
 ---
 
-<style>
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-*,
-*:after,
-*::before {
-  box-sizing: border-box;
-}
+<div class="layout">
 
-html,
-body,
-.container,
-.pusher,
-.content {
-  height: 100%;
-}
+<div class="layout__map">
 
-body {
-  background: #444;
-  color: fab;
-  font-weight: 300;
-  font-family: "Open Sans", sans-serif;
-}
-
-a {
-  text-decoration: none;
-  color: #fff;
-  outline: none;
-}
-
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-button {
-  border: none;
-  padding: 0.5rem 1.2rem;
-  background: #388a5a;
-  color: #fff;
-  font-family: "Open Sans", sans-serif;
-  font-size: 1rem;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: inline-block;
-  margin: 1rem;
-  border-radius: 0.3rem;
-}
-
-button:hover {
-  background: #2c774b;
-}
-
-.content {
-  overflow-y: scroll;
-  background: #f3efe0;
-}
-
-.content,
-.content-inner {
-  position: relative;
-
-
-  height: 100%;
-    width: 100%;
-    overflow: hidden;
-    display:block;
-}
-
-.container {
-  position: relative;
-  overflow: hidden;
-}
-
-.pusher {
-  position: relative;
-  left: 0;
-  z-index: 99;
-  height: 100%;
-  transition: transform 0.5s;
-}
-
-.pusher::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 0;
-  height: 0;
-  background: rgba(0, 0, 0, 0.2);
-  content: "";
-  opacity: 0;
-  transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-}
-
-.menu-open .pusher::after {
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  transition: opacity 0.5s;
-}
-
-.panel {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 100;
-  visibility: hidden;
-  width: 300px;
-  height: 100%;
-  background: fab;
-  transition: all 0.5s;
-}
-
-.panel::after {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  content: "";
-  opacity: 1;
-  transition: opacity 0.5s;
-}
-
-.menu-open .panel::after {
-  width: 0;
-  height: 0;
-  opacity: 0;
-  transition: opacity 0.5s, width 0.1s 0.5s, height 0.1s 0.5s;
-}
-
-.menu-open .pusher {
-  transform: translate3d(300px, 0, 0);
-}
-
-.panel {
-  transform: translate3d(-100%, 0, 0);
-}
-
-.menu-open .panel {
-  visibility: visible;
-  transition: transform 0.5s;
-}
-
-.panel::after {
-  display: none;
-}
-
-
-</style>
-
-<div class="container">
-  <div class="pusher">
-    <div class="panel">
-      <h2>Sidebar</h2>
-     </div>
-     <div class="content">
-		  <div class="content-inner">
-        <button class="mobile-menu">Push</button>
-
-
- <div id="mapcontainer">
+    <div id="mapcontainer">
       <div id="map"></div>
     </div>
 
-    <div id="data-container">
+</div>
 
-     <div id="console" class="panel">
+<div class="layout__data">
+
+         <div id="console" class="panel">
         <div id="console__text"><span>Ready for input.</span><span>Select a location to search.</span></div>
         <div id="console__image"></div>
     </div>
 
-    </div>
-
     <div id="log"></div>
 
-
-
-       </div>
-    </div>
+  <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
+    <h2>Viewings Layer</h2>
+    <p>This is the Viewings layer content.</p>
   </div>
+
+  <div class="Layer" data-layer="stats" id="stats" style="display: none;">
+    <h2>Stats Layer</h2>
+    <p>This is the Stats layer content.</p>
+  </div>
+
 </div>
 
 
-    <!-- Include the Leaflet JavaScript file -->
+</div>
+
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
 <script src='https://telesthesia-app.netlify.app/js/telesthesia.js'></script>
-    <!-- Initialize the map -->
 
-<script>
-const button = document.querySelector('.mobile-menu');
-const container = document.querySelector('.container');
-const body = document.querySelector('body');
+<style>
+/* Desktop layout */
+.layout {
+  display: flex;
+  height: 100vh;
+}
 
-const bodyClick = (event) => {
-  if (!event.target.closest('.menu')) {
-    body.removeEventListener('click', bodyClick);
-    container.classList.toggle('menu-open');
+.layout__map {
+  width: 75%;
+  height: 100%;
+}
+
+.layout__data {
+  width: 25%;
+  height: 100%;
+}
+
+/* Mobile layout */
+@media (max-width: 767px) {
+  .layout {
+    flex-direction: column;
   }
-};
 
-button.addEventListener('click', (event) => {
-  event.stopPropagation();
-  event.preventDefault();
-  
-  setTimeout(() => {
-    container.classList.toggle('menu-open');
-  }, 25);
+  .layout__map {
+    width: 100%;
+    height: 75vh;
+  }
 
-  body.addEventListener('click', bodyClick);
-});
-</script>
+  .layout__data {
+    width: 100%;
+    height: 25vh;
+  }
+}
+
+</style>
