@@ -5,7 +5,7 @@ body {
     background: #194146;
 }
 
-.lauout__map::before {
+.layout__map::before {
 content: '';
 display: block;
 z-index: 1;
