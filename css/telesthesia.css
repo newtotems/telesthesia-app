@@ -5,6 +5,10 @@ body {
     background: #194146;
 }
 
+.layout__map {
+  border: 1px solid #1dc8c8;
+}
+
 .layout__map::before {
 content: '';
 display: block;
