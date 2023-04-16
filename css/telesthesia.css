@@ -179,6 +179,7 @@ background: #25adad;
   top: 0;
   opacity: 0;
   transition: 0.25s ease;
+  color: white;
 }
 
 
