@@ -13,7 +13,24 @@ layout: layouts/telesthesia-base.njk
   </div>
 
   <div class="layout__data">
-          <div id="console" class="panel">
+
+<ul class="tabs" role="tablist">
+    <li>
+        <input type="radio" name="tabs" id="tab1" checked />
+        <label for="tab1" 
+               role="tab" 
+               aria-selected="true" 
+               aria-controls="panel1" 
+               tabindex="0">Investigation</label>
+
+        <div id="tab-content1" 
+             class="tab-content" 
+             role="tabpanel" 
+             aria-labelledby="description" 
+             aria-hidden="false">
+          
+             <!-- console here_-->
+                       <div id="console" class="panel">
             <!-- <h1>telesthesia Insitiute</h1> -->
           <div id="console__text" data-ty-prefix="> "><span>Ready for input.</span><span>Select a location to search.</span></div>
           <div id="console__image" class="scanlines"></div>
@@ -21,15 +38,25 @@ layout: layouts/telesthesia-base.njk
 
   <div id="log"></div>
 
-    <div class="Layer" data-layer="viewings" id="viewings" style="display: none;">
-      <h2>Viewings Layer</h2>
-      <p>This is the Viewings layer content.</p>
-    </div>
-
-    <div class="Layer" data-layer="stats" id="stats" style="display: none;">
-      <h2>Stats Layer</h2>
-      <p>This is the Stats layer content.</p>
-    </div>
+        </div>
+    </li>
+  
+    <li>
+        <input type="radio" name="tabs" id="tab2" />
+        <label for="tab2"
+               role="tab" 
+               aria-selected="false" 
+               aria-controls="panel2" 
+               tabindex="0">Readings</label>
+        <div id="tab-content2" 
+             class="tab-content"
+             role="tabpanel" 
+             aria-labelledby="specification" 
+             aria-hidden="true">
+          <p>Readings</p>
+        </div>
+    </li>
+</ul>
 
   </div>
 
