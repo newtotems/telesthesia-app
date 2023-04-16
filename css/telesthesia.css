@@ -91,23 +91,22 @@ height: 100vh}
 /* Mobile layout */
 @media (max-width: 767px) {
   .layout {
-    display: flex;
     flex-direction: column;
   }
 
   .layout__map, #map, #mapcontainer {
     width: 100%;
-    flex:7;
+    height: 70vh;
     position: relative;
   }
 
   .layout__map::before {
-    flex: 7; 
+    height: 70vh;
   }
 
   .layout__data {
     width: 100%;
-    flex: 3;
+    height: 30vh;
     overflow: auto;
     position: relative;
   }
