@@ -100,6 +100,8 @@ height: 100vh;
 #console__image {
 flex: 0 0 20%; /* Set the flex basis to 20% and allow the element to shrink or grow */
 max-width: 100%; /* Set a maximum width of 100px */
+-webkit-filter:brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
+filter: brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 }
 #console__image img {
 max-width: 100%;}
@@ -109,6 +111,7 @@ flex: 0 0 80%; /* Set the flex basis to 80% and allow the element to shrink or g
 color: #21f9f9;
 line-height: 18px;
 font-size: 11px;
+text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #0fa, 0 0 82px #0fa, 0 0 92px #0fa, 0 0 102px #0fa, 0 0 151px #0fa;
 }
 
 #console__text span {
