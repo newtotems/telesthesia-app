@@ -155,13 +155,13 @@ color: white;
   opacity: 1;
 }
 .tab-container label {
-  display: inline-block;
+  display: inline;
   text-align: center;
   background: white;
   position: relative;
-  width: 45%;
   font-size: 14px;
   text-transform: uppercase;
+  padding: 5px 10px;
 }
 .tab-container input:checked + label {
 background: green;
