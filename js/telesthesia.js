@@ -93,6 +93,7 @@ console.log(textNode);
 
 var termynal = new Termynal('#console__text',
 {
+    prefix: '>',
     lineData: [
         { type: 'input', value: data.lat + ', ' + data.lng + ':'} , 
         {type: 'input', value: data.text }
