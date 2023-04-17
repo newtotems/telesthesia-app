@@ -40,7 +40,7 @@ layout: layouts/telesthesia-base.njk
 
   {% set postslist = collections.viewings %}
  {% for post in postslist %}
- <div> {{ post | inspect }}</div>
+ <div> {{ post | dump | safe }}</div>
           <div>{{ post.data.title }}</div>
          <div> {{post.content | safe }}</div>
       {% endfor %}
