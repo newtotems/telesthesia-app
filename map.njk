@@ -40,7 +40,11 @@ layout: layouts/telesthesia-base.njk
         <ol>
 
 <ul>
-
+ {% for post in collections.posts %}
+        {% if 'viewings' in post.data.tags %}
+          <li>{{ post.data.title }}</li>
+        {% endif %}
+      {% endfor %}
 </ul>
 
 </ol>
