@@ -37,16 +37,13 @@ layout: layouts/telesthesia-base.njk
 
       <div class="content" id="c2">
         <p>Viewings</p>
-        <ol>
 
-<ul>
   {% set postslist = collections.viewings %}
  {% for post in postslist %}
-          <li>{{ post.data.title }}</li>
+          <div>{{ post.data.title }}</div>
+          {{post.content | safe }}
       {% endfor %}
-</ul>
 
-</ol>
       </div>
         
       </div>
