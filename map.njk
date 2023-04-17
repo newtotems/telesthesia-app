@@ -37,6 +37,12 @@ layout: layouts/telesthesia-base.njk
 
       <div class="content" id="c2">
         <p>Viewings</p>
+        <ol>
+{% set taglist = collections[ viewings ] %}
+{% for post in taglist | reverse %}
+  <li>{{ post.data.title }}</li>
+{% endfor %}
+</ol>
       </div>
         
       </div>

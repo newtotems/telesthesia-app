@@ -1,7 +1,9 @@
 ---
 layout: layouts/telesthesia-base.njk
-title: Viewings
+title: Viewings 1
 templateClass: viewings
+tags:
+  - viewings
 ---
 
 ## Viewings
