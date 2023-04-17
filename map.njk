@@ -40,7 +40,8 @@ layout: layouts/telesthesia-base.njk
         <ol>
 
 <ul>
- {% for post in collections.posts %}
+  {% set postslist = collections[ tag ] %}
+ {% for post in postslist %}
         {% if 'viewings' in post.data.tags %}
           <li>{{ post.data.title }}</li>
         {% endif %}
