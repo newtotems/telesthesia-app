@@ -5,7 +5,6 @@ templateClass: viewings
 tags:
   - viewings
 ---
-
 ## Viewings
 
 This is another viewing
