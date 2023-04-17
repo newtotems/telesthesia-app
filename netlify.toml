@@ -2,7 +2,3 @@
   publish = "_site"
   command = "npm run build"
   functions = "./functions"
-[[redirects]]
-  from = "/getviewings"
-  to = "/.netlify/functions/getviewings"
-  status = 200
