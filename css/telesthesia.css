@@ -443,8 +443,7 @@ z-index: 2;
 
 #console__image {
 max-width: 100%;
-max-height: 150px;
-overflow: hidden;
+padding: 0 0 0 10px;
 }
 
 #console::before {
