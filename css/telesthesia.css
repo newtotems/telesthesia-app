@@ -329,6 +329,9 @@ height: 100vh}
   #console__image {
     flex-basis: 40%;
   }
+  #console__image:empty {
+    flex-grow: 1;
+  }
 
   .panel {
     padding: 10px 0;
