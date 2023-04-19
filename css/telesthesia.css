@@ -307,7 +307,7 @@ height: 100vh}
     padding: 10px;
   }
 
-  .tab-container .content-container, .tab-container .content-container .content {
+  .tab-container .content-container, .tab-container .content-container .content, .panel {
 height: auto;
   }
 }
