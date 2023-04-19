@@ -47,7 +47,7 @@ left: 0;
 opacity: 0.5;
 }
 
-.layout__data h1 {
+.layout__header h1 {
   margin: 5px 0;
     padding: 0 0 0 10px;
     color: white;
@@ -57,7 +57,7 @@ opacity: 0.5;
     line-height: 24px;
 }
 
-.layout__data h2 {
+.layout__header h2 {
   font-size: 5px;
     color: #33cccc;
     text-transform: uppercase;
