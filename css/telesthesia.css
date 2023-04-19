@@ -329,8 +329,8 @@ height: 100vh}
   #console__image {
     flex:1;
   }
-  #console:empty #console__text {
-    flex:2;
+  #console__image:empty {
+    display:none;
   }
 
   .panel {
