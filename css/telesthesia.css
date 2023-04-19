@@ -296,7 +296,7 @@ height: 100vh}
 @media (max-width: 767px) {
 
 main {
-  border: 15px;
+  border: 15px solid #194146;
 }
 
   .layout {
@@ -314,11 +314,11 @@ main {
   }
 
   .layout__data {
-    width: 100%;
+    width: auto;
     height: 30vh;
     position: relative;
-    top: -32px;
     overflow: auto;
+    padding: 15px;
   }
 
   #console {
