@@ -294,6 +294,11 @@ height: 100vh}
 
 /* Mobile layout */
 @media (max-width: 767px) {
+
+main {
+  border: 15px;
+}
+
   .layout {
     flex-direction: column;
   }

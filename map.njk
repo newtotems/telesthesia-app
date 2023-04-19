@@ -19,37 +19,32 @@ layout: layouts/telesthesia-base.njk
 
   <div class="layout__data">
 
-    <div class="tab-container">
-    <input type="radio" id="tab1" name="tab" checked>
-    <label for="tab1">Console</label>
+    <button id="console-button">Console</button>
+    <button id="viewings-button">Viewings</button>
 
-    <input type="radio" id="tab2" name="tab">
-    <label for="tab2">Viewings</label>
     
     <div class="content-container">
-      <div class="content" id="c1">
-       <!-- console -->
-                 <div id="console" class="panel">
-          <div id="console__text" data-ty-prefix="> "><span>Ready for input.</span><span>Select a location to search.</span></div>
-          <div id="console__image" class="scanlines"></div>
+
+      <div class="content" id="console-layer">
+            <!-- console -->
+            <div id="console" class="panel">
+                <div id="console__text" data-ty-prefix="> "><span>Ready for input.</span><span>Select a location to search.</span></div>
+                <div id="console__image" class="scanlines"></div>
+            </div>
+
+            <div id="log"></div>
       </div>
 
-  <div id="log"></div>
-
-      </div>
-
-      <div class="content" id="c2">
+      <div class="content" id="viewings-layer">
         <p>Viewings</p>
-
-  {% set postslist = collections.viewings %}
- {% for post in postslist %}
-          <div>{{ post.data.title }}</div>
-         <div> {{post.content | safe }}</div>
-      {% endfor %}
-
+            {% set postslist = collections.viewings %}
+            {% for post in postslist %}
+              <div>{{ post.data.title }}</div>
+              <div> {{post.content | safe }}</div>
+            {% endfor %}
       </div>
         
-      </div>
+    
     
     </div>
   </div>
