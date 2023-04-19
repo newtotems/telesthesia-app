@@ -131,7 +131,7 @@ color: white;
 }
 .tab-container label {
   color: #25adad;
-  display: inline;
+  display: inline-block;
   text-align: center;
   background: #194146;
   position: relative;
