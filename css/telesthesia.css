@@ -324,13 +324,13 @@ height: 100vh}
     margin-top: 0px;
     border: 1px solid #25adad;
     padding: 10px;
-    flex-basis: 60%;
+    flex:1;
   }
   #console__image {
-    flex-basis: 40%;
+    flex:1;
   }
-  #console__image:empty {
-    flex-grow: 1;
+  #console:empty #console__text {
+    flex:2;
   }
 
   .panel {
