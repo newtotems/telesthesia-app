@@ -232,6 +232,13 @@ text-shadow: 2px 2px #000000;
         font-size: 12px;
 }
 
+.layout__header {
+  position: absolute;
+  z-index: 100;
+  top: 20px;
+  left: 20px;
+}
+
 .scanlines {
   position: relative;
   overflow: hidden;
@@ -275,13 +282,6 @@ text-shadow: 2px 2px #000000;
   position: relative;
 }
 
-.layout__header {
-  position: absolute;
-  z-index: 100;
-  top: 20px;
-  left: 20px;
-}
-
 #mapcontainer,   #map {
 height: 100vh}
 
@@ -295,10 +295,6 @@ height: 100vh}
 @media (max-width: 767px) {
   .layout {
     flex-direction: column;
-  }
-
-  .layout__header {
-    height: 10vh
   }
 
   .layout__map, #map, #mapcontainer {
