@@ -129,7 +129,7 @@ color: white;
 .tab-container input#tab2:checked ~ .content-container #c2 {
   opacity: 1;
 }
-.tab-container label, #nav button {
+.tab-container label, .layout__header-nav button {
   color: #25adad;
   display: inline-block;
   text-align: center;
