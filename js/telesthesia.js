@@ -113,6 +113,26 @@ logDiv.innerHTML += `<p>${data.lat} , ${data.lng} : No data found</p>`;
 }
 }
 
+// Get the buttons
+const consoleBtn = document.querySelector('.btn-console');
+const viewingsBtn = document.querySelector('.btn-viewings');
+
+// Add click event listeners to each button
+consoleBtn.addEventListener('click', () => {
+  // Add the console button class to the body
+  document.body.classList.add('btn-console--active');
+  // Remove any other button classes from the body
+  document.body.classList.remove('btn-viewings--active');
+});
+
+viewingsBtn.addEventListener('click', () => {
+  // Add the viewings button class to the body
+  document.body.classList.add('btn-viewings--active');
+  // Remove any other button classes from the body
+  document.body.classList.remove('btn-console--active');
+});
+
+
   /**
  * termynal.js
  * A lightweight, modern and extensible animated terminal window, using
