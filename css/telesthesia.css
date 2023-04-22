@@ -167,7 +167,9 @@ color: white;
   transition: 0.25s ease;
   color: white;
 }
-
+#layout__header-nav {
+  pointer-events: auto;
+}
 
 /*
 #console::before {
@@ -295,13 +297,13 @@ height: 100vh}
   width: 40%;
   max-width: 450px;
   overflow:auto;
-  height: 100%;
   position: absolute;
   top: 30px;
   right: 70px;
   z-index: 100;
   padding: 0;
   text-align: right;  
+  pointer-events: none;
 }
 
 .btn-console--active #layout__header-nav button.btn-console, .btn-viewings--active #layout__header-nav button.btn-viewings {
@@ -355,6 +357,7 @@ main {
     position: relative;
     top: -32px;
     overflow: auto;
+
   }
 
   #console {
