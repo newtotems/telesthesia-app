@@ -76,7 +76,7 @@ width: 180px;
 .panel{
 background:transparent;
 z-index: 1;
-padding: 10px 20px;
+padding: 10px 0 0;
 font-size: 12px;
 height: 100vh;
 }
@@ -296,8 +296,8 @@ height: 100vh}
   max-width: 50%;
   height: 100%;
   position: absolute;
-  top: 20px;
-  right: 50px;
+  top: 30px;
+  right: 70px;
   z-index: 100;
   padding: 0;
   text-align: right;  
