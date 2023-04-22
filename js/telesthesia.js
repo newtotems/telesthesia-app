@@ -32,16 +32,19 @@ new mapboxgl.Marker(mark)
 
 // Send the latitude and longitude to the checklocation function
 checklocation(lat, lng);
-
-  // Add the console button class to the body
-  document.body.classList.add('btn-console--active');
-  // Remove any other button classes from the body
-  document.body.classList.remove('btn-viewings--active');
 });
 
 // function to check locations  
 
 async function checklocation(lat, lng) {
+
+  // Add the console button class to the body and Remove any other button classes from the body
+  document.body.classList.add('btn-console--active');
+  document.body.classList.remove('btn-viewings--active');
+  // Remove any existing elements from the console__image and console__text elements
+document.getElementById('console__image').innerHTML = '';
+document.getElementById('console__text').innerHTML = '';
+
 // Replace this with your own Netlify function URL
 const functionUrl = 'https://telesthesia-app.netlify.app/.netlify/functions/checklocation';
 
@@ -66,10 +69,6 @@ if (response.ok) {
 const data = await response.json();
 const logDiv = document.getElementById('log'); 
 const consoleContainer = document.getElementById('console');
-
-// Remove any existing elements from the console__image and console__text elements
-document.getElementById('console__image').innerHTML = '';
-document.getElementById('console__text').innerHTML = '';
 
 // If success add a success class to the div
 if (data.success === true) {
