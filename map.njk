@@ -10,22 +10,18 @@ layout: layouts/telesthesia-base.njk
   </div>
 
   <div class="layout__map">
-
       <div id="mapcontainer">
         <div id="map"></div>
       </div>
-
   </div>
 
   <div class="layout__data">
 
-    <div class="tab-container">
-    <input type="radio" id="tab1" name="tab" checked>
-    <label for="tab1">Console</label>
+         <div id="layout__header-nav">
+          <button class="btn-console">Console</button>
+          <button class="btn-viewings">Viewings</button>
+        </div>
 
-    <input type="radio" id="tab2" name="tab">
-    <label for="tab2">Viewings</label>
-    
     <div class="content-container">
 
       <div class="content" id="c1">
@@ -51,8 +47,6 @@ layout: layouts/telesthesia-base.njk
     
     </div>
   </div>
-
-
   </div>
 
 <script src='https://api.mapbox.com/mapbox-gl-js/v1.10.1/mapbox-gl.js'></script>
