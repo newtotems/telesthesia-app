@@ -12,7 +12,7 @@ zoom: 12 // The zoom level of the map
 const nav = new mapboxgl.NavigationControl({
     showCompass : false
 });
-map.addControl(nav, 'top-right');
+map.addControl(nav, 'bottom-left');
 
 // Add a click listener to the map
 map.on('click', function(e) {
