@@ -317,6 +317,8 @@ display: block;
   display: none;
 }
 
+button {cursor:pointer;}
+
 #c2 {color:white;}
 #c2 h2 {background: #25adad;
   color: #194146;
