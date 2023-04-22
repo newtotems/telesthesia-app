@@ -324,13 +324,20 @@ display: block;
 button {cursor:pointer;}
 
 #c2 {color:white;}
-#c2 h2 {background: #25adad;
-  color: #194146;
-  text-shadow: none;
-  text-transform: uppercase;
-  padding: 5px 10px;
-  font-weight: 400;
-  display: block;}
+#c2 h2 {
+  background: transparent;
+    color: white;
+    text-shadow: none;
+    text-transform: uppercase;
+    font-weight: 400;
+    display: block;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin: 10px 0;
+    padding: 0;
+    border-bottom: 1px dashed white;
+    line-height: 1.5rem;
+}
 
 /* Mobile layout */
 @media (max-width: 767px) {
