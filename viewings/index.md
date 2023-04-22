@@ -5,4 +5,4 @@ templateClass: viewings
 tags:
   - viewings
 ---
-Its like a brown globe. Reminds me of orange segments. Wood. People gather inside.
+Its like a brown globe. Not quite a full globe shape. Like its sunk into the ground. Reminds me of orange segments. Wood. People gather inside. Open space outside. I see green grass, and hills in the distance.
