@@ -290,7 +290,8 @@ text-shadow: 2px 2px #000000;
 height: 100vh}
 
 .layout__data {
-  max-width: 50%;
+  max-width: 40%;
+  overflow:auto;
   height: 100%;
   position: absolute;
   top: 30px;
