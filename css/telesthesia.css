@@ -100,6 +100,7 @@ filter: brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(6
 }
 #console__image img {
 max-width: 250px}
+#console__image:empty {display: none;}
 
 .content-container {
 flex: 0 0 80%; /* Set the flex basis to 80% and allow the element to shrink or grow */
