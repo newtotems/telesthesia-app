@@ -78,6 +78,8 @@ background:transparent;
 z-index: 1;
 padding: 10px 0 0;
 font-size: 12px;
+width: 100%;
+max-width: 450px;
 }
 
 #console h1 {
@@ -290,7 +292,8 @@ text-shadow: 2px 2px #000000;
 height: 100vh}
 
 .layout__data {
-  max-width: 40%;
+  width: 40%;
+  max-width: 450px;
   overflow:auto;
   height: 100%;
   position: absolute;
