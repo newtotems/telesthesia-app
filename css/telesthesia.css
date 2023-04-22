@@ -96,7 +96,7 @@ max-width: 100%; /* Set a maximum width of 100px */
 filter: brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 }
 #console__image img {
-max-width: 100%;}
+max-width: 250px}
 
 .content-container {
 flex: 0 0 80%; /* Set the flex basis to 80% and allow the element to shrink or grow */
@@ -254,7 +254,7 @@ text-shadow: 2px 2px #000000;
   position: absolute;
 }
 .scanlines:before {
-  width: 100%;
+  max-width: 250px;
   height: 2px;
   z-index: 2147483649;
   background: rgba(0, 0, 0, 0.3);
