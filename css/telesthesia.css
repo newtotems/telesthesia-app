@@ -78,7 +78,6 @@ background:transparent;
 z-index: 1;
 padding: 10px 0 0;
 font-size: 12px;
-height: 100vh;
 }
 
 #console h1 {
@@ -241,6 +240,7 @@ text-shadow: 2px 2px #000000;
   z-index: 100;
   top: 20px;
   left: 20px;
+  pointer-events: none;
 }
 
 .scanlines {
