@@ -363,11 +363,38 @@ main {
 
   .layout__data {
     width: 100%;
-    height: 30vh;
-    position: relative;
-    top: -32px;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
     overflow: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+  }
 
+  .layout__header {
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+  }
+
+  #layout__header-nav {
+    pointer-events: auto;
+    position: relative;
+    top: 90px;
+    left: 20px;
+    text-align: left;
+}
+  .layout__header h2 {
+    margin: 0;
+  }
+
+  .content-container {
+    position: relative;
+    top: 85px;
+    text-align: left;
+    left: -10px;
   }
 
   #console {
