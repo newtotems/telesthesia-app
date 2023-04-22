@@ -33,6 +33,11 @@ new mapboxgl.Marker(mark)
 checklocation(lat, lng);
 });
 
+  // Add the console button class to the body
+  document.body.classList.add('btn-console--active');
+  // Remove any other button classes from the body
+  document.body.classList.remove('btn-viewings--active');
+
 // function to check locations  
 
 async function checklocation(lat, lng) {
