@@ -90,8 +90,8 @@ height: 100vh;
 }
 
 #console__image {
-flex: 0 0 20%; /* Set the flex basis to 20% and allow the element to shrink or grow */
-max-width: 100%; /* Set a maximum width of 100px */
+  float:right;
+max-width: 250px; /* Set a maximum width of 100px */
 -webkit-filter:brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 filter: brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 }
