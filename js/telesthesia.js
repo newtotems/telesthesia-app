@@ -20,6 +20,7 @@ map.on('click', function(e) {
 var lat = e.lngLat.lat;
 var lng = e.lngLat.lng;
 
+
 // create the mark div element
 var mark = document.createElement('div');
 mark.className = 'marker';
@@ -29,13 +30,13 @@ new mapboxgl.Marker(mark)
 .setLngLat(e.lngLat)
 .addTo(map);
 
+// Send the latitude and longitude to the checklocation function
+checklocation(lat, lng);
+
   // Add the console button class to the body
   document.body.classList.add('btn-console--active');
   // Remove any other button classes from the body
   document.body.classList.remove('btn-viewings--active');
-
-// Send the latitude and longitude to the checklocation function
-checklocation(lat, lng);
 });
 
 // function to check locations  
