@@ -303,7 +303,7 @@ height: 100vh}
   text-align: right;  
 }
 
-.btn-console--active, .btn-viewings--active {
+.btn-console--active .btn-console, .btn-viewings--active .btn-viewings {
   background: #25adad;
     color: #194146;
 }
