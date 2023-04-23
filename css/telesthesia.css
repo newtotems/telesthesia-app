@@ -353,6 +353,22 @@ button {cursor:pointer;}
     line-height: 1.5rem;
 }
 
+@media (max-width: 767px) {
+  .layout__header h1 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+  .layout__data {
+    max-width: 250px;
+    top: 90px;
+    right: 30px;
+  }
+  .panel, #c2 {
+    font-size: 10px;
+    line-height: 14px;
+  }
+}
+
 /* 
 @media (max-width: 767px) {
 
