@@ -36,20 +36,13 @@ layout: layouts/telesthesia-base.njk
 
       <div class="content" id="c2">
         <h2>Viewings</h2>
-      {% set itemsPerPage = 5 %}
-{% set totalPages = Math.ceil(collections.viewings.length / itemsPerPage) %}
-
-{% set currentPage = 1 %}
-
-{% for post in collections.viewings %}
-  <div class="post-item {% if loop.index > (currentPage - 1) * itemsPerPage and loop.index <= currentPage * itemsPerPage %}show{% else %}hide{% endif %}">
-    <div>{{ post.data.title }}</div>
-    <div>{{ post.templateContent | safe }}</div>
-  </div>
-{% endfor %}
-
-<button class="previous-button">Previous</button>
-<button class="next-button">Next</button>
+            {% set postslist = collections.viewings %}
+            {% for post in postslist %}
+            <div class="post-item">
+              <div>{{ post.data.title }}</div>
+              <div> {{post.templateContent | safe }}</div>
+              </div>
+          {% endfor %}
       </div>
         
       </div>

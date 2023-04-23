@@ -336,32 +336,4 @@ viewingsBtn.addEventListener('click', () => {
           .forEach(container => new Termynal(container))
   }
 
-  const previousButton = document.querySelector('.previous-button');
-  const nextButton = document.querySelector('.next-button');
-  const postItems = document.querySelectorAll('.post-item');
-
-  previousButton.addEventListener('click', function() {
-    if (currentPage > 1) {
-      currentPage--;
-      showHidePosts();
-    }
-  });
-
-  nextButton.addEventListener('click', function() {
-    if (currentPage < totalPages) {
-      currentPage++;
-      showHidePosts();
-    }
-  });
-
-  function showHidePosts() {
-    for (let i = 0; i < postItems.length; i++) {
-      if (i >= (currentPage - 1) * itemsPerPage && i < currentPage * itemsPerPage) {
-        postItems[i].classList.add('show');
-        postItems[i].classList.remove('hide');
-      } else {
-        postItems[i].classList.add('hide');
-        postItems[i].classList.remove('show');
-      }
-    }
-  }
+  
