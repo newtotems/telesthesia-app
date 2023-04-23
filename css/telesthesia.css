@@ -353,7 +353,7 @@ button {cursor:pointer;}
     line-height: 1.5rem;
 }
 
-/* Mobile layout */
+/* 
 @media (max-width: 767px) {
 
 main {
@@ -435,6 +435,7 @@ main {
     height: fit-content;
   }
 }
+*/
 
 /* ANIMATE UNIQUE SCANLINE */
 @-webkit-keyframes scanline {
