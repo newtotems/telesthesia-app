@@ -131,10 +131,6 @@ display:block;
 color: white;
 }
 
-.layout__header {
-  width: 100%;
-}
-
 .tab-container {
   padding: 0;
     height: 30px;
