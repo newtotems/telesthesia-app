@@ -313,10 +313,10 @@ height: calc(100% - 2px)
   max-width: 450px;
   overflow:auto;
   position: absolute;
-  top: 30px;
+  top: 20px;
   right: 70px;
   z-index: 100;
-  padding: 0;
+  padding: 20px 0;
   text-align: right;  
   pointer-events: none;
 }
