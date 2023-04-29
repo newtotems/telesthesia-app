@@ -297,10 +297,12 @@ text-shadow: 2px 2px #000000;
 /* Desktop layout */
 .layout {
   display: flex;
+  width: 100vw;
   height: 100vh;
 }
 
 .layout__map {
+  display: block;
   width: 100%;
   height:calc(100% - 22px);
   position: relative;
