@@ -4,8 +4,8 @@ const map = new mapboxgl.Map({
 container: 'map', // The ID of the div element to hold the map
 style: 'mapbox://styles/theboydavid/ckp4183ve7x8f18k8ftffl277',
 //    style: 'mapbox://styles/mapbox/streets-v11', // The Mapbox style to use
-center: [41.243 ,-36.864], // The center point of the map
-zoom: 2 // The zoom level of the map
+center: [46.844 ,-43.043], // The center point of the map
+zoom: 1 // The zoom level of the map
 });
 
 // zoom
