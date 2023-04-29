@@ -5,8 +5,8 @@ layout: layouts/telesthesia-base.njk
 <div class="layout">
 
   <div class="layout__header">
-    <h1>telesthesia Institute</h1>
-    <h2>Sub header</h2>
+    <h1>telesthesia</h1>
+    <h2>Institute</h2>
   </div>
 
   <div class="layout__map">
@@ -17,33 +17,12 @@ layout: layouts/telesthesia-base.njk
 
   <div class="layout__data">
 
-         <div id="layout__header-nav">
-          <button class="btn-console">Console</button>
-          <button class="btn-viewings">Viewings</button>
-        </div>
-
     <div class="content-container">
 
-      <div class="content" id="c1">
-            <!-- console -->
-            <div id="console" class="panel">
+       <div id="console" class="panel">
                 <div id="console__text" data-ty-prefix="> "><span>Ready for input.</span><span>Select a location to search.</span></div>
                 <div id="console__image" class="scanlines"></div>
             </div>
-
-            <div id="log"></div>
-      </div>
-
-      <div class="content" id="c2">
-        <h2>Viewings</h2>
-            {% set postslist = collections.viewings %}
-            {% for post in postslist %}
-            <div class="post-item">
-              <div>{{ post.data.title }}</div>
-              <div> {{post.templateContent | safe }}</div>
-              </div>
-          {% endfor %}
-      </div>
         
       </div>
     

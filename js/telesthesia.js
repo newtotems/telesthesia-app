@@ -67,7 +67,6 @@ body: JSON.stringify({ lat: roundedLat, lng: roundedLng }) // Stringify the body
 if (response.ok) {
 // Get the response data
 const data = await response.json();
-const logDiv = document.getElementById('log'); 
 const consoleContainer = document.getElementById('console');
 
 // If success add a success class to the div
@@ -93,8 +92,6 @@ if (data.text) {
 
 // Create a text node with the text field from the response data
 const textNode = document.createTextNode(data.text);
-console.log(data.text);
-console.log(textNode);
 
 var termynal = new Termynal('#console__text',
 {
@@ -104,14 +101,6 @@ var termynal = new Termynal('#console__text',
     ]
 }
 )
-
-}
-
-if (data.success === true) {
-logDiv.innerHTML += `<p>${data.lat} , ${data.lng} : Data found</p>`;
-}
-else {
-logDiv.innerHTML += `<p>${data.lat} , ${data.lng} : No data found</p>`;
 
 }
 
