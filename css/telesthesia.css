@@ -15,7 +15,7 @@ display: block;
 z-index: 1;
 position: absolute;
 width: 100%;
-height: 100vh;
+height: 100%;
 box-shadow: 0 0 200px rgba(0,0,0,0.9) inset;
 pointer-events: none;
 }
@@ -299,7 +299,7 @@ text-shadow: 2px 2px #000000;
 
 .layout__map {
   display: block;
-  width: 100%;
+  width: calc(100% - 22px);
   height:calc(100% - 22px);
   position: relative;
 }
