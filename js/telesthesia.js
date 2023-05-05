@@ -5,12 +5,12 @@ var mainEl = document.querySelector('main');
 if (user) {
   // User is logged in
   console.log("Logged in as: " + user.email);
-  mainEl.classList.add('logged-in');
+  mainEl.classList.remove('logged-out');
 } else {
   // User is not logged in
   console.log("Not logged in");
   netlifyIdentity.open('login');
-  mainEl.classList.remove('logged-in');
+  mainEl.classList.add('logged-out');
 }
 
 // Create a new Mapbox map
