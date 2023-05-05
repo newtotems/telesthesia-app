@@ -7,6 +7,7 @@ if (user) {
 } else {
   // User is not logged in
   console.log("Not logged in");
+  netlifyIdentity.open('login');
   document.body.classList.remove('logged-in');
 }
 
