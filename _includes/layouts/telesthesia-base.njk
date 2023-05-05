@@ -9,9 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <style> @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&display=swap'); </style>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css' rel='stylesheet' />
-    
+      <script type="text/javascript" src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     </head>
   <body>
+  <div data-netlify-identity-menu></div>
 
     <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
       {{ content | safe }}
