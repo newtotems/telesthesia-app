@@ -290,6 +290,26 @@ text-shadow: 2px 2px #000000;
           animation: scanlines 1s steps(60) infinite;
 }
 
+#crosshair-h {
+  width: 100%;
+}
+
+#crosshair-v {
+  height: 100%;
+}
+
+.hair {
+  position: fixed;
+  top:0; left:0;
+  margin-top: -3px;
+  margin-left: -2px;
+  background: transparent;
+  border-top: 1px dotted #000;
+  border-left: 1px dotted #000;
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* Desktop layout */
 .layout {
   display: flex;
@@ -313,8 +333,8 @@ height: calc(100% - 2px)
   max-width: 450px;
   overflow:auto;
   position: absolute;
-  top: 20px;
-  right: 70px;
+  top: 5px;
+  right: 45px;
   z-index: 100;
   padding: 20px 0;
   text-align: right;  

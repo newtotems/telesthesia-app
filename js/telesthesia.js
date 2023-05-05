@@ -14,6 +14,25 @@ const nav = new mapboxgl.NavigationControl({
 });
 map.addControl(nav, 'bottom-left');
 
+// cursor
+var cH = document.getElementById("crosshair-h");
+var cV = document.getElementById("crosshair-v");
+
+this.addEventListener("mousemove", function(e) {
+  cH.style.top = e.pageY + "px";
+  cV.style.left = e.pageX + "px";
+  
+  e.stopPropagation();
+});
+
+this.addEventListener("touchmove", function(e) {
+  var touch = e.touches[0];
+  cH.style.top = touch.pageY + "px";
+  cV.style.left = touch.pageX + "px";
+  
+  e.stopPropagation();
+});
+
 // Add a click listener to the map
 map.on('click', function(e) {
 // Get the latitude and longitude of the click event
