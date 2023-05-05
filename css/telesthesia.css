@@ -254,8 +254,8 @@ text-shadow: 2px 2px #000000;
 .layout__header {
   position: absolute;
   z-index: 100;
-  top: 50px;
-  left: 40px;
+  top: 35px;
+  left: 25px;
   pointer-events: none;
 }
 
