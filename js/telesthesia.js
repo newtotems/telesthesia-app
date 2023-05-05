@@ -1,3 +1,12 @@
+var user = netlifyIdentity.currentUser();
+if (user) {
+  // User is logged in
+  console.log("Logged in as: " + user.email);
+} else {
+  // User is not logged in
+  console.log("Not logged in");
+}
+
 // Create a new Mapbox map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
 const map = new mapboxgl.Map({
