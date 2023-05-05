@@ -1,16 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() { 
-    // Check if user is logged in
-var user = netlifyIdentity.currentUser();
-var mainEl = document.querySelector('main');
-
-if (user) {
-  // User is logged in
-  console.log("Logged in as: " + user.email);
-  mainEl.classList.remove('logged-out');
-
-
-  // MAIN STUFF
-  // Create a new Mapbox map
+// Create a new Mapbox map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
 const map = new mapboxgl.Map({
 container: 'map', // The ID of the div element to hold the map
@@ -130,17 +118,6 @@ var termynal = new Termynal('#console__text',
 
 }
 }
-
-
-} else {
-  // User is not logged in
-  console.log("Not logged in");
-  netlifyIdentity.open('login');
-  mainEl.classList.add('logged-out');
-}
-});
-
-
 
   /**
  * termynal.js

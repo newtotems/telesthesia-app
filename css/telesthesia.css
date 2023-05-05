@@ -5,10 +5,6 @@ body {
     background: #194146;
 }
 
-.logged-out .layout {
-  display:none;
-}
-
 .layout__map {
   border: 1px solid #1dc8c8;
 }
