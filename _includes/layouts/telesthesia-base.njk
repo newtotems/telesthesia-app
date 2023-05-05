@@ -14,7 +14,7 @@
   <body>
   <div data-netlify-identity-menu></div>
 
-    <main{% if templateClass %} class="{{ templateClass }}"{% endif %}>
+    <main{% if templateClass %} class="logged-out {{ templateClass }}"{% endif %}>
       {{ content | safe }}
     </main>
 
