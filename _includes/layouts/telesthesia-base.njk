@@ -8,6 +8,7 @@
     <meta name="description" content="{{ description or metadata.description }}">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&family=Alfa+Slab+One&display=swap" rel="stylesheet">
 <style> @import url('https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200&display=swap'); </style>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <link href='https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css' rel='stylesheet' />
     </head>
   <body>
@@ -17,11 +18,22 @@
     </main>
 
     <footer></footer>
+<div id="g_id_onload"
+     data-client_id="491745729684-uekda7996evv4tjif79lq594ngpe02l6.apps.googleusercontent.com"
+     data-context="signin"
+     data-ux_mode="popup"
+     data-login_uri="https://telesthesia-app.netlify.app"
+     data-auto_prompt="false">
+</div>
 
-    <script>
-    
-    </script>
-
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="rectangular"
+     data-theme="outline"
+     data-text="signin_with"
+     data-size="large"
+     data-logo_alignment="left">
+</div>
     <!-- Current page: {{ page.url | url }} -->
   </body>
 </html>
