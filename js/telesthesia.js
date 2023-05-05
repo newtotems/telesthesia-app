@@ -1,10 +1,13 @@
+// Check if user is logged in
 var user = netlifyIdentity.currentUser();
 if (user) {
   // User is logged in
   console.log("Logged in as: " + user.email);
+  document.body.classList.add('logged-in');
 } else {
   // User is not logged in
   console.log("Not logged in");
+  document.body.classList.remove('logged-in');
 }
 
 // Create a new Mapbox map
