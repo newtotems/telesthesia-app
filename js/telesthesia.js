@@ -12,7 +12,7 @@ zoom: 2 // The zoom level of the map
 const nav = new mapboxgl.NavigationControl({
     showCompass : false
 });
-map.addControl(nav, 'bottom-left');
+map.addControl(nav, 'bottom-right');
 
 // cursor
 var cH = document.getElementById("crosshair-h");
