@@ -25,13 +25,6 @@ this.addEventListener("mousemove", function(e) {
   e.stopPropagation();
 });
 
-this.addEventListener("touchmove", function(e) {
-  var touch = e.touches[0];
-  cH.style.top = touch.pageY + "px";
-  cV.style.left = touch.pageX + "px";
-  
-  e.stopPropagation();
-});
 
 // Add a click listener to the map
 map.on('click', function(e) {
