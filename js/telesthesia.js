@@ -156,6 +156,7 @@ var termynal = new Termynal('#console__text',
 }
 }
 
+};
   /**
  * termynal.js
  * A lightweight, modern and extensible animated terminal window, using
@@ -354,4 +355,3 @@ var termynal = new Termynal('#console__text',
           .forEach(container => new Termynal(container))
   }
 
-};
