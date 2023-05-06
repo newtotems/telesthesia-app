@@ -1,3 +1,4 @@
+window.onload = function() {
 // Load the GIS library and initialize the authentication system
 google.accounts.id.initialize({
     client_id: '491745729684-uekda7996evv4tjif79lq594ngpe02l6.apps.googleusercontent.com',
@@ -353,4 +354,4 @@ var termynal = new Termynal('#console__text',
           .forEach(container => new Termynal(container))
   }
 
-  
+};
