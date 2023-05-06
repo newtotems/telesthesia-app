@@ -1,40 +1,3 @@
-window.onload = function() {
-// Load the GIS library and initialize the authentication system
-google.accounts.id.initialize({
-    client_id: '491745729684-uekda7996evv4tjif79lq594ngpe02l6.apps.googleusercontent.com',
-    callback: onGoogleSignInLoaded,
-  });
-  
-  // Callback function that's called when the GIS library is loaded
-  function onGoogleSignInLoaded() {
-    // Check whether the user is signed in or not
-    var isSignedIn = google.accounts.id.getAuthResponse().isSignedIn.get();
-    // If the user is not signed in, display the Google Sign-In button
-    if (!isSignedIn) {
-     console.log('signed in')
-    }
-    // If the user is signed in, display the game content
-    else {
-        console.log('signed out')
-    }
-  
-    // Handle the user's login state changes
-    google.accounts.id.subscribe(onGoogleSignInStatusChanged);
-  }
-  
-  // Callback function that's called when the user's login status changes
-  function onGoogleSignInStatusChanged(response) {
-    // If the user is not signed in, display the Google Sign-In button
-    if (!response.isSignedIn) {
-        console.log('signed in')
-    }
-    // If the user is signed in, display the game content
-    else {
-        console.log('signed out')
-    }
-  }
-  
-
 // Create a new Mapbox map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
 const map = new mapboxgl.Map({
@@ -156,7 +119,6 @@ var termynal = new Termynal('#console__text',
 }
 }
 
-};
   /**
  * termynal.js
  * A lightweight, modern and extensible animated terminal window, using
@@ -355,3 +317,4 @@ var termynal = new Termynal('#console__text',
           .forEach(container => new Termynal(container))
   }
 
+  
