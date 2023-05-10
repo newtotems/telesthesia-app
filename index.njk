@@ -1,6 +1,9 @@
 ---
 layout: layouts/telesthesia-base.njk
 ---
+
+<button id="myButton">click</button>
+
 <div class="main-nav">
     <a href="/map">
         <div class="main-nav__item">
@@ -25,3 +28,25 @@ layout: layouts/telesthesia-base.njk
 
 
     </div>
+
+    <script>
+// Function to call the Netlify function
+async function callNetlifyFunction() {
+  try {
+    const response = await fetch('/.netlify/functions/sessions');
+    const data = await response.json();
+    console.log(data);
+    // Handle the response data
+    // ...
+  } catch (error) {
+    console.error(error);
+    // Handle the error
+    // ...
+  }
+}
+
+// Add event listener to a button element
+const button = document.getElementById('myButton');
+button.addEventListener('click', callNetlifyFunction);
+
+    </script>
