@@ -1,6 +1,9 @@
 const faunadb = require('faunadb');
 const q = faunadb.query;
-const client = new faunadb.Client({ secret: process.env.DB_SECRT });
+// Create a new FaunaDB client
+const client = new faunadb.Client({
+    secret: process.env.DB_SECRT
+  });
 
 // Function to generate a random session ID
 function generateSessionId() {
