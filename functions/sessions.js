@@ -26,6 +26,7 @@ async function isRateLimitExceeded(ipAddress) {
           data: {
             requestCount: 0,
             timestamp: currentTimestamp,
+            ipAddress: ipAddress,
           },
         })
       );
@@ -62,6 +63,7 @@ async function incrementRequestCount(ipAddress) {
           1
         ),
         timestamp: new Date().getTime(),
+        ipAddress: ipAddress,
       },
     })
   );
