@@ -33,23 +33,9 @@ layout: layouts/telesthesia-base.njk
 // Function to call the Netlify function
 async function callNetlifyFunction() {
   try {
-    let headers = {};
-    const sessionId = localStorage.getItem('sessionId');
-    if (sessionId) {
-      headers['X-Session-ID'] = sessionId;
-    }
-
-    const response = await fetch('/.netlify/functions/sessions', {
-      headers: headers,
-    });
+    const response = await fetch('/.netlify/functions/sessions');
     const data = await response.json();
     console.log(data);
-
-    // Store the sessionId in localStorage if it exists in the response
-    if (data.sessionId) {
-      localStorage.setItem('sessionId', data.sessionId);
-    }
-
     // Handle the response data
     // ...
   } catch (error) {
