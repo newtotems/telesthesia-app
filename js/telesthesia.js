@@ -1,11 +1,3 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBRjypwl6Ua_fAM1fYDd2nDrq7ECp5bBGw",
   authDomain: "telesthesia-ff2bd.firebaseapp.com",
@@ -16,9 +8,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-// Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+firebase.initializeApp(firebaseConfig);
 
 function signInWithGoogle() {
     var provider = new firebase.auth.GoogleAuthProvider();
