@@ -81,7 +81,7 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ sessionId: sessionId, message: 'Session exists.' }),
     };
   } catch (error) {
-    if (error.message === 'instance not found') {
+    if (error.name === 'NotFound') {
       // Create a new session if it doesn't exist
       const newSessionId = await createSession();
       return {
