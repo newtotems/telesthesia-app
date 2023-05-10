@@ -68,12 +68,12 @@ async function incrementRequestCount(ipAddress) {
 }
 
 exports.handler = async (event, context) => {
-  // Retrieve the IP address from the request headers
-  const ipAddress = event.headers['X-Forwarded-For'] || event.headers['X-Real-IP'];
+  // Retrieve the client IP address
+  const clientIP = event.clientContext && event.clientContext.clientIP;
 
   try {
     // Check if rate limit exceeded
-    if (await isRateLimitExceeded(ipAddress)) {
+    if (await isRateLimitExceeded(clientIP)) {
       return {
         statusCode: 429,
         body: JSON.stringify({ message: 'Rate limit exceeded.' }),
@@ -81,7 +81,7 @@ exports.handler = async (event, context) => {
     }
 
     // Increment request count
-    await incrementRequestCount(ipAddress);
+    await incrementRequestCount(clientIP);
 
     // Proceed with the request
     return {
