@@ -1,3 +1,53 @@
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBRjypwl6Ua_fAM1fYDd2nDrq7ECp5bBGw",
+  authDomain: "telesthesia-ff2bd.firebaseapp.com",
+  projectId: "telesthesia-ff2bd",
+  storageBucket: "telesthesia-ff2bd.appspot.com",
+  messagingSenderId: "193682252083",
+  appId: "1:193682252083:web:d16730f13aac06d9e49e46"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+// Initialize Firebase Authentication and get a reference to the service
+const auth = getAuth(app);
+
+function signInWithGoogle() {
+    var provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then(function (result) {
+        var user = result.user;
+        window.location.href = "/map";
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  function checkAuthentication() {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        console.log('logged in');
+      } else {
+        console.log('logged out');
+      }
+    });
+  };
+
+// END FIREBASE
+
+
 // Create a new Mapbox map
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhlYm95ZGF2aWQiLCJhIjoiY2twM3MzcWdxMGVibzJ1bGV6bnp5NHpjZiJ9.OcASP9pRFCNQEAeBzKEtxA';
 const map = new mapboxgl.Map({
