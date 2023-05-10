@@ -2,8 +2,8 @@ const faunadb = require('faunadb');
 const q = faunadb.query;
 // Create a new FaunaDB client
 const client = new faunadb.Client({
-    secret: process.env.DB_SECRT
-  });
+  secret: process.env.DB_SECRT,
+});
 
 // Function to generate a random session ID
 function generateSessionId() {
@@ -36,56 +36,64 @@ exports.handler = async (event, context) => {
   // Retrieve the session ID from the request headers
   const sessionId = event.headers['X-Session-ID'];
 
-  // Retrieve the session data from FaunaDB based on the session ID
-  const { data } = await client.query(
-    q.Get(q.Match(q.Index('sessions_by_sessionId'), sessionId))
-  );
+  try {
+    // Retrieve the session data from FaunaDB based on the session ID
+    const { data } = await client.query(
+      q.Get(q.Match(q.Index('sessions_by_sessionId'), sessionId))
+    );
 
-  // Get current timestamp
-  const currentTimestamp = new Date().getTime();
+    // Get current timestamp
+    const currentTimestamp = new Date().getTime();
 
-  if (!data) {
-    // Create a new session if it doesn't exist
-    const newSessionId = await createSession();
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ sessionId: newSessionId, message: 'New session created.' }),
-    };
-  }
+    // Check if rate limit exceeded
+    if (currentTimestamp - data.timestamp < 60000 && data.requestCount >= 2) {
+      return {
+        statusCode: 429,
+        body: JSON.stringify({ message: 'Rate limit exceeded.' }),
+      };
+    }
 
-  // Check if rate limit exceeded
-  if (currentTimestamp - data.timestamp < 60000 && data.requestCount >= 2) {
-    return {
-      statusCode: 429,
-      body: JSON.stringify({ message: 'Rate limit exceeded.' }),
-    };
-  }
+    // Reset request count if one minute has passed
+    if (currentTimestamp - data.timestamp >= 60000) {
+      await client.query(
+        q.Update(data.ref, {
+          data: {
+            requestCount: 0,
+            timestamp: currentTimestamp,
+          },
+        })
+      );
+    }
 
-  // Reset request count if one minute has passed
-  if (currentTimestamp - data.timestamp >= 60000) {
+    // Increment request count
     await client.query(
       q.Update(data.ref, {
         data: {
-          requestCount: 0,
+          requestCount: data.requestCount + 1,
           timestamp: currentTimestamp,
         },
       })
     );
+
+    // Proceed with the request
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ sessionId: sessionId, message: 'Session exists.' }),
+    };
+  } catch (error) {
+    if (error.message === 'instance not found') {
+      // Create a new session if it doesn't exist
+      const newSessionId = await createSession();
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ sessionId: newSessionId, message: 'New session created.' }),
+      };
+    }
+
+    // Handle other errors
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Internal server error.' }),
+    };
   }
-
-  // Increment request count
-  await client.query(
-    q.Update(data.ref, {
-      data: {
-        requestCount: data.requestCount + 1,
-        timestamp: currentTimestamp,
-      },
-    })
-  );
-
-  // Proceed with the request
-  return {
-    statusCode: 200,
-    body: JSON.stringify({ sessionId: sessionId, message: 'Session exists.' }),
-  };
 };
