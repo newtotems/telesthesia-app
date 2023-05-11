@@ -29,8 +29,8 @@ exports.handler = async (event, context) => {
       )
     );
 
-    const rateLimitData = rateLimitResponse.data;
-    const lastTimestamp = rateLimitData.timestamp;
+    const rateLimitRef = rateLimitResponse.ref;
+    const lastTimestamp = rateLimitResponse.data.timestamp;
 
     if (currentTime - lastTimestamp <= rateLimitWindow) {
       // IP has exceeded the rate limit within the time window
@@ -41,7 +41,7 @@ exports.handler = async (event, context) => {
     } else {
       // IP is within the rate limit, update the timestamp
       await client.query(
-        faunadb.query.Update(rateLimitData.ref, {
+        faunadb.query.Update(rateLimitRef, {
           data: {
             timestamp: currentTime
           }
@@ -50,18 +50,26 @@ exports.handler = async (event, context) => {
     }
   } catch (error) {
     if (error.name === 'NotFound') {
-      // Rate limit data not found, create a new record
-      await client.query(
-        faunadb.query.Create(
-          faunadb.query.Collection('RateLimit'),
-          {
-            data: {
-              ip: ipAddress,
-              timestamp: currentTime
+      try {
+        // Rate limit data not found, create a new record
+        await client.query(
+          faunadb.query.Create(
+            faunadb.query.Collection('RateLimit'),
+            {
+              data: {
+                ip: ipAddress,
+                timestamp: currentTime
+              }
             }
-          }
-        )
-      );
+          )
+        );
+      } catch (error) {
+        // Other error occurred, return an error response
+        return {
+          statusCode: 500,
+          body: 'Internal Server Error'
+        };
+      }
     } else {
       // Other error occurred, return an error response
       return {
@@ -70,6 +78,7 @@ exports.handler = async (event, context) => {
       };
     }
   }
+
 
   const body = JSON.parse(event.body);
   const lat = Number(body.lat);
