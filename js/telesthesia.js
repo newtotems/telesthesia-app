@@ -25,28 +25,46 @@ this.addEventListener("mousemove", function(e) {
   e.stopPropagation();
 });
 
+// Variable to store the countdown interval
+var countdownInterval;
 
-// Add a click listener to the map
 map.on('click', function(e) {
-// Get the latitude and longitude of the click event
-var lat = e.lngLat.lat;
-var lng = e.lngLat.lng;
+  // Disable map click event until countdown finishes
+  map.off('click');
 
+  // Get the latitude and longitude of the click event
+  var lat = e.lngLat.lat;
+  var lng = e.lngLat.lng;
 
-// create the mark div element
-var mark = document.createElement('div');
-mark.className = 'marker';
+  // create the mark div element
+  var mark = document.createElement('div');
+  mark.className = 'marker';
 
-// add the mark div to the map at the click location
-new mapboxgl.Marker(mark)
-.setLngLat(e.lngLat)
-.addTo(map);
+  // add the mark div to the map at the click location
+  new mapboxgl.Marker(mark)
+    .setLngLat(e.lngLat)
+    .addTo(map);
 
-// Send the latitude and longitude to the checklocation function
-checklocation(lat, lng);
+  // Start the countdown
+  var countdown = 30;
+  countdownInterval = setInterval(function() {
+    // Update the countdown timer
+    document.getElementById('countdown__timer').textContent = countdown;
+    countdown--;
+
+    // Check if the countdown has finished
+    if (countdown < 0) {
+      // Clear the countdown interval
+      clearInterval(countdownInterval);
+
+      // Re-enable map click event
+      map.on('click', handleClick);
+
+      // Call the checklocation function
+      checklocation(lat, lng);
+    }
+  }, 1000);
 });
-
-// function to check locations  
 
 async function checklocation(lat, lng) {
 
