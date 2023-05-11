@@ -14,6 +14,7 @@ exports.handler = async (event, context) => {
   }
 
   const ipAddress = headers['x-forwarded-for'] || headers['x-nf-client-connection-ip'] || '';
+  console.log(ipAddress);
 
   if (!ipAddress) {
     return {
@@ -21,7 +22,7 @@ exports.handler = async (event, context) => {
       body: 'Bad Request: Unable to determine IP address'
     };
   }
-    
+
   const currentTime = Math.floor(Date.now() / 1000);
 
   try {
