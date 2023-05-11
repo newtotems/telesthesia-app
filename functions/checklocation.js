@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
   
     if (rateLimitResult && rateLimitResult.data) {
       lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
-      requestCount = rateLimitResult.data.data.requestCount || 0;
+      requestCount = rateLimitResult.data.requestCount || 0;
     }
   
     console.log('Rate Limit Entry:', rateLimitResult);
