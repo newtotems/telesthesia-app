@@ -49,18 +49,26 @@ exports.handler = async (event, context) => {
       );
     }
   } catch (error) {
-    // Rate limit data not found, create a new record
-    await client.query(
-      faunadb.query.Create(
-        faunadb.query.Collection('RateLimit'),
-        {
-          data: {
-            ip: ipAddress,
-            timestamp: currentTime
+    if (error.name === 'NotFound') {
+      // Rate limit data not found, create a new record
+      await client.query(
+        faunadb.query.Create(
+          faunadb.query.Collection('RateLimit'),
+          {
+            data: {
+              ip: ipAddress,
+              timestamp: currentTime
+            }
           }
-        }
-      )
-    );
+        )
+      );
+    } else {
+      // Other error occurred, return an error response
+      return {
+        statusCode: 500,
+        body: 'Internal Server Error'
+      };
+    }
   }
 
   const body = JSON.parse(event.body);
