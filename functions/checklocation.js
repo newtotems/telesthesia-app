@@ -26,18 +26,25 @@ exports.handler = async (event, context) => {
   const currentTime = Math.floor(Date.now() / 1000);
 
   try {
-    const rateLimitResult = await client.query(
-      faunadb.query.If(
-        faunadb.query.Exists(faunadb.query.Match(faunadb.query.Index('rate_limit_by_ip'), ipAddress)),
-        faunadb.query.Get(faunadb.query.Match(faunadb.query.Index('rate_limit_by_ip'), ipAddress)),
-        null
-      )
-    );
+    let rateLimitResult = null;
+  
+    try {
+      rateLimitResult = await client.query(
+        faunadb.query.Get(
+          faunadb.query.Match(
+            faunadb.query.Index('rate_limit_by_ip'),
+            ipAddress
+          )
+        )
+      );
+    } catch (error) {
+      // Ignore error if rate limit entry doesn't exist
+    }
   
     let lastRequestTime = 0;
     let requestCount = 0;
   
-    if (rateLimitResult) {
+    if (rateLimitResult && rateLimitResult.data) {
       lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
       requestCount = rateLimitResult.data.requestCount || 0;
     }
@@ -81,7 +88,7 @@ exports.handler = async (event, context) => {
     );
   
     console.log('Rate Limit Entry created/updated successfully.');
-  
+   
     const body = JSON.parse(event.body);
     const lat = Number(body.lat);
     const lng = Number(body.lng);
