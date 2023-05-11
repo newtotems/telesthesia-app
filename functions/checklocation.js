@@ -44,7 +44,10 @@ exports.handler = async (event, context) => {
 
       return {
         statusCode: 429,
-        body: 'Too Many Requests'
+        body: JSON.stringify({
+          text: 'Sorry, out of energy',
+          success: false
+        })
       };
     } else {
       // IP is within the rate limit, update the timestamp
