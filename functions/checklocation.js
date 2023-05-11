@@ -26,30 +26,31 @@ exports.handler = async (event, context) => {
   const currentTime = Math.floor(Date.now() / 1000);
 
   try {
-    let rateLimitResult = null;
-  
-    try {
-      rateLimitResult = await client.query(
-        faunadb.query.Get(
-          faunadb.query.Match(
+    const { data: rateLimitData } = await client.query(
+      faunadb.query.Let(
+        {
+          rateLimitRef: faunadb.query.Match(
             faunadb.query.Index('rate_limit_by_ip'),
             ipAddress
           )
+        },
+        faunadb.query.If(
+          faunadb.query.Exists(faunadb.query.Var('rateLimitRef')),
+          faunadb.query.Get(faunadb.query.Var('rateLimitRef')),
+          null
         )
-      );
-    } catch (error) {
-      // Ignore error if rate limit entry doesn't exist
-    }
+      )
+    );
   
     let lastRequestTime = 0;
     let requestCount = 0;
   
-    if (rateLimitResult && rateLimitResult.data) {
-      lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
-      requestCount = rateLimitResult.data.requestCount || 0;
+    if (rateLimitData) {
+      lastRequestTime = rateLimitData.lastRequestTime || 0;
+      requestCount = rateLimitData.requestCount || 0;
     }
   
-    console.log('Rate Limit Entry:', rateLimitResult);
+    console.log('Rate Limit Entry:', rateLimitData);
   
     const timeSinceLastRequest = currentTime - lastRequestTime;
     if (timeSinceLastRequest < 60 && requestCount >= 2) {
@@ -61,11 +62,18 @@ exports.handler = async (event, context) => {
   
     console.log('Creating/Updating Rate Limit Entry...');
   
-    if (rateLimitResult) {
-      await client.query(
-        faunadb.query.Update(
-          faunadb.query.Select(['ref'], rateLimitResult),
-          {
+    await client.query(
+      faunadb.query.If(
+        faunadb.query.IsNull(rateLimitData),
+        faunadb.query.Create(faunadb.query.Collection('RateLimit'), {
+          data: {
+            ipAddress: ipAddress,
+            lastRequestTime: currentTime,
+            requestCount: 1
+          }
+        }),
+        faunadb.query.Do(
+          faunadb.query.Update(faunadb.query.Select(['ref'], rateLimitData), {
             data: {
               lastRequestTime: currentTime,
               requestCount: faunadb.query.If(
@@ -74,20 +82,11 @@ exports.handler = async (event, context) => {
                 requestCount
               )
             }
-          }
+          }),
+          true // Return the result of the last operation in the transaction
         )
-      );
-    } else {
-      await client.query(
-        faunadb.query.Create(faunadb.query.Collection('RateLimit'), {
-          data: {
-            ipAddress: ipAddress,
-            lastRequestTime: currentTime,
-            requestCount: 1
-          }
-        })
-      );
-    }
+      )
+    );
   
     console.log('Rate Limit Entry created/updated successfully.');
      
