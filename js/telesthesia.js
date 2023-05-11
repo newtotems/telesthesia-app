@@ -27,14 +27,45 @@ this.addEventListener("mousemove", function(e) {
 
 // Variable to store the countdown interval
 var countdownInterval;
+var countdownActive = false;
 
-map.on('click', function(e) {
+function startCountdown() {
+  var countdown = 30;
+  countdownActive = true;
+
+  countdownInterval = setInterval(function() {
+    // Update the countdown timer
+    document.getElementById('countdown__timer').textContent = countdown;
+    countdown--;
+
+    // Check if the countdown has finished
+    if (countdown < 0) {
+      // Clear the countdown interval
+      clearInterval(countdownInterval);
+      countdownActive = false;
+
+      // Re-enable map click event
+      map.on('click', handleClick);
+
+      // Call the checklocation function
+      if (clickedLat && clickedLng) {
+        checklocation(clickedLat, clickedLng);
+      }
+
+      // Reset countdown timer display
+      document.getElementById('countdown__timer').textContent = '';
+    }
+  }, 1000);
+}
+
+function handleClick(e) {
   // Disable map click event until countdown finishes
+  if (countdownActive) return;
   map.off('click');
 
   // Get the latitude and longitude of the click event
-  var lat = e.lngLat.lat;
-  var lng = e.lngLat.lng;
+  clickedLat = e.lngLat.lat;
+  clickedLng = e.lngLat.lng;
 
   // create the mark div element
   var mark = document.createElement('div');
@@ -46,24 +77,16 @@ map.on('click', function(e) {
     .addTo(map);
 
   // Start the countdown
-  var countdown = 30;
-  countdownInterval = setInterval(function() {
-    // Update the countdown timer
-    document.getElementById('console__timer').textContent = countdown;
-    countdown--;
+  startCountdown();
+}
 
-    // Check if the countdown has finished
-    if (countdown < 0) {
-      // Clear the countdown interval
-      clearInterval(countdownInterval);
+map.on('click', handleClick);
 
-      // Re-enable map click event
-      map.on('click', handleClick);
-
-      // Call the checklocation function
-      checklocation(lat, lng);
-    }
-  }, 1000);
+// Call checklocation function on page load
+window.addEventListener('load', function() {
+  if (!countdownActive) {
+    checklocation(defaultLat, defaultLng); // Replace defaultLat and defaultLng with your desired values
+  }
 });
 
 async function checklocation(lat, lng) {
