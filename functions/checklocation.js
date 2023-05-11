@@ -36,6 +36,15 @@ exports.handler = async (event, context) => {
         statusCode: 429,
         body: 'Too Many Requests'
       };
+    } else {
+      // IP is within the rate limit, update the timestamp
+      await client.query(
+        faunadb.query.Update(rateLimitData.ref, {
+          data: {
+            timestamp: currentTime
+          }
+        })
+      );
     }
   } catch (error) {
     // Rate limit data not found, create a new record
