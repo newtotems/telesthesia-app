@@ -25,6 +25,7 @@ this.addEventListener("mousemove", function(e) {
   e.stopPropagation();
 });
 
+
 // Variable to store the countdown interval
 var countdownInterval;
 var countdownActive = false;
@@ -47,11 +48,6 @@ function startCountdown() {
       // Re-enable map click event
       map.on('click', handleClick);
 
-      // Call the checklocation function
-      if (clickedLat && clickedLng) {
-        checklocation(clickedLat, clickedLng);
-      }
-
       // Reset countdown timer display
       document.getElementById('countdown__timer').textContent = '';
     }
@@ -64,8 +60,8 @@ function handleClick(e) {
   map.off('click');
 
   // Get the latitude and longitude of the click event
-  clickedLat = e.lngLat.lat;
-  clickedLng = e.lngLat.lng;
+  var lat = e.lngLat.lat;
+  var lng = e.lngLat.lng;
 
   // create the mark div element
   var mark = document.createElement('div');
@@ -76,18 +72,16 @@ function handleClick(e) {
     .setLngLat(e.lngLat)
     .addTo(map);
 
-  // Start the countdown
-  startCountdown();
+  if (!countdownActive) {
+    checklocation(lat, lng);
+    startCountdown();
+  }
 }
 
 map.on('click', handleClick);
 
-// Call checklocation function on page load
-window.addEventListener('load', function() {
-  if (!countdownActive) {
-    checklocation(defaultLat, defaultLng); // Replace defaultLat and defaultLng with your desired values
-  }
-});
+
+// function to check locations  
 
 async function checklocation(lat, lng) {
 
