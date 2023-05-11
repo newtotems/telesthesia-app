@@ -78,16 +78,16 @@ exports.handler = async (event, context) => {
               lastRequestTime: currentTime,
               requestCount: faunadb.query.If(
                 faunadb.query.LTE(timeSinceLastRequest, 60),
-                faunadb.query.Add(rateLimitResult.data.data.requestCount, 1),
-                rateLimitResult.data.data.requestCount
-              )              
+                faunadb.query.Add(requestCount, 1),
+                requestCount
+              )
             }
           }
         )
       )
     );
   
-    console.log('Rate Limit Entry created/updated successfully.');
+    console.log('Rate Limit Entry created/updated successfully.');  
    
     const body = JSON.parse(event.body);
     const lat = Number(body.lat);
