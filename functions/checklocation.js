@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
   }
 
   try {
-    // Check if the IP has exceeded the rate limit
+    // Check if the IP exists in the rate limit collection
     const rateLimitResponse = await client.query(
       faunadb.query.Get(
         faunadb.query.Match(
@@ -26,21 +26,22 @@ exports.handler = async (event, context) => {
       )
     );
 
-    const currentTime = Math.floor(Date.now() / 1000); // Convert to seconds
     const rateLimitData = rateLimitResponse.data;
+    const currentTime = Math.floor(Date.now() / 1000); // Convert to seconds
     const requestsPerSecond = 2; // Maximum number of requests allowed per second
 
-    if (rateLimitData.timestamp >= currentTime - requestsPerSecond) {
+    if (rateLimitData.count >= requestsPerSecond) {
       // IP has exceeded the rate limit
       return {
         statusCode: 429,
         body: 'Too Many Requests'
       };
     } else {
-      // IP is within the rate limit, update the timestamp
+      // IP is within the rate limit, update the request count and timestamp
       await client.query(
         faunadb.query.Update(rateLimitData.ref, {
           data: {
+            count: rateLimitData.count + 1,
             timestamp: currentTime
           }
         })
@@ -54,6 +55,7 @@ exports.handler = async (event, context) => {
         {
           data: {
             ip: ipAddress,
+            count: 1,
             timestamp: Math.floor(Date.now() / 1000) // Convert to seconds
           }
         }
