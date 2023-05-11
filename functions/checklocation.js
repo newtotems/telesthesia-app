@@ -61,7 +61,7 @@ exports.handler = async (event, context) => {
   
     console.log('Creating/Updating Rate Limit Entry...');
   
-    await client.query(
+    const updatedRateLimitResult = await client.query(
       faunadb.query.If(
         faunadb.query.IsNull(rateLimitResult),
         faunadb.query.Create(faunadb.query.Collection('RateLimit'), {
@@ -71,23 +71,29 @@ exports.handler = async (event, context) => {
             requestCount: 1
           }
         }),
-        faunadb.query.Update(
-          faunadb.query.Select(['ref'], rateLimitResult),
+        faunadb.query.Let(
           {
-            data: {
-              lastRequestTime: currentTime,
-              requestCount: faunadb.query.If(
-                faunadb.query.LTE(timeSinceLastRequest, 60),
-                faunadb.query.Add(requestCount, 1),
-                requestCount
-              )
+            updatedRequestCount: faunadb.query.If(
+              faunadb.query.LTE(timeSinceLastRequest, 60),
+              faunadb.query.Add(requestCount, 1),
+              requestCount
+            )
+          },
+          faunadb.query.Update(
+            faunadb.query.Select(['ref'], rateLimitResult),
+            {
+              data: {
+                lastRequestTime: currentTime,
+                requestCount: faunadb.query.Var('updatedRequestCount')
+              }
             }
-          }
+          )
         )
       )
     );
   
-    console.log('Rate Limit Entry created/updated successfully.');  
+    console.log('Rate Limit Entry created/updated successfully.');
+  
    
     const body = JSON.parse(event.body);
     const lat = Number(body.lat);
