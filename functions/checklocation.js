@@ -72,8 +72,9 @@ exports.handler = async (event, context) => {
               requestCount: faunadb.query.If(
                 faunadb.query.LTE(timeSinceLastRequest, 60),
                 faunadb.query.Add(requestCount, 1),
-                1
+                requestCount
               )
+              
             }
           }
         )
