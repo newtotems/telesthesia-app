@@ -33,7 +33,15 @@ exports.handler = async (event, context) => {
     const lastTimestamp = rateLimitResponse.data.timestamp;
 
     if (currentTime - lastTimestamp <= rateLimitWindow) {
-      // IP has exceeded the rate limit within the time window
+      // IP has exceeded the rate limit within the time window, update the timestamp
+      await client.query(
+        faunadb.query.Update(rateLimitRef, {
+          data: {
+            timestamp: currentTime
+          }
+        })
+      );
+
       return {
         statusCode: 429,
         body: 'Too Many Requests'
@@ -78,7 +86,6 @@ exports.handler = async (event, context) => {
       };
     }
   }
-
 
   const body = JSON.parse(event.body);
   const lat = Number(body.lat);
