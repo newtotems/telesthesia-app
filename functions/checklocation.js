@@ -25,10 +25,15 @@ exports.handler = async (event, context) => {
         )
       )
     );
-
-    const lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
-    const requestCount = rateLimitResult.data.requestCount || 0;
-
+    
+    let lastRequestTime = 0;
+    let requestCount = 0;
+    
+    if (rateLimitResult) {
+      lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
+      requestCount = rateLimitResult.data.requestCount || 0;
+    }
+    
     const timeSinceLastRequest = currentTime - lastRequestTime;
     if (timeSinceLastRequest < 60 && requestCount >= 2) {
       return {
@@ -36,7 +41,7 @@ exports.handler = async (event, context) => {
         body: 'Too Many Requests: Rate limit exceeded'
       };
     }
-
+    
     await client.query(
       faunadb.query.If(
         faunadb.query.Exists(faunadb.query.Match(faunadb.query.Index('rate_limit_by_ip'), ipAddress)),
@@ -65,6 +70,7 @@ exports.handler = async (event, context) => {
         })
       )
     );
+    
 
     const body = JSON.parse(event.body);
     const lat = Number(body.lat);
