@@ -46,7 +46,7 @@ exports.handler = async (event, context) => {
   
     if (rateLimitResult && rateLimitResult.data) {
       lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
-      requestCount = rateLimitResult.data.requestCount || 0;
+      requestCount = rateLimitResult.data.data.requestCount || 0;
     }
   
     console.log('Rate Limit Entry:', rateLimitResult);
@@ -78,9 +78,9 @@ exports.handler = async (event, context) => {
               lastRequestTime: currentTime,
               requestCount: faunadb.query.If(
                 faunadb.query.LTE(timeSinceLastRequest, 60),
-                faunadb.query.Add(requestCount, 1),
-                requestCount
-              )
+                faunadb.query.Add(rateLimitResult.data.data.requestCount, 1),
+                rateLimitResult.data.data.requestCount
+              )              
             }
           }
         )
