@@ -26,32 +26,31 @@ exports.handler = async (event, context) => {
   const currentTime = Math.floor(Date.now() / 1000);
 
   try {
-    const { data: rateLimitData } = await client.query(
-      faunadb.query.Let(
-        {
-          rateLimitRef: faunadb.query.Match(
+    let rateLimitResult = null;
+    
+    try {
+      rateLimitResult = await client.query(
+        faunadb.query.Get(
+          faunadb.query.Match(
             faunadb.query.Index('rate_limit_by_ip'),
             ipAddress
           )
-        },
-        faunadb.query.If(
-          faunadb.query.Exists(faunadb.query.Var('rateLimitRef')),
-          faunadb.query.Get(faunadb.query.Var('rateLimitRef')),
-          null
         )
-      )
-    );
-  
+      );
+    } catch (error) {
+      // Ignore error if rate limit entry doesn't exist
+    }
+    
     let lastRequestTime = 0;
     let requestCount = 0;
-  
-    if (rateLimitData) {
-      lastRequestTime = rateLimitData.data.lastRequestTime || 0;
-      requestCount = rateLimitData.data.requestCount || 0;
+    
+    if (rateLimitResult) {
+      lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
+      requestCount = rateLimitResult.data.requestCount || 0;
     }
-  
-    console.log('Rate Limit Entry:', rateLimitData);
-  
+    
+    console.log('Rate Limit Entry:', rateLimitResult);
+    
     const timeSinceLastRequest = currentTime - lastRequestTime;
     if (timeSinceLastRequest < 60 && requestCount >= 2) {
       return {
@@ -59,35 +58,39 @@ exports.handler = async (event, context) => {
         body: 'Too Many Requests: Rate limit exceeded'
       };
     }
-  
+    
     console.log('Creating/Updating Rate Limit Entry...');
-  
-    await client.query(
-      faunadb.query.If(
-        faunadb.query.IsNull(rateLimitData),
+    
+    if (!rateLimitResult) {
+      await client.query(
         faunadb.query.Create(faunadb.query.Collection('RateLimit'), {
           data: {
             ipAddress: ipAddress,
             lastRequestTime: currentTime,
             requestCount: 1
           }
-        }),
-        faunadb.query.Update(faunadb.query.Select(['ref'], rateLimitData), {
-          data: {
-            lastRequestTime: currentTime,
-            requestCount: faunadb.query.If(
-              faunadb.query.LTE(timeSinceLastRequest, 60),
-              faunadb.query.Add(requestCount, 1),
-              requestCount
-            )
-          }
         })
-      )
-    );
-  
+      );
+    } else {
+      await client.query(
+        faunadb.query.Update(
+          faunadb.query.Ref(rateLimitResult.ref),
+          {
+            data: {
+              lastRequestTime: currentTime,
+              requestCount: faunadb.query.If(
+                faunadb.query.LTE(timeSinceLastRequest, 60),
+                faunadb.query.Add(requestCount, 1),
+                requestCount
+              )
+            }
+          }
+        )
+      );
+    }
+    
     console.log('Rate Limit Entry created/updated successfully.');
- 
-     
+    
     const body = JSON.parse(event.body);
     const lat = Number(body.lat);
     const lng = Number(body.lng);
