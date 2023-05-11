@@ -13,10 +13,16 @@ exports.handler = async (event, context) => {
     };
   }
 
-  const ipAddress = headers['Client-Ip'] || headers['client-ip'];
-  const currentTime = Math.floor(Date.now() / 1000);
-  console.log('Request Headers:', event.headers);
+  const ipAddress = headers['x-forwarded-for'] || headers['x-nf-client-connection-ip'] || '';
 
+  if (!ipAddress) {
+    return {
+      statusCode: 400,
+      body: 'Bad Request: Unable to determine IP address'
+    };
+  }
+    
+  const currentTime = Math.floor(Date.now() / 1000);
 
   try {
     const rateLimitResult = await client.query(
