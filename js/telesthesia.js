@@ -49,7 +49,7 @@ map.on('click', function(e) {
   var countdown = 30;
   countdownInterval = setInterval(function() {
     // Update the countdown timer
-    document.getElementById('countdown__timer').textContent = countdown;
+    document.getElementById('console__timer').textContent = countdown;
     countdown--;
 
     // Check if the countdown has finished
