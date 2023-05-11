@@ -15,9 +15,10 @@ exports.handler = async (event, context) => {
 
   const ipAddress = headers['Client-Ip'] || headers['client-ip'];
   const currentTime = Math.floor(Date.now() / 1000);
+  console.log('Request Headers:', event.headers);
+
 
   try {
-    console.log('trying rate limits for ip address ' + ipAddress);
     const rateLimitResult = await client.query(
       faunadb.query.Get(
         faunadb.query.Match(
