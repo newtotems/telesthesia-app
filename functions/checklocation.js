@@ -61,12 +61,6 @@ exports.handler = async (event, context) => {
   
     console.log('Creating/Updating Rate Limit Entry...');
   
-    const updatedRequestCount = faunadb.query.If(
-      faunadb.query.LTE(timeSinceLastRequest, 60),
-      faunadb.query.Add(requestCount, 1),
-      requestCount
-    );
-  
     if (rateLimitResult) {
       await client.query(
         faunadb.query.Update(
@@ -74,7 +68,11 @@ exports.handler = async (event, context) => {
           {
             data: {
               lastRequestTime: currentTime,
-              requestCount: updatedRequestCount
+              requestCount: faunadb.query.If(
+                faunadb.query.LTE(timeSinceLastRequest, 60),
+                faunadb.query.Add(requestCount, 1),
+                requestCount
+              )
             }
           }
         )
