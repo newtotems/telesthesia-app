@@ -17,6 +17,7 @@ exports.handler = async (event, context) => {
   const currentTime = Math.floor(Date.now() / 1000);
 
   try {
+    console.log('trying rate limits for ip address ' + ipAddress);
     const rateLimitResult = await client.query(
       faunadb.query.Get(
         faunadb.query.Match(
