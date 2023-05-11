@@ -1,32 +1,75 @@
 const faunadb = require('faunadb');
-
-// Create a new FaunaDB client
 const client = new faunadb.Client({
   secret: process.env.DB_SECRT
 });
 
 exports.handler = async (event, context) => {
+  const headers = event.headers;
+  const referer = headers['Referer'] || headers['referer'];
+  if (referer !== 'https://telesthesia-app.netlify.app/map/') {
+    return {
+      statusCode: 403,
+      body: 'Forbidden: Invalid Referer URL'
+    };
+  }
 
-    // Check the HTTP Referer header
-    const headers = event.headers;
-    const referer = headers['Referer'] || headers['referer'];
-    if (referer !== 'https://telesthesia-app.netlify.app/map/') {
+  const ipAddress = headers['Client-Ip'] || headers['client-ip'];
+  const currentTime = Math.floor(Date.now() / 1000);
+
+  try {
+    const rateLimitResult = await client.query(
+      faunadb.query.Get(
+        faunadb.query.Match(
+          faunadb.query.Index('rate_limit_by_ip'),
+          ipAddress
+        )
+      )
+    );
+
+    const lastRequestTime = rateLimitResult.data.lastRequestTime || 0;
+    const requestCount = rateLimitResult.data.requestCount || 0;
+
+    const timeSinceLastRequest = currentTime - lastRequestTime;
+    if (timeSinceLastRequest < 60 && requestCount >= 2) {
       return {
-        statusCode: 403,
-        body: 'Forbidden: Invalid Referer URL'
+        statusCode: 429,
+        body: 'Too Many Requests: Rate limit exceeded'
       };
     }
-  
-  // Parse the request body
-  const body = JSON.parse(event.body);
-  const lat = Number(body.lat);
-  const lng = Number(body.lng);
 
+    await client.query(
+      faunadb.query.If(
+        faunadb.query.Exists(faunadb.query.Match(faunadb.query.Index('rate_limit_by_ip'), ipAddress)),
+        faunadb.query.Update(
+          faunadb.query.Select(
+            ['ref'],
+            faunadb.query.Get(faunadb.query.Match(faunadb.query.Index('rate_limit_by_ip'), ipAddress))
+          ),
+          {
+            data: {
+              lastRequestTime: currentTime,
+              requestCount: faunadb.query.If(
+                faunadb.query.LTE(timeSinceLastRequest, 60),
+                faunadb.query.Add(requestCount, 1),
+                1
+              )
+            }
+          }
+        ),
+        faunadb.query.Create(faunadb.query.Collection('RateLimit'), {
+          data: {
+            ipAddress: ipAddress,
+            lastRequestTime: currentTime,
+            requestCount: 1
+          }
+        })
+      )
+    );
 
+    const body = JSON.parse(event.body);
+    const lat = Number(body.lat);
+    const lng = Number(body.lng);
 
-  // Try to retrieve a matching location from the 'locations_lat_and_lon' index
-  try {
-    // Retrieve the matching location from the 'locations_lat_and_lon' index
     const result = await client.query(
       faunadb.query.Get(
         faunadb.query.Match(
@@ -36,7 +79,6 @@ exports.handler = async (event, context) => {
       )
     );
 
-    // Return the 'image' and 'text' fields from the matching location in the response
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -46,26 +88,17 @@ exports.handler = async (event, context) => {
         text: result.data.text,
         success: true
       })
-    }
+    };
   } catch (error) {
-    // If there is no matching location, read all records in the 'all_neg_responses' collection
     const allRecords = await client.query(
       faunadb.query.Map(
         faunadb.query.Paginate(faunadb.query.Match(faunadb.query.Index('all_neg_responses'))),
-        faunadb.query.Lambda(
-          'record',
-          faunadb.query.Var('record')
-        )
+        faunadb.query.Lambda('record', faunadb.query.Var('record'))
       )
     );
-
-    // Get the number of records in the 'all_neg_responses' collection
     const numRecords = allRecords.data.length;
-
-    // Choose a random index between 0 and numRecords - 1
     const randomIndex = Math.floor(Math.random() * numRecords);
 
-    // Return the record at the random index in the 'all_neg_responses' collection in the response
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -74,6 +107,7 @@ exports.handler = async (event, context) => {
         text: allRecords.data[randomIndex],
         success: false
       })
-    }
+    };
   }
 };
+
