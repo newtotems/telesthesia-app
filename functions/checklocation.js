@@ -111,6 +111,7 @@ exports.handler = async (event, context) => {
         lng: lng,
         image: result.data.image,
         text: result.data.text,
+        text: result.data.code,
         success: true
       })
     };
