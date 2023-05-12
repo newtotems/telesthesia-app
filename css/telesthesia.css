@@ -30,8 +30,13 @@ html, body, main, #map, #mapcontainer {
   -webkit-filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%);
   filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%);
   background: #194146;
-
 }
+
+.recharging #map {
+  filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(50%);
+  -webkit-filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(50%);
+}
+
 #map::after {
     content: "";
 background-image: radial-gradient(#4d5e69 1px, transparent 0);
