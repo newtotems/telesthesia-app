@@ -67,6 +67,10 @@ opacity: 0.5;
   bottom: 50%;
   right: 50%;
   pointer-events: none;
+  min-width: 250px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  min-height: 20px;
 }
 
 .layout__header h1 {
@@ -500,6 +504,8 @@ margin-left: 0.5em;
 
 /* Mobile */
 @media (max-width: 640px) {
+
+#crosshair-h, #crosshair-v {display: none;}
 
 #data-container {
 position: fixed;
