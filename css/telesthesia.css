@@ -32,18 +32,6 @@ html, body, main, #map, #mapcontainer {
   background: #194146;
 }
 
-.recharging #map {
-  filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(100%);
-  -webkit-filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(100%);
-}
-.recharging .layout__map {
-  border: 1px solid #464646;
-}
-
-.recharging main {
-  border: 10px solid #3e3e3e;
-}
-
 #map::after {
     content: "";
 background-image: radial-gradient(#4d5e69 1px, transparent 0);
@@ -57,6 +45,28 @@ position: absolute;
 top: 0;
 left: 0;
 opacity: 0.5;
+}
+
+.recharging #map {
+  filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(100%);
+  -webkit-filter: brightness(100%) sepia(100%) hue-rotate(135deg) saturate(700%) contrast(75%) opacity(0.5) grayscale(100%);
+}
+.recharging .layout__map {
+  border: 1px solid #464646;
+}
+
+.recharging main {
+  border: 10px solid #3e3e3e;
+}
+
+#countdown__timer {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  bottom: 50%;
+  right: 50%;
+  pointer-events: none;
 }
 
 .layout__header h1 {
