@@ -106,7 +106,7 @@ exports.handler = async (event, context) => {
   
     // Check if the 'found' field exists and its value is true
     if (result.data.found === true) {
-      result.data.code = 'previously found';
+      result.data.code = '';
     } else {
       // Update the record to include 'found:true'
       result.data.found = true;

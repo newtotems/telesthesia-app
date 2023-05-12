@@ -140,26 +140,18 @@ document.getElementById('console__image').appendChild(imageElement);
 
 // Check for text in the response data
 if (data.text) {
-    // Create a text node with the text field from the response data
     const textNode = document.createTextNode(data.text);
-    
-    // Create an array to hold the line data for Termynal
     const lineData = [
       { type: 'input', value: data.lat + ', ' + data.lng + ':' },
       { type: 'input', value: data.text }
     ];
   
-    // Check if there is also a data.code value
-    if (data.code) {
-      // Add an additional line with type 'input' and value of data.code
+    if (data.code && data.code.trim() !== '') {
       lineData.push({ type: 'input', value: 'AUTHORISATION CODE: ' + data.code });
     }
-    
-    // Create a new instance of the Termynal class
+  
     var termynal = new Termynal('#console__text', { lineData });
   }
-  
-
 }
 }
 
