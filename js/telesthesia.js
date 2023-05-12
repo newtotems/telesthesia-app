@@ -33,12 +33,12 @@ var countdownActive = false;
 function startCountdown() {
   var countdown = 30;
   countdownActive = true;
+  body.classList.add('recharging');
 
   countdownInterval = setInterval(function() {
     // Update the countdown timer
     document.getElementById('countdown__timer').innerHTML = '<span>Recharging...</span>' + countdown;
     var body = document.querySelector('body');
-    body.classList.add('recharging');
     countdown--;
 
     // Check if the countdown has finished
