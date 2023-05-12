@@ -37,7 +37,6 @@ function startCountdown() {
   countdownInterval = setInterval(function() {
     // Update the countdown timer
     document.getElementById('countdown__timer').innerHTML = '<span>Recharging...</span>' + countdown;
-    var body = document.querySelector('body');
     countdown--;
 
     // Check if the countdown has finished
@@ -59,6 +58,7 @@ function startCountdown() {
 function handleClick(e) {
   // Disable map click event until countdown finishes
   if (countdownActive) return;
+  var body = document.querySelector('body');
   body.classList.add('recharging');
   map.off('click');
 
