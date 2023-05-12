@@ -103,7 +103,23 @@ exports.handler = async (event, context) => {
         )
       )
     );
-
+  
+    // Check if the 'found' field exists and its value is true
+    if (result.data.found === true) {
+      result.data.code = 'previously found';
+    } else {
+      // Update the record to include 'found:true'
+      result.data.found = true;
+      await client.query(
+        faunadb.query.Update(
+          faunadb.query.Select(['ref'], result),
+          {
+            data: { found: true }
+          }
+        )
+      );
+    }
+  
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -116,6 +132,7 @@ exports.handler = async (event, context) => {
       })
     };
   } catch (error) {
+ 
     // If there is no matching location, read all records in the 'all_neg_responses' collection
     const allRecords = await client.query(
       faunadb.query.Map(
