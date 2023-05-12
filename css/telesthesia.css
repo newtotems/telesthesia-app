@@ -131,14 +131,17 @@ max-width: 450px;
 
 #console__image {
   float:right;
-  border: 5px solid white;
     margin-top: 30px;
 max-width: 250px; /* Set a maximum width of 100px */
 -webkit-filter:brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 filter: brightness(80%) sepia(100%) hue-rotate(135deg) saturate(500%) contrast(60%);
 }
+
 #console__image img {
-max-width: 250px}
+max-width: 250px;
+border: 5px solid white;
+}
+
 #console__image:empty {display: none;}
 
 .content-container {
