@@ -36,7 +36,9 @@ function startCountdown() {
 
   countdownInterval = setInterval(function() {
     // Update the countdown timer
-    document.getElementById('countdown__timer').innerHTML = '<div>Recharging...</div>' + countdown;
+    document.getElementById('countdown__timer').innerHTML = '<span>Recharging...</span>' + countdown;
+    var body = document.querySelector('body');
+    body.classList.add('recharging');
     countdown--;
 
     // Check if the countdown has finished
@@ -50,6 +52,7 @@ function startCountdown() {
 
       // Reset countdown timer display
       document.getElementById('countdown__timer').innerHTML = '';
+      body.classList.remove('recharging');
     }
   }, 1000);
 }
