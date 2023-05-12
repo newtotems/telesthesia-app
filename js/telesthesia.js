@@ -50,6 +50,7 @@ function startCountdown() {
 
       // Reset countdown timer display
       document.getElementById('countdown__timer').innerHTML = '';
+      var body = document.querySelector('body');
       body.classList.remove('recharging');
     }
   }, 1000);
